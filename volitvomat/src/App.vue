@@ -4,20 +4,33 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <header>
-    <!-- <HelloWorld msg="You did it!" /> -->
-
-    <!-- <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-    </nav> -->
-    VOLITVOMAT
-  </header>
-
-  <RouterView />
+  <div class="container">
+    <RouterView />
+  </div>
 </template>
 
-<style>
+<style lang="scss">
 @import "@/assets/base.css";
+
+.container {
+  padding: 0 20px;
+
+  @media (min-width: 576px) {
+    max-width: 540px;
+    padding: 0;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
+
+  @media (min-width: 992px) {
+    max-width: 960px;
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 1140px;
+  }
+}
 
 </style>

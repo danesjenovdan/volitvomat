@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1>This is an about page</h1>
+    <header>
+      <h1>Kako rešujem?</h1>
+    </header>
+    <div class="divider"></div>
     <p>
       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
       aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
@@ -16,18 +19,27 @@
       numquam eius modi tempora incidunt ut labore et dolore magnam aliquam
       quaerat voluptatem.
     </p>
-    <RouterLink to="/vprasanje/0">
-      Razumem, pokaži mi prvo vprašanje.
-    </RouterLink>
+    <div class="button-wrapper">
+      <RouterLink to="/vprasanje/0" class="white-button">
+        <div>
+          Razumem, pokaži mi<br />prvo vprašanje.
+        </div>
+      </RouterLink>
+    </div>
   </div>
 </template>
 
-<style>
-/* @media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-} */
+<style scoped>
+header h1 {
+  text-transform: uppercase;
+  padding: 20px 0;
+  font-family: 'Bangers', cursive;
+  font-size: 38px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 3px;
+}
+.white-button {
+  font-size: 24px;
+}
 </style>

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1>This is an about page</h1>
+    <header class="header-big">
+      <img src="../assets/img/volitvomat-logo.svg" class="header-logo"/>
+    </header>
+    <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
     <p>
       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
       aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
@@ -16,16 +19,16 @@
       numquam eius modi tempora incidunt ut labore et dolore magnam aliquam
       quaerat voluptatem.
     </p>
-    <RouterLink to="/navodila">ZAČNI</RouterLink>
+    <div class="button-wrapper">
+      <RouterLink to="/navodila" class="white-button">ZAČNI</RouterLink>
+    </div>
   </div>
 </template>
 
-<style>
-/* @media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-} */
+<style scoped>
+h2 {
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 20px;
+}
 </style>
