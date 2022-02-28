@@ -1,25 +1,23 @@
 <script setup>
 // import TheWelcome from "@/components/TheWelcome.vue";
 import { ref, watch, computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex';
 
 const store = useStore();
 
 // calculate results
-const results = store.getters.results;
+const parties = store.getters.parties;
 const answersNo = store.getters.answers.length;
 const questionsNo = store.getters.questionsList.length;
-const resultsArray = []
-for (const res in results) {
-  console.log(results, res, questionsNo)
-  resultsArray.push({
-    "party": res,
-    "count": results[res],
-    "percentage": Math.round(results[res] / questionsNo * 100) 
+const results = []
+for (const index in parties) {
+  results.push({
+    "party": parties[index].party_name,
+    "count": parties[index].party_agree_count,
+    "percentage": Math.round(parties[index].party_agree_count / questionsNo * 100) 
   })
 }
-const orderedResults = resultsArray.sort((a, b) => (a.count > b.count) ? -1 : 1)
+const orderedResults = results.sort((a, b) => (a.count > b.count) ? -1 : 1)
 
 </script>
 
