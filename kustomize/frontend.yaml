@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: volitvomat
+  labels:
+    app: volitvomat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: volitvomat
+  template:
+    metadata:
+      labels:
+        app: volitvomat
+    spec:
+      containers:
+      - name: volitvomat
+        image: volitvomat
+        ports:
+        - containerPort: 80
+        env:
+          - name: API_URL
+            value: https://glas-ljudstva.si
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: volitvomat
+spec:
+  selector:
+    app: volitvomat
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: volitvomat
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+spec:
+  tls:
+  - hosts:
+    - volitvomat.lb.djnd.si
+    secretName: volitvomat-tls
+  rules:
+  - host: volitvomat.lb.djnd.si
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: volitvomat
+            port:
+              number: 80
