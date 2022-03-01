@@ -22,6 +22,9 @@ const store = createStore({
     },
     parties(state) {
       return state.parties;
+    },
+    orderedParties(state) {
+     return state.parties.sort((a, b) => (a.percentage > b.percentage) ? -1 : 1)
     }
   },
   mutations: {
@@ -36,7 +39,13 @@ const store = createStore({
           }
         }
       }
-      console.log('results', state.parties)
+    },
+    calculateResultsPercentages(state) {
+      const answersNo = Object.keys(state.answers).length;
+      console.log(answersNo)
+      for (const index in state.parties) {
+        state.parties[index]['percentage'] = Math.round(state.parties[index].party_agree_count / answersNo * 100) 
+      }
     },
     setQuestions(state, questions) {
       state.questions = questions;
@@ -46,7 +55,6 @@ const store = createStore({
       for (const index in parties) {
         state.parties[index].party_agree_count = 0
       }
-      console.log('parties', state.parties)
     }
   },
   actions: {

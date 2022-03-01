@@ -1,23 +1,10 @@
 <script setup>
-// import TheWelcome from "@/components/TheWelcome.vue";
 import { ref, watch, computed } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
 
-// calculate results
-const parties = store.getters.parties;
-const answersNo = store.getters.answers.length;
-const questionsNo = store.getters.questionsList.length;
-const results = []
-for (const index in parties) {
-  results.push({
-    "party": parties[index].party_name,
-    "count": parties[index].party_agree_count,
-    "percentage": Math.round(parties[index].party_agree_count / questionsNo * 100) 
-  })
-}
-const orderedResults = results.sort((a, b) => (a.count > b.count) ? -1 : 1)
+const parties = store.getters.orderedParties;
 
 </script>
 
@@ -30,7 +17,15 @@ const orderedResults = results.sort((a, b) => (a.count > b.count) ? -1 : 1)
       Tvoje ujemanje
     </p>
     <div class="party-list">
-      <div v-for="party in orderedResults" :key="party.party" class="party">{{ party.party }}: {{ party.percentage }} %</div>
+      <div v-for="party in parties" :key="party.party_name" class="party">
+        <img :src="`${store.getters.getApiUrl}${party.image}`" class="party-image" />
+        <div class="party-description">
+          <p><span>{{ party.party_name }}</span><span>{{ party.percentage }} %</span></p>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" :aria-valuenow="party.percentage" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${party.percentage}%`}"></div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="divider"></div>
     <p>
@@ -47,10 +42,38 @@ const orderedResults = results.sort((a, b) => (a.count > b.count) ? -1 : 1)
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 p {
   font-weight: 600;
   font-size: 21px;
   text-align: center;
+  margin: 10px 0;
+}
+
+.divider {
+  margin: 20px 0;
+}
+
+.party {
+  display: flex;
+  margin: 10px 0;
+}
+
+.party-description {
+  flex-grow: 1;
+  p {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 26px;
+    margin: 0;
+  }
+}
+
+.party-image {
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 </style>

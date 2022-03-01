@@ -1,23 +1,16 @@
 <script setup>
 // import TheWelcome from "@/components/TheWelcome.vue";
-import { ref, watch, computed } from 'vue';
+import { ref, watch, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
 
-// calculate results
-const parties = store.getters.parties;
-const answersNo = store.getters.answers.length;
-const questionsNo = store.getters.questionsList.length;
-const results = []
-for (const index in parties) {
-  results.push({
-    "party": parties[index].party_name,
-    "count": parties[index].party_agree_count,
-    "percentage": Math.round(parties[index].party_agree_count / questionsNo * 100) 
-  })
-}
-const orderedResults = results.sort((a, b) => (a.count > b.count) ? -1 : 1)
+onMounted(() => {
+  store.commit('calculateResults');
+  store.commit('calculateResultsPercentages');
+})
+
+const parties = computed(() => store.getters.orderedParties);
 
 </script>
 
@@ -30,25 +23,32 @@ const orderedResults = results.sort((a, b) => (a.count > b.count) ? -1 : 1)
     <div class="match">
       <img src="../assets/img/oseba.svg" class="person" />
       <img src="../assets/img/zvezda.svg" class="star" />
-      <img src="../assets/img/podlaga-za-stranke.svg" class="person" />
+      <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="person" /> -->
+      <img :src="`${store.getters.getApiUrl}${parties[0].image}`" class="person" />
     </div>
-    <div class="white-button">
-      {{ orderedResults[0].party }}: <span>{{ orderedResults[0].percentage }} %</span>
+    <div style="text-align: center;">
+      <div class="white-button">
+        <div>
+          {{ parties[0].party_name }}: <span>{{ parties[0].percentage }} %</span>
+        </div>
+      </div>
     </div>
     <div class="divider"></div>
     <div class="match-button-group">
       <div class="button">
-        {{ orderedResults[1].party }}: <span>{{ orderedResults[1].percentage }} %</span>
+        {{ parties[1].party_name }}: <span>{{ parties[1].percentage }} %</span>
         <div class="party-img">
-          <img src="../assets/img/podlaga-za-stranke.svg" class="" />
+          <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
+          <img :src="`${store.getters.getApiUrl}${parties[1].image}`" />
         </div>
       </div>
     </div>
     <div class="match-button-group">
       <div class="button">
-        {{ orderedResults[2].party }}: <span>{{ orderedResults[2].percentage }} %</span>
+        {{ parties[2].party_name }}: <span>{{ parties[2].percentage }} %</span>
         <div class="party-img">
-          <img src="../assets/img/podlaga-za-stranke.svg" class="" />
+          <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
+          <img :src="`${store.getters.getApiUrl}${parties[2].image}`" />
         </div>
       </div>
     </div>
@@ -79,6 +79,7 @@ p {
 .person {
   width: 140px;
   margin: 10px;
+  border-radius: 50%;
 }
 
 .star {
@@ -98,7 +99,7 @@ p {
     text-align: center;
     width: 220px;
     background-color: #fffaf7;
-    padding: 15px 0 15px 60px;
+    padding: 15px 0 15px 30px;
     margin: 10px 0;
     border-radius: 30px;
     font-size: 16px;
@@ -118,6 +119,7 @@ p {
     img {
       width: 70px;
       height: 70px;
+      border-radius: 50%;
     }
   }
 }
@@ -129,5 +131,19 @@ p {
 .yellow-button .search-icon {
   width: 30px;
   height: 30px;
+}
+
+.white-button {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  padding: 0;
+  &>div {
+    padding: 30px 50px;
+  }
+  span {
+    font-family: 'Bangers', cursive;
+    font-size: 30px;
+  }
+
 }
 </style>

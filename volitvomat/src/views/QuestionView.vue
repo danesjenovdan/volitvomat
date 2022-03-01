@@ -1,5 +1,4 @@
 <script setup>
-// import TheWelcome from "@/components/TheWelcome.vue";
 import { ref, watch, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex';
@@ -9,24 +8,19 @@ const router = useRouter()
 const store = useStore();
 
 const questionsList = store.getters.questionsList;
-console.log(questionsList)
 const idParam = ref(parseInt(route.params.id));
-console.log(idParam.value)
 const questionId = computed(() => questionsList[idParam.value]);
-console.log(questionId.value)
 const questionsNo = ref(questionsList.length);
+const progress = computed(() => Math.round(idParam.value / questionsNo.value * 100));
 const question = computed(() => store.state.questions[questionId.value]);
 const answers = computed(() => store.state.answers);
+const moreInfo = ref(false);
 
 const saveAnswer = (id, answer) => {
-  console.log(id, answer)
   store.commit('addAnswer', {id, answer});
-  console.log("idparam", idParam.value);
-  console.log("questionId", questionId.value);
   if (idParam.value < questionsNo.value - 1) {
     router.push(`/vprasanje/${parseInt(idParam.value) + 1}`);
   } else {
-    store.commit('calculateResults');
     router.push("/rezultati");
   }
 };
@@ -34,13 +28,11 @@ const saveAnswer = (id, answer) => {
 watch(
   () => route.params.id,
   async (id) => {
-    // userData.value = await fetchUser(id)
     idParam.value = id;
+    console.log(idParam.value, questionsNo.value, progress.value)
   }
 );
 
-// const questions = ref(data.questions);
-const moreInfo = ref(false);
 </script>
 
 <template>
@@ -48,40 +40,45 @@ const moreInfo = ref(false);
     <header>
       <img src="../assets/img/volitvomat-logo.svg" class="header-logo"/>
     </header>
-    <!-- {{ store.state.questions }} -->
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" :aria-valuenow="progress" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${progress}%`}"></div>
+    </div>
     <div class="white-card">
       {{ question.demand_title }}
     </div>
     
     <div class="button-row">
-      <RouterLink :to="`/vprasanje/${idParam - 1}`" v-if="idParam > 0" class="back-button"></RouterLink>
-      <div class="yes-button" @click="saveAnswer(questionId, true)"></div>
-      <div class="info-button" @click="moreInfo = true"></div>
-      <div class="no-button" @click="saveAnswer(questionId, true)"></div>
+      <RouterLink to="/navodila" v-if="idParam == 0" class="back-button"></RouterLink>
+      <RouterLink :to="`/vprasanje/${parseInt(idParam) - 1}`" v-if="idParam > 0" class="back-button"></RouterLink>
+      <div class="yes-button hover-pointer" @click="saveAnswer(questionId, true)"></div>
+      <div class="info-button hover-pointer" @click="moreInfo = true"></div>
+      <div class="no-button hover-pointer" @click="saveAnswer(questionId, false)"></div>
       <RouterLink
-        :to="`/vprasanje/${idParam + 1}`"
+        :to="`/vprasanje/${parseInt(idParam) + 1}`"
         v-if="idParam < questionsNo - 1"
         class="skip-button"
       >
       </RouterLink>
+      <RouterLink
+        to="/rezultati"
+        v-if="idParam == questionsNo - 1"
+        class="skip-button"
+      >
+      </RouterLink>
     </div>
-    
-    <RouterLink to="/rezultati" v-if="idParam == questionsNo - 1">
-      rezultati
-    </RouterLink>
 
-    {{ answers }}
+    <!-- {{ answers }} -->
 
     <div class="modal white-card" v-if="moreInfo">
       <div style="text-align: right;">
-        <img src="../assets/img/zapri.svg" class="close-icon" @click="moreInfo = false" />
+        <img src="../assets/img/zapri.svg" class="close-icon hover-pointer" @click="moreInfo = false" />
       </div>
       <p>{{ question.demand_description }}</p>
     </div>
   </main>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 header {
   text-align: center;
   padding: 20px 0;
@@ -100,10 +97,14 @@ header {
   font-weight: 500;
   line-height: 30px;
   padding: 60px 30px;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
 }
 
 .modal {
   padding: 20px;
+  display: block;
 }
 
 .modal p {
@@ -112,9 +113,30 @@ header {
   padding: 10px 30px;
 }
 
+.progress {
+  margin: 20px 0;
+}
+
 .button-row {
   margin: 20px 0;
   text-align: center;
+  .info-button {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 12px;
+  }
+  .yes-button,
+  .no-button {
+    width: 70px;
+    height: 70px;
+    margin: 0 5px;
+  }
+  .back-button,
+  .skip-button {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
 }
 
 .close-icon {
