@@ -4,7 +4,7 @@ import axios from 'axios'
 const store = createStore({
   state() {
     return {
-      apiUrl: "http://localhost:8000", // TODO: change to real api
+      apiUrl: "https://glas-ljudstva.si",
       parties: {},
       questions: {},
       answers: {}
