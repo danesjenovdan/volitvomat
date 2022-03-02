@@ -131,9 +131,18 @@ export default {
 </template>
 
 <style scoped lang="scss">
+
 .isAnimating {
   transition: all 0.5s ease;
 }
+
+// fix mobile swiping
+.white-card,
+.white-card * {
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
 .white-card {
   background-color: #fffaf7;
   border-radius: 3px;
