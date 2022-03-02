@@ -18,7 +18,7 @@ const parties = store.getters.orderedParties;
     </p>
     <div class="party-list">
       <div v-for="party in parties" :key="party.party_name" class="party">
-        <img :src="`${store.getters.getApiUrl}${party.image}`" class="party-image" />
+        <img :src="`${party.image_url}`" class="party-image" />
         <div class="party-description">
           <p><span>{{ party.party_name }}</span><span>{{ party.percentage }} %</span></p>
           <div class="progress">

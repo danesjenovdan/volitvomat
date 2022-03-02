@@ -24,7 +24,7 @@ const parties = computed(() => store.getters.orderedParties);
       <img src="../assets/img/oseba.svg" class="person" />
       <img src="../assets/img/zvezda.svg" class="star" />
       <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="person" /> -->
-      <img :src="`${store.getters.getApiUrl}${parties[0].image}`" class="person" />
+      <img :src="`${parties[0].image_url}`" class="person" />
     </div>
     <div style="text-align: center;">
       <div class="white-button">
@@ -39,7 +39,7 @@ const parties = computed(() => store.getters.orderedParties);
         {{ parties[1].party_name }}: <span>{{ parties[1].percentage }} %</span>
         <div class="party-img">
           <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
-          <img :src="`${store.getters.getApiUrl}${parties[1].image}`" />
+          <img :src="`${parties[1].image_url}`" />
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@ const parties = computed(() => store.getters.orderedParties);
         {{ parties[2].party_name }}: <span>{{ parties[2].percentage }} %</span>
         <div class="party-img">
           <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
-          <img :src="`${store.getters.getApiUrl}${parties[2].image}`" />
+          <img :src="`${parties[2].image_url}`" />
         </div>
       </div>
     </div>

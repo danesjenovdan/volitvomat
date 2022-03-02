@@ -44,7 +44,8 @@ watch(
       <div class="progress-bar" role="progressbar" :aria-valuenow="progress" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${progress}%`}"></div>
     </div>
     <div class="white-card">
-      {{ question.demand_title }}
+      <h4>{{ question.demand_title }}</h4>
+      <p class="card-description">{{ question.demand_description }}</p>
     </div>
     
     <div class="button-row">
@@ -84,6 +85,12 @@ header {
   padding: 20px 0;
 }
 
+@media (min-width: 768px) {
+  main {
+    width: 720px;
+  }
+}
+
 .header-logo {
   width: 200px;
 }
@@ -100,6 +107,22 @@ header {
   min-height: 400px;
   display: flex;
   align-items: center;
+
+  .card-description {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 550px;
+    h4 {
+      margin-bottom: 20px;
+    }
+    .card-description {
+      display: block;
+    }
+  }
 }
 
 .modal {
@@ -124,6 +147,9 @@ header {
     width: 70px;
     height: 70px;
     margin-bottom: 12px;
+    @media (min-width: 768px) {
+      display: none;
+    }
   }
   .yes-button,
   .no-button {
