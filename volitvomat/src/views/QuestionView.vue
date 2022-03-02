@@ -1,7 +1,10 @@
 <script setup>
+import SwipeCard from "@/components/SwipeCard.vue";
 import { ref, watch, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex';
+
+
 
 const route = useRoute();
 const router = useRouter()
@@ -43,10 +46,13 @@ watch(
     <div class="progress">
       <div class="progress-bar" role="progressbar" :aria-valuenow="progress" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${progress}%`}"></div>
     </div>
-    <div class="white-card">
-      <h4>{{ question.demand_title }}</h4>
-      <p class="card-description">{{ question.demand_description }}</p>
-    </div>
+
+    <SwipeCard 
+      :title="question.demand_title" 
+      :description="question.demand_description"
+      @yes="saveAnswer(questionId, true)"
+      @no="saveAnswer(questionId, false)"
+    />
     
     <div class="button-row">
       <RouterLink to="/navodila" v-if="idParam == 0" class="back-button"></RouterLink>
