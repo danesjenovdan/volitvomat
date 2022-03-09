@@ -1,3 +1,28 @@
+<script setup>
+import { ref, onMounted, computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+
+const store = useStore();
+const router = useRouter();
+
+const storeInitialized = computed(() => store.getters.getStoreInitialized);
+const quizFinished = computed(() => store.getters.getQuizFinished);
+
+onMounted(() => {
+  if (!storeInitialized.value) {
+    store.dispatch("initializeStore").then((quiz_finished) => {
+      if (quiz_finished) {
+        router.push("/rezultati");
+      }
+    })
+  }
+  if (quizFinished.value) {
+    router.push("/rezultati");
+  }
+})
+</script>
+
 <template>
   <div>
     <header>
