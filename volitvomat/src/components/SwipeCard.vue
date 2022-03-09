@@ -8,13 +8,15 @@ export default {
     title: String,
     description: String,
     id: Number,
-    currentId: Number
+    currentId: Number,
+    swiping: Boolean
   },
   setup(props, ctx) {
     const title = toRef(props, 'title');
     const description = toRef(props, 'description');
     const id = toRef(props, 'id');
     const currentId = toRef(props, 'currentId');
+    const swiping = toRef(props, 'swiping');
 
     const isShowing = ref(id.value == currentId.value);
     const interactPositionX = ref(0);
@@ -82,7 +84,9 @@ export default {
 
     onMounted(() => {
         const element = interactElement.value;
-        interact(element).draggable({
+        console.log('Swiping?', swiping.value)
+        if (swiping.value) {
+          interact(element).draggable({
             onstart: () => {
                 isInteractAnimating.value = false;
             },
@@ -101,6 +105,7 @@ export default {
                 else resetCardPosition();
             }
         });
+      }  
     });
 
     onBeforeUnmount(() => {

@@ -11,8 +11,10 @@ const store = useStore();
 const idParam = ref(parseInt(route.params.id));
 const moreInfo = ref(false);
 
-const storeInitialized = computed(() => store.getters.getStoreInitialized);
+const screenWidth = ref(window.innerWidth);
+const desktop = computed(() => screenWidth.value > 992);
 
+const storeInitialized = computed(() => store.getters.getStoreInitialized);
 const questionsList = computed(() => store.getters.getQuestionsList);
 const questionsNo = computed(() => questionsList.value.length);
 const questionId = computed(() => questionsList.value[idParam.value]);
@@ -77,6 +79,7 @@ onMounted(() => {
       v-if="question"
       :title="question.demand_title" 
       :description="question.demand_description"
+      :swiping="!desktop"
       @yes="saveAnswer(questionId, true)"
       @no="saveAnswer(questionId, false)"
     />

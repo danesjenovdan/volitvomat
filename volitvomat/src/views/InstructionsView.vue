@@ -6,6 +6,9 @@ import { useStore } from 'vuex';
 const store = useStore();
 const router = useRouter();
 
+const screenWidth = ref(window.innerWidth);
+const desktop = computed(() => screenWidth.value > 992);
+
 const storeInitialized = computed(() => store.getters.getStoreInitialized);
 const quizFinished = computed(() => store.getters.getQuizFinished);
 
@@ -32,25 +35,25 @@ onMounted(() => {
     <div style="display: flex; justify-content: center;">
       <div class="instruction-swipe">
         <h2>SE NE<br />STRINJAŠ?</h2>
-        <p>Povleci kartico<br />v levo</p>
+        <p v-if="!desktop">Povleci kartico<br />v levo</p>
       </div>
       <div class="instruction-swipe">
         <h2>SE<br />STRINJAŠ?</h2>
-        <p>Povleci kartico<br />v desno</p>
+        <p v-if="!desktop">Povleci kartico<br />v desno</p>
       </div>
     </div>
-    <div class="scheme">
+    <div class="scheme" v-if="!desktop">
       <img src="../assets/img/kartici-shema.svg" class="" />
     </div>
-    <div style="display: flex;">
+    <div style="display: flex; justify-content: space-around;">
       <div class="instruction-click">
-        <img src="../assets/img/puscica-levo.svg" class="" />
-        <p>ali klikni na</p>
+        <img v-if="!desktop" src="../assets/img/puscica-levo.svg" class="" />
+        <p><span v-if="!desktop">ali</span> klikni na</p>
         <div class="no-button"></div>
       </div>
       <div class="instruction-click">
-        <img src="../assets/img/puscica-desno.svg" class="" />
-        <p>ali klikni na</p>
+        <img v-if="!desktop" src="../assets/img/puscica-desno.svg" class="" />
+        <p><span v-if="!desktop">ali</span> klikni na</p>
         <div class="yes-button"></div>
       </div>
     </div>
