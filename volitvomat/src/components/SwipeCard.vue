@@ -126,10 +126,11 @@ export default {
 
 <template>
   <div
-    class="white-card"
+    class="swipe-card"
     ref="interactElement"
     :style="{ transform: transformString }"
   >
+    <img src="../assets/img/categories/mediji.svg" />
     <h4>{{ title }}</h4>
     <p class="card-description">{{ description }}</p>
   </div>
@@ -142,13 +143,13 @@ export default {
 }
 
 // fix mobile swiping
-.white-card,
-.white-card * {
+.swipe-card,
+.swipe-card * {
   -ms-touch-action: none;
   touch-action: none;
 }
 
-.white-card {
+.swipe-card {
   background-color: #fffaf7;
   border-radius: 3px;
   box-shadow: 0 0 4px 1px rgba(22, 22, 21, 0.7);
@@ -156,24 +157,40 @@ export default {
   font-size: 22px;
   font-weight: 500;
   line-height: 30px;
-  padding: 60px 30px;
+  padding: 100px 30px 60px 30px;
   min-height: 400px;
   display: flex;
   align-items: center;
+  position: relative;
+
+  h4 {
+    margin-bottom: 20px;
+  }
 
   .card-description {
     display: none;
+  }
+
+  img {
+    height: 70px;
+    position: absolute;
+    top: 0;
   }
 
   @media (min-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
     min-height: 550px;
+    padding-top: 120px;
+    padding-bottom: 80px;
     h4 {
       margin-bottom: 20px;
     }
     .card-description {
       display: block;
+    }
+    img {
+      height: 100px;
     }
   }
 }
