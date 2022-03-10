@@ -91,6 +91,7 @@ onMounted(() => {
         v-if="question"
         :title="question.demand_title" 
         :description="question.demand_description"
+        :image-url="question.category_image"
         :swiping="!desktop"
         @yes="saveAnswer(questionId, true)"
         @no="saveAnswer(questionId, false)"

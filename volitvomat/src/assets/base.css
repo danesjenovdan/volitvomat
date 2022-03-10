@@ -10,7 +10,7 @@
 body {
   min-height: 100vh;
   color: #fffaf7;
-  background: black;
+  background: #212121;
   transition: color 0.5s, background-color 0.5s;
   /* line-height: 1.6; */
   font-family: 'Manrope', sans-serif;
@@ -65,6 +65,7 @@ body {
   font-family: 'Bangers', cursive;
   color: black;
   text-decoration: none;
+  text-align: center;
 }
 
 .back-button {

@@ -7,18 +7,15 @@ export default {
   props: {
     title: String,
     description: String,
-    id: Number,
-    currentId: Number,
+    imageUrl: String,
     swiping: Boolean
   },
   setup(props, ctx) {
     const title = toRef(props, 'title');
     const description = toRef(props, 'description');
-    const id = toRef(props, 'id');
-    const currentId = toRef(props, 'currentId');
+    const imageUrl = toRef(props, 'imageUrl');
     const swiping = toRef(props, 'swiping');
 
-    const isShowing = ref(id.value == currentId.value);
     const interactPositionX = ref(0);
     const interactPositionY = ref(0);
     const interactElement = ref(null);
@@ -115,7 +112,7 @@ export default {
     return {
         title,
         description,
-        isShowing,
+        imageUrl,
         interactElement,
         isInteractAnimating,
         transformString
@@ -130,7 +127,7 @@ export default {
     ref="interactElement"
     :style="{ transform: transformString }"
   >
-    <img src="../assets/img/categories/mediji.svg" />
+    <img :src="imageUrl" />
     <h4>{{ title }}</h4>
     <p class="card-description">{{ description }}</p>
   </div>
