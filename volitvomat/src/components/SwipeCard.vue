@@ -155,7 +155,7 @@ export default {
   font-weight: 500;
   line-height: 30px;
   padding: 100px 30px 60px 30px;
-  min-height: 400px;
+  min-height: 450px;
   display: flex;
   align-items: center;
   position: relative;

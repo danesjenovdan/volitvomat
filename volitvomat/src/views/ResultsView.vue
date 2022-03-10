@@ -59,7 +59,7 @@ onMounted(() => {
       </div>
 
       <div style="text-align: center;">
-        <div class="white-button">
+        <div class="white-button-border">
           <div>
             <span class="party-name">{{ parties[results[0].party_id].party_name }}:</span>
             <span>{{ results[0].percentage }} %</span>
@@ -207,13 +207,17 @@ p {
     align-items: center;
     text-align: left;
     width: 220px;
-    background-color: #fffaf7;
+    // background-color: #fffaf7;
     padding: 10px 0 10px 30px;
     margin: 10px 0;
     border-radius: 30px;
     font-size: 16px;
     font-weight: 600;
     color: #161615;
+    background-image: url("@/assets/img/bel-gumb.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   .party-name {
     max-width: 40%;
@@ -247,7 +251,7 @@ p {
   height: 30px;
 }
 
-.white-button {
+.white-button-border {
   font-family: 'Manrope', sans-serif;
   font-size: 16px;
   padding: 0;

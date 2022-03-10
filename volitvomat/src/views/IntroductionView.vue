@@ -47,7 +47,7 @@ onMounted(() => {
       quaerat voluptatem.
     </p>
     <div class="button-wrapper">
-      <RouterLink to="/navodila" class="white-button">ZAČNI</RouterLink>
+      <RouterLink to="/navodila" class="white-button-border">ZAČNI</RouterLink>
     </div>
   </div>
 </template>

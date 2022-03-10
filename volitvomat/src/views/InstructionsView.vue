@@ -72,7 +72,7 @@ onMounted(() => {
       </div>
     </div>
     <div class="button-wrapper">
-      <RouterLink to="/vprasanje/0" class="white-button">
+      <RouterLink to="/vprasanje/0" class="white-button-border">
         <div>
           Razumem, pokaži mi<br />prvo vprašanje.
         </div>
@@ -91,7 +91,7 @@ header h1 {
   text-align: center;
   letter-spacing: 3px;
 }
-.white-button {
+.white-button-border {
   font-size: 24px;
 }
 
