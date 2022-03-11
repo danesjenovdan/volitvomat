@@ -62,7 +62,7 @@ onMounted(() => {
     <a href="https://glas-ljudstva.si" target="_blank" class="yellow-button">
       Preveri odgovore strank na vprašanja <span class="search-icon"></span>
     </a>
-    <div class="yellow-button" @click="restartQuiz">
+    <div class="yellow-button hover-pointer" @click="restartQuiz">
       reši ponovno
     </div>
   </div>

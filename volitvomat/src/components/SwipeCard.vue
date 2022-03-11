@@ -1,13 +1,14 @@
 <script>
 import { ref, toRef, onMounted, onBeforeUnmount, computed } from 'vue';
 import interact from "interactjs";
+import images from '../images';
 
 export default {
   emits: ['yes', 'no'],
   props: {
     title: String,
     description: String,
-    imageUrl: String,
+    imageUrl: Number,
     swiping: Boolean
   },
   setup(props, ctx) {
@@ -115,7 +116,8 @@ export default {
         imageUrl,
         interactElement,
         isInteractAnimating,
-        transformString
+        transformString,
+        images
     }
   }
 }
@@ -127,7 +129,7 @@ export default {
     ref="interactElement"
     :style="{ transform: transformString }"
   >
-    <img :src="imageUrl" />
+    <img :src="images[imageUrl]" />
     <h4>{{ title }}</h4>
     <p class="card-description">{{ description }}</p>
   </div>
@@ -172,6 +174,8 @@ export default {
     height: 70px;
     position: absolute;
     top: 0;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   @media (min-width: 768px) {

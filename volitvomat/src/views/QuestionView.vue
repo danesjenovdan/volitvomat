@@ -91,7 +91,7 @@ onMounted(() => {
         v-if="question"
         :title="question.demand_title" 
         :description="question.demand_description"
-        :image-url="question.category_image"
+        :image-url="question.category"
         :swiping="!desktop"
         @yes="saveAnswer(questionId, true)"
         @no="saveAnswer(questionId, false)"
@@ -123,7 +123,7 @@ onMounted(() => {
       ></div>
       <div
         @click="skipQuestion(questionId, true)"
-        class="skip-button"
+        class="skip-button hover-pointer"
       >
       </div>
     </div>

@@ -16,7 +16,12 @@ const firstPlace = computed(() => {
   let secondPercentage = results.value[1].percentage;
   while (secondPercentage === winnerPercentage) {
     winnersNo++;
-    secondPercentage = results.value[winnersNo].percentage;
+    // covered all results
+    if (winnersNo === results.value.length) {
+      break;
+    } else {
+      secondPercentage = results.value[winnersNo].percentage;
+    } 
   }
   return winnersNo;
 });
@@ -162,7 +167,7 @@ onMounted(() => {
     <RouterLink to="/statistika" class="yellow-button">
       poglej podrobne rezultate <span class="search-icon"></span>
     </RouterLink>
-    <div class="yellow-button" @click="restartQuiz">
+    <div class="yellow-button hover-pointer" @click="restartQuiz">
       reši ponovno
     </div>
     
