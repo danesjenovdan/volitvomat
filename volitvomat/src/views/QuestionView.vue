@@ -141,9 +141,6 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @keyframes animate-right {
-  from {
-    transform: translateX(0) rotate(0);
-  }
   to {
     transform: translateX(100vw) rotate(5deg);
     // background-color: green;
@@ -151,9 +148,6 @@ onMounted(() => {
 }
 
 @keyframes animate-left {
-  from {
-    transform: translateX(0) rotate(0);
-  }
   to {
     transform: translateX(-100vw) rotate(-5deg);
   }
@@ -232,6 +226,7 @@ header {
 .modal {
   padding: 20px;
   display: block;
+  overflow-y: auto;
 }
 
 .modal p {
