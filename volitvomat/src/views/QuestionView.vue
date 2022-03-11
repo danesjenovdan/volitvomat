@@ -1,40 +1,80 @@
 <script setup>
 import SwipeCard from "@/components/SwipeCard.vue";
-import { ref, watch, computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router'
+import { ref, watch, computed, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
-
-
 const route = useRoute();
-const router = useRouter()
+const router = useRouter();
 const store = useStore();
 
-const questionsList = store.getters.questionsList;
 const idParam = ref(parseInt(route.params.id));
-const questionId = computed(() => questionsList[idParam.value]);
-const questionsNo = ref(questionsList.length);
+const moreInfo = ref(false);
+const playAnimationLeft = ref(false);
+const playAnimationRight = ref(false);
+
+const screenWidth = ref(window.innerWidth);
+const desktop = computed(() => screenWidth.value > 992);
+
+const storeInitialized = computed(() => store.getters.getStoreInitialized);
+const questionsList = computed(() => store.getters.getQuestionsList);
+const questionsNo = computed(() => questionsList.value.length);
+const questionId = computed(() => questionsList.value[idParam.value]);
 const progress = computed(() => Math.round(idParam.value / questionsNo.value * 100));
 const question = computed(() => store.state.questions[questionId.value]);
-const answers = computed(() => store.state.answers);
-const moreInfo = ref(false);
+// console.log('questionsList', questionsList.value)
+// console.log('questionid', questionId.value)
+// console.log('question', question.value)
+const answers = computed(() => store.getters.getAnswers);
 
-const saveAnswer = (id, answer) => {
-  store.commit('addAnswer', {id, answer});
+const skipQuestion = (id, answer) => {
+  // remove saved answer
+  store.commit('removeAnswer', {id, answer});
   if (idParam.value < questionsNo.value - 1) {
     router.push(`/vprasanje/${parseInt(idParam.value) + 1}`);
   } else {
+    store.commit('calculateResults');
     router.push("/rezultati");
   }
+};
+ 
+const saveAnswer = (id, answer) => {
+  // animation
+  playAnimationLeft.value = !answer;
+  playAnimationRight.value = answer;
+  setTimeout(function() {
+    playAnimationLeft.value = false;
+    playAnimationRight.value = false;
+    // save answer
+    store.commit('addAnswer', {id, answer});
+    // navigate to next question
+    if (idParam.value < questionsNo.value - 1) {
+      router.push(`/vprasanje/${parseInt(idParam.value) + 1}`);
+    } else {
+      // last question -> calculate results and navigate to results
+      store.commit('calculateResults');
+      router.push("/rezultati");
+    }
+  }, 400 );
 };
 
 watch(
   () => route.params.id,
   async (id) => {
     idParam.value = id;
-    console.log(idParam.value, questionsNo.value, progress.value)
+    // console.log(idParam.value, questionsNo.value, progress.value)
   }
 );
+
+onMounted(() => {
+  if (!storeInitialized.value) {
+    store.dispatch("initializeStore").then((quiz_finished) => {
+      if (quiz_finished) {
+        router.push("/rezultati");
+      }
+    })
+  }
+});
 
 </script>
 
@@ -46,32 +86,46 @@ watch(
     <div class="progress">
       <div class="progress-bar" role="progressbar" :aria-valuenow="progress" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${progress}%`}"></div>
     </div>
-
-    <SwipeCard 
-      :title="question.demand_title" 
-      :description="question.demand_description"
-      @yes="saveAnswer(questionId, true)"
-      @no="saveAnswer(questionId, false)"
-    />
+    <div style="position: relative;">
+      <SwipeCard
+        v-if="question"
+        :title="question.demand_title" 
+        :description="question.demand_description"
+        :image-url="question.category"
+        :swiping="!desktop"
+        @yes="saveAnswer(questionId, true)"
+        @no="saveAnswer(questionId, false)"
+        class="swipe-card"
+        :class="{'play-animation-right': playAnimationRight, 'play-animation-left': playAnimationLeft}"
+      />
+      <div
+        v-for="i in 2" :key="i"
+        class="swipe-card-background white-card" 
+        :style="`top: ${-i*4}px; bottom: ${i*4}px; left:${i*4}px; right:${i*4}px; z-index:${-1*i}`"
+      >
+        <img src="../assets/img/volitvomat-znak.svg" class="" style="max-height: 100%;" />
+      </div>
+    </div>
     
     <div class="button-row">
       <RouterLink to="/navodila" v-if="idParam == 0" class="back-button"></RouterLink>
       <RouterLink :to="`/vprasanje/${parseInt(idParam) - 1}`" v-if="idParam > 0" class="back-button"></RouterLink>
-      <div class="yes-button hover-pointer" @click="saveAnswer(questionId, true)"></div>
+      <div 
+        class="no-button hover-pointer"
+        :class="{'disabled': playAnimationRight || playAnimationLeft}"
+        @click="saveAnswer(questionId, false)"
+      ></div>
       <div class="info-button hover-pointer" @click="moreInfo = true"></div>
-      <div class="no-button hover-pointer" @click="saveAnswer(questionId, false)"></div>
-      <RouterLink
-        :to="`/vprasanje/${parseInt(idParam) + 1}`"
-        v-if="idParam < questionsNo - 1"
-        class="skip-button"
+      <div 
+        class="yes-button hover-pointer" 
+        :class="{'disabled': playAnimationRight || playAnimationLeft}"
+        @click="saveAnswer(questionId, true)"
+      ></div>
+      <div
+        @click="skipQuestion(questionId, true)"
+        class="skip-button hover-pointer"
       >
-      </RouterLink>
-      <RouterLink
-        to="/rezultati"
-        v-if="idParam == questionsNo - 1"
-        class="skip-button"
-      >
-      </RouterLink>
+      </div>
     </div>
 
     <!-- {{ answers }} -->
@@ -86,6 +140,41 @@ watch(
 </template>
 
 <style scoped lang="scss">
+@keyframes animate-right {
+  from {
+    transform: translateX(0) rotate(0);
+  }
+  to {
+    transform: translateX(100vw) rotate(5deg);
+    // background-color: green;
+  }
+}
+
+@keyframes animate-left {
+  from {
+    transform: translateX(0) rotate(0);
+  }
+  to {
+    transform: translateX(-100vw) rotate(-5deg);
+  }
+}
+
+.play-animation-right {
+  animation-name: animate-right;
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier();
+}
+
+.play-animation-left {
+  animation-name: animate-left;
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier();
+}
+
+.disabled {
+  pointer-events: none;
+}
+
 header {
   text-align: center;
   padding: 20px 0;
@@ -99,6 +188,14 @@ header {
 
 .header-logo {
   width: 200px;
+}
+
+.swipe-card-background {
+  position: absolute;
+  img {
+    display: block;
+    margin: 0 auto;
+  }
 }
 
 .white-card {
@@ -143,7 +240,8 @@ header {
 }
 
 .progress {
-  margin: 20px 0;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 .button-row {

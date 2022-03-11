@@ -14,6 +14,7 @@ import { RouterLink, RouterView } from "vue-router";
 
 .container {
   padding: 0 20px;
+  overflow: hidden;
 
   @media (min-width: 576px) {
     max-width: 540px;

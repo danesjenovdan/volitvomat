@@ -1,3 +1,31 @@
+<script setup>
+import { ref, onMounted, computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+
+const store = useStore();
+const router = useRouter();
+
+const screenWidth = ref(window.innerWidth);
+const desktop = computed(() => screenWidth.value > 992);
+
+const storeInitialized = computed(() => store.getters.getStoreInitialized);
+const quizFinished = computed(() => store.getters.getQuizFinished);
+
+onMounted(() => {
+  if (!storeInitialized.value) {
+    store.dispatch("initializeStore").then((quiz_finished) => {
+      if (quiz_finished) {
+        router.push("/rezultati");
+      }
+    })
+  }
+  if (quizFinished.value) {
+    router.push("/rezultati");
+  }
+})
+</script>
+
 <template>
   <div>
     <header>
@@ -7,25 +35,25 @@
     <div style="display: flex; justify-content: center;">
       <div class="instruction-swipe">
         <h2>SE NE<br />STRINJAŠ?</h2>
-        <p>Povleci kartico<br />v levo</p>
+        <p v-if="!desktop">Povleci kartico<br />v levo</p>
       </div>
       <div class="instruction-swipe">
         <h2>SE<br />STRINJAŠ?</h2>
-        <p>Povleci kartico<br />v desno</p>
+        <p v-if="!desktop">Povleci kartico<br />v desno</p>
       </div>
     </div>
-    <div class="scheme">
+    <div class="scheme" v-if="!desktop">
       <img src="../assets/img/kartici-shema.svg" class="" />
     </div>
-    <div style="display: flex;">
+    <div style="display: flex; justify-content: space-around;">
       <div class="instruction-click">
-        <img src="../assets/img/puscica-levo.svg" class="" />
-        <p>ali klikni na</p>
+        <img v-if="!desktop" src="../assets/img/puscica-levo.svg" class="" />
+        <p><span v-if="!desktop">ali</span> klikni na</p>
         <div class="no-button"></div>
       </div>
       <div class="instruction-click">
-        <img src="../assets/img/puscica-desno.svg" class="" />
-        <p>ali klikni na</p>
+        <img v-if="!desktop" src="../assets/img/puscica-desno.svg" class="" />
+        <p><span v-if="!desktop">ali</span> klikni na</p>
         <div class="yes-button"></div>
       </div>
     </div>
@@ -44,7 +72,7 @@
       </div>
     </div>
     <div class="button-wrapper">
-      <RouterLink to="/vprasanje/0" class="white-button">
+      <RouterLink to="/vprasanje/0" class="white-button-border">
         <div>
           Razumem, pokaži mi<br />prvo vprašanje.
         </div>
@@ -63,7 +91,7 @@ header h1 {
   text-align: center;
   letter-spacing: 3px;
 }
-.white-button {
+.white-button-border {
   font-size: 24px;
 }
 

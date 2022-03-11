@@ -1,22 +1,22 @@
 <script>
 import { ref, toRef, onMounted, onBeforeUnmount, computed } from 'vue';
 import interact from "interactjs";
+import images from '../images';
 
 export default {
   emits: ['yes', 'no'],
   props: {
     title: String,
     description: String,
-    id: Number,
-    currentId: Number
+    imageUrl: Number,
+    swiping: Boolean
   },
   setup(props, ctx) {
     const title = toRef(props, 'title');
     const description = toRef(props, 'description');
-    const id = toRef(props, 'id');
-    const currentId = toRef(props, 'currentId');
+    const imageUrl = toRef(props, 'imageUrl');
+    const swiping = toRef(props, 'swiping');
 
-    const isShowing = ref(id.value == currentId.value);
     const interactPositionX = ref(0);
     const interactPositionY = ref(0);
     const interactElement = ref(null);
@@ -82,7 +82,9 @@ export default {
 
     onMounted(() => {
         const element = interactElement.value;
-        interact(element).draggable({
+        console.log('Swiping?', swiping.value)
+        if (swiping.value) {
+          interact(element).draggable({
             onstart: () => {
                 isInteractAnimating.value = false;
             },
@@ -101,6 +103,7 @@ export default {
                 else resetCardPosition();
             }
         });
+      }  
     });
 
     onBeforeUnmount(() => {
@@ -110,10 +113,11 @@ export default {
     return {
         title,
         description,
-        isShowing,
+        imageUrl,
         interactElement,
         isInteractAnimating,
-        transformString
+        transformString,
+        images
     }
   }
 }
@@ -121,10 +125,11 @@ export default {
 
 <template>
   <div
-    class="white-card"
+    class="swipe-card"
     ref="interactElement"
     :style="{ transform: transformString }"
   >
+    <img :src="images[imageUrl]" />
     <h4>{{ title }}</h4>
     <p class="card-description">{{ description }}</p>
   </div>
@@ -137,13 +142,13 @@ export default {
 }
 
 // fix mobile swiping
-.white-card,
-.white-card * {
+.swipe-card,
+.swipe-card * {
   -ms-touch-action: none;
   touch-action: none;
 }
 
-.white-card {
+.swipe-card {
   background-color: #fffaf7;
   border-radius: 3px;
   box-shadow: 0 0 4px 1px rgba(22, 22, 21, 0.7);
@@ -151,24 +156,42 @@ export default {
   font-size: 22px;
   font-weight: 500;
   line-height: 30px;
-  padding: 60px 30px;
-  min-height: 400px;
+  padding: 100px 30px 60px 30px;
+  min-height: 450px;
   display: flex;
   align-items: center;
+  position: relative;
+
+  h4 {
+    margin-bottom: 20px;
+  }
 
   .card-description {
     display: none;
+  }
+
+  img {
+    height: 70px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   @media (min-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
     min-height: 550px;
+    padding-top: 120px;
+    padding-bottom: 80px;
     h4 {
       margin-bottom: 20px;
     }
     .card-description {
       display: block;
+    }
+    img {
+      height: 100px;
     }
   }
 }

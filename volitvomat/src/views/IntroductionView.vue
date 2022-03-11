@@ -1,12 +1,27 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 const store = useStore();
+const router = useRouter();
+
+const storeInitialized = computed(() => store.getters.getStoreInitialized);
+const quizFinished = computed(() => store.getters.getQuizFinished);
 
 onMounted(() => {
-  store.dispatch("getUsers");
-})
+  if (!storeInitialized.value) {
+    store.dispatch("initializeStore").then((quiz_finished) => {
+      if (quiz_finished) {
+        router.push("/rezultati");
+      }
+    })
+  }
+  if (quizFinished.value) {
+    router.push("/rezultati");
+  }
+});
+
 </script>
 
 
@@ -32,7 +47,7 @@ onMounted(() => {
       quaerat voluptatem.
     </p>
     <div class="button-wrapper">
-      <RouterLink to="/navodila" class="white-button">ZAČNI</RouterLink>
+      <RouterLink to="/navodila" class="white-button-border">ZAČNI</RouterLink>
     </div>
   </div>
 </template>
