@@ -80,7 +80,7 @@ onMounted(() => {
 
 <template>
   <main>
-    <header>
+    <header v-if="desktop">
       <img src="../assets/img/volitvomat-logo.svg" class="header-logo"/>
     </header>
     <div class="progress">
