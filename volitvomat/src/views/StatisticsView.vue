@@ -11,6 +11,27 @@ const quizFinished = computed(() => store.getters.getQuizFinished);
 const parties = computed(() => store.getters.getParties);
 const results = computed(() => store.getters.getResults);
 
+const missingParties = [
+  {
+    'name': 'SDS'
+  },
+  {
+    'name': 'NSi'
+  },
+  {
+    'name': 'Konkretno'
+  },
+  {
+    'name': 'SNS'
+  },
+  {
+    'name': 'Naša dežela'
+  },
+  {
+    'name': 'Povežimo Slovenijo'
+  }
+]
+
 const restartQuiz = () => {
   store.dispatch("clearStore");
   router.push("/");
@@ -54,10 +75,13 @@ onMounted(() => {
     <p>
       Stranke, ki niso sodelovale
     </p>
-    <div class="partys-not-included">
-      <div>SDS</div>
-      <div>NSi</div>
-      <div>SAB</div>
+    <div class="parties-not-included">
+      <div v-for="party in missingParties" :key="party.name" class="party">
+        <img src="../assets/img/podlaga-za-stranke.svg" class="party-image" />
+        <div class="party-description">
+          <p>{{ party.name }}</p>
+        </div>
+      </div>
     </div>
     <a href="https://glas-ljudstva.si" target="_blank" class="yellow-button">
       Preveri odgovore strank na vprašanja <span class="search-icon"></span>
@@ -101,5 +125,11 @@ p {
   width: 50px;
   border-radius: 50%;
   margin-right: 10px;
+}
+
+.parties-not-included {
+  .party {
+    align-items: center;
+  }
 }
 </style>

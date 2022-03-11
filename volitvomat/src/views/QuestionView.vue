@@ -103,7 +103,7 @@ onMounted(() => {
         class="swipe-card-background white-card" 
         :style="`top: ${-i*4}px; bottom: ${i*4}px; left:${i*4}px; right:${i*4}px; z-index:${-1*i}`"
       >
-        <img src="../assets/img/volitvomat-znak.svg" class="" style="max-height: 100%;" />
+        <img src="../assets/img/volitvomat-znak.svg" />
       </div>
     </div>
     
@@ -195,6 +195,7 @@ header {
   img {
     display: block;
     margin: 0 auto;
+    max-height: 80%;
   }
 }
 
@@ -259,7 +260,7 @@ header {
   .no-button {
     width: 70px;
     height: 70px;
-    margin: 0 5px;
+    // margin: 0 5px;
   }
   .back-button,
   .skip-button {
