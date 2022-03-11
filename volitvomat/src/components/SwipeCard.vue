@@ -22,6 +22,8 @@ export default {
     const interactElement = ref(null);
     const isInteractAnimating = ref(true);
     const isInteractDragged = ref(false);
+    const colorGreen = ref(false);
+    const colorRed = ref(false);
 
     // const interactYThreshold = 150;
     const interactXThreshold = 150;
@@ -40,7 +42,7 @@ export default {
     };
 
     function resetCardPosition() {
-        interactSetPosition({ x: 0, y: 0 });
+      interactSetPosition({ x: 0, y: 0 });
     };
     
     // function interactUnsetElement() {
@@ -87,10 +89,20 @@ export default {
             onmove: event => {
                 const x = interactPositionX.value + event.dx;
                 const y = interactPositionY.value + event.dy;
+                if (x > interactXThreshold) {
+                  colorGreen.value = true;
+                } else if (x < -interactXThreshold) {
+                  colorRed.value = true;
+                } else {
+                  colorGreen.value = false;
+                  colorRed.value = false;
+                }
                 interactSetPosition({ x, y });
             },
             onend: () => {
                 isInteractAnimating.value = true;
+                colorGreen.value = false;
+                colorRed.value = false;
                 // resetCardPosition();
 
                 if (interactPositionX.value > interactXThreshold) playCard('ACCEPT_CARD');
@@ -107,13 +119,15 @@ export default {
     });
 
     return {
-        title,
-        description,
-        imageUrl,
-        interactElement,
-        isInteractAnimating,
-        transformString,
-        images
+      title,
+      description,
+      imageUrl,
+      interactElement,
+      isInteractAnimating,
+      transformString,
+      images,
+      colorGreen,
+      colorRed
     }
   }
 }
@@ -122,6 +136,7 @@ export default {
 <template>
   <div
     class="swipe-card"
+    :class="{ isAnimating: isInteractAnimating, 'color-green': colorGreen, 'color-red': colorRed }"
     ref="interactElement"
     :style="{ transform: transformString }"
   >
@@ -158,6 +173,10 @@ export default {
   align-items: center;
   position: relative;
 
+  -webkit-transition: background-color 250ms linear, color 250ms linear;
+  -ms-transition: background-color 250ms linear, color 250ms linear;
+  transition: background-color 250ms linear, color 250ms linear;
+
   h4 {
     margin-bottom: 20px;
   }
@@ -172,6 +191,9 @@ export default {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
+    -webkit-transition: opacity 250ms linear;
+    -ms-transition: opacity 250ms linear;
+    transition: opacity 250ms linear;
   }
 
   @media (min-width: 768px) {
@@ -191,4 +213,22 @@ export default {
     }
   }
 }
+
+.color-green {
+  background-color: #007a4b;
+  color: #fffaf7;  
+}
+
+.color-red {
+  background-color: #dc143c;
+  color: #fffaf7;  
+}
+
+.color-green,
+.color-red {
+  img {
+    opacity: 0;
+  }
+}
+
 </style>
