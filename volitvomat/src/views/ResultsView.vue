@@ -203,6 +203,21 @@ p {
   margin: 20px 0;
 }
 
+.white-button-border {
+  &>div {
+    display: flex;
+    align-items: center;
+  }
+  .party-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 20px;
+  }
+  span:last-of-type {
+    letter-spacing: 1.5px;
+    padding-left: 10px;
+  }
+}
+
 .match-button-group {
   text-align: center;
   .button {
