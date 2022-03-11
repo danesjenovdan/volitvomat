@@ -173,9 +173,9 @@ export default {
   align-items: center;
   position: relative;
 
-  -webkit-transition: background-color 250ms linear, color 250ms linear;
-  -ms-transition: background-color 250ms linear, color 250ms linear;
-  transition: background-color 250ms linear, color 250ms linear;
+  -webkit-transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear;
+  -ms-transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear;
+  transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear;
 
   h4 {
     margin-bottom: 20px;
@@ -226,6 +226,7 @@ export default {
 
 .color-green,
 .color-red {
+  opacity: 50%;
   img {
     opacity: 0;
   }
