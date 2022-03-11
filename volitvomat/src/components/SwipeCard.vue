@@ -148,10 +148,6 @@ export default {
 
 <style scoped lang="scss">
 
-.isAnimating {
-  transition: all 0.5s ease;
-}
-
 // fix mobile swiping
 .swipe-card,
 .swipe-card * {
@@ -176,6 +172,12 @@ export default {
   -webkit-transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear;
   -ms-transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear;
   transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear;
+
+  &.isAnimating {
+    -webkit-transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear, transform 250ms ease;
+    -ms-transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear, transform 250ms ease;
+    transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear, transform 250ms ease;
+  }
 
   h4 {
     margin-bottom: 20px;
