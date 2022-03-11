@@ -159,7 +159,6 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    
 
     <div class="yellow-button">
       deli na družbEnih omrežjih <span class="share-icon"></span>
@@ -215,6 +214,7 @@ p {
   span:last-of-type {
     letter-spacing: 1.5px;
     padding-left: 10px;
+    flex-shrink: 0;
   }
 }
 

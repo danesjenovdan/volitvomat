@@ -23,10 +23,8 @@ export default {
     const isInteractAnimating = ref(true);
     const isInteractDragged = ref(false);
 
-    const interactYThreshold = 150;
-    const interactXThreshold = 100;
-    const interactOutOfSightXCoordinate = 500;
-    const interactOutOfSightYCoordinate = 600;
+    // const interactYThreshold = 150;
+    const interactXThreshold = 150;
 
     const transformString = computed(() => {
         if (!isInteractAnimating.value || !isInteractDragged.value) {
@@ -54,21 +52,19 @@ export default {
         // interactUnsetElement();
         switch (interaction) {
             case 'ACCEPT_CARD':
-                interactSetPosition({
+                setTimeout(() => {
+                  interactSetPosition({
                     x: 0,
-                });
-                // setTimeout(() => {
-                //     ctx.emit('yes');
-                // }, 300);
+                  });
+                }, 400);
                 ctx.emit('yes');
                 break;
             case 'REJECT_CARD':
-                interactSetPosition({
+                setTimeout(() => {
+                  interactSetPosition({
                     x: 0,
-                });
-                // setTimeout(() => {
-                //     ctx.emit('no');
-                // }, 300);
+                  });
+                }, 400);
                 ctx.emit('no');
                 break;
             // case 'SKIP_CARD':
