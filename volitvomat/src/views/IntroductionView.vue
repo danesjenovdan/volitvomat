@@ -26,7 +26,7 @@ onMounted(() => {
 
 
 <template>
-  <div>
+  <div class="container">
     <header class="header-big">
       <img src="../assets/img/volitvomat-logo.svg" class="header-logo"/>
     </header>

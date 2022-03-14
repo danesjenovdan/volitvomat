@@ -79,67 +79,69 @@ onMounted(() => {
 </script>
 
 <template>
-  <main>
-    <header v-if="desktop">
-      <img src="../assets/img/volitvomat-logo.svg" class="header-logo"/>
-    </header>
-    <div class="progress-bar-wrapper">
-      <div class="progress">
-        <div class="progress-bar" role="progressbar" :aria-valuenow="progress" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${progress}%`}"></div>
+  <div class="container">
+    <main>
+      <header v-if="desktop">
+        <img src="../assets/img/volitvomat-logo.svg" class="header-logo"/>
+      </header>
+      <div class="progress-bar-wrapper">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" :aria-valuenow="progress" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${progress}%`}"></div>
+        </div>
       </div>
-    </div>
-    <div class="swipe-card-wrapper">
-      <SwipeCard
-        v-if="question"
-        :title="question.demand_title" 
-        :description="question.demand_description"
-        :image-url="question.category"
-        :swiping="!desktop"
-        @yes="saveAnswer(questionId, true)"
-        @no="saveAnswer(questionId, false)"
-        @more="moreInfo = true"
-        class="swipe-card"
-        :class="{'play-animation-right': playAnimationRight, 'play-animation-left': playAnimationLeft}"
-      />
-      <div
-        v-for="i in 2" :key="i"
-        class="swipe-card-background white-card" 
-        :style="`top: ${5-i}%; bottom: ${5+i}%; left:${i*4}px; right:${i*4}px; z-index:${-1*i}`"
-      >
-        <img src="../assets/img/volitvomat-znak.svg" />
+      <div class="swipe-card-wrapper">
+        <SwipeCard
+          v-if="question"
+          :title="question.demand_title" 
+          :description="question.demand_description"
+          :image-url="question.category"
+          :swiping="!desktop"
+          @yes="saveAnswer(questionId, true)"
+          @no="saveAnswer(questionId, false)"
+          @more="moreInfo = true"
+          class="swipe-card"
+          :class="{'play-animation-right': playAnimationRight, 'play-animation-left': playAnimationLeft}"
+        />
+        <div
+          v-for="i in 2" :key="i"
+          class="swipe-card-background white-card" 
+          :style="`top: ${5-i}%; bottom: ${5+i}%; left:${20+i*4}px; right:${20+i*4}px; z-index:${-1*i}`"
+        >
+          <img src="../assets/img/volitvomat-znak.svg" />
+        </div>
       </div>
-    </div>
-    
-    <div class="button-row">
-      <RouterLink to="/navodila" v-if="idParam == 0" class="back-button"></RouterLink>
-      <RouterLink :to="`/vprasanje/${parseInt(idParam) - 1}`" v-if="idParam > 0" class="back-button"></RouterLink>
-      <div 
-        class="no-button hover-pointer"
-        :class="{'disabled': playAnimationRight || playAnimationLeft}"
-        @click="saveAnswer(questionId, false)"
-      ></div>
-      <!-- <div class="info-button hover-pointer" @click="moreInfo = true"></div> -->
-      <div 
-        class="yes-button hover-pointer" 
-        :class="{'disabled': playAnimationRight || playAnimationLeft}"
-        @click="saveAnswer(questionId, true)"
-      ></div>
-      <div
-        @click="skipQuestion(questionId, true)"
-        class="skip-button hover-pointer"
-      >
+      
+      <div class="button-row">
+        <RouterLink to="/navodila" v-if="idParam == 0" class="back-button"></RouterLink>
+        <RouterLink :to="`/vprasanje/${parseInt(idParam) - 1}`" v-if="idParam > 0" class="back-button"></RouterLink>
+        <div 
+          class="no-button hover-pointer"
+          :class="{'disabled': playAnimationRight || playAnimationLeft}"
+          @click="saveAnswer(questionId, false)"
+        ></div>
+        <!-- <div class="info-button hover-pointer" @click="moreInfo = true"></div> -->
+        <div 
+          class="yes-button hover-pointer" 
+          :class="{'disabled': playAnimationRight || playAnimationLeft}"
+          @click="saveAnswer(questionId, true)"
+        ></div>
+        <div
+          @click="skipQuestion(questionId, true)"
+          class="skip-button hover-pointer"
+        >
+        </div>
       </div>
-    </div>
 
-    <!-- {{ answers }} -->
+      <!-- {{ answers }} -->
 
-    <div class="modal white-card" v-if="moreInfo">
-      <div style="text-align: right;">
-        <img src="../assets/img/zapri.svg" class="close-icon hover-pointer" @click="moreInfo = false" />
+      <div class="modal white-card" v-if="moreInfo">
+        <div style="text-align: right;">
+          <img src="../assets/img/zapri.svg" class="close-icon hover-pointer" @click="moreInfo = false" />
+        </div>
+        <p>{{ question.demand_description }}</p>
       </div>
-      <p>{{ question.demand_description }}</p>
-    </div>
-  </main>
+    </main>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -172,6 +174,10 @@ onMounted(() => {
   pointer-events: none;
 }
 
+.container {
+  padding: 0;
+}
+
 header {
   text-align: center;
   padding: 20px 0;
@@ -180,7 +186,8 @@ header {
 main {
   display: flex; 
   flex-direction: column; 
-  height: 100vh;
+  // height: 100vh;
+  height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -199,6 +206,7 @@ main {
   display: flex; 
   align-items: center;
   overflow: hidden;
+  padding: 0 20px;
 }
 
 .swipe-card-background {
@@ -251,14 +259,15 @@ main {
 }
 
 .progress-bar-wrapper {
-  min-height: 60px;
+  min-height: 40px;
   display: flex;
   align-items: center;
+  padding: 0 20px;
 }
 
 .button-row {
-  height: 100px;
-  min-height: 100px;
+  min-height: 80px;
+  padding: 0 20px;
   text-align: center;
   display: flex;
   align-items: center;

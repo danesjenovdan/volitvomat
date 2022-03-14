@@ -27,7 +27,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <header>
       <h1>Kako rešujem?</h1>
     </header>
