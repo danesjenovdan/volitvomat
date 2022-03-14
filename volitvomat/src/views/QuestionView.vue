@@ -190,11 +190,11 @@ main {
   height: 100%;
 }
 
-@media (min-width: 768px) {
-  main {
-    width: 720px;
-  }
-}
+// @media (min-width: 768px) {
+//   main {
+//     width: 720px;
+//   }
+// }
 
 .header-logo {
   width: 200px;

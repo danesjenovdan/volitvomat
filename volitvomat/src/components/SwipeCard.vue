@@ -181,11 +181,11 @@ export default {
   -ms-transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear;
   transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear;
 
-  &.isAnimating {
-    -webkit-transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear, transform 250ms ease;
-    -ms-transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear, transform 250ms ease;
-    transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear, transform 250ms ease;
-  }
+  // &.isAnimating {
+  //   -webkit-transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear, transform 250ms ease;
+  //   -ms-transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear, transform 250ms ease;
+  //   transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear, transform 250ms ease;
+  // }
 
   h4 {
     margin-bottom: 20px;
@@ -202,17 +202,26 @@ export default {
     transition: opacity 250ms linear;
   }
 
-  @media (min-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
+  @media (min-width: 992px) {
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
     // min-height: 550px;
     padding-top: 120px;
     padding-bottom: 80px;
     h4 {
-      margin-bottom: 20px;
+      padding-right: 20px;
+      margin-bottom: 0;
+      min-width: 50%;
+      max-width: 50%;
+    }
+    p {
+      font-size: 16px;
+      line-height: 22px;
     }
     .category-img {
       height: 100px;
+      left: 25%;
     }
   }
 
@@ -230,6 +239,10 @@ export default {
      -webkit-transition: background-image 250ms linear;
     -ms-transition: background-image 250ms linear;
     transition: background-image 250ms linear;
+
+    @media (min-width: 992px) {
+      display: none;
+    }
 
     .show-more {
       height: 20px;
