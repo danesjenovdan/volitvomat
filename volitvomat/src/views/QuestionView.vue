@@ -83,10 +83,12 @@ onMounted(() => {
     <header v-if="desktop">
       <img src="../assets/img/volitvomat-logo.svg" class="header-logo"/>
     </header>
-    <div class="progress">
-      <div class="progress-bar" role="progressbar" :aria-valuenow="progress" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${progress}%`}"></div>
+    <div class="progress-bar-wrapper">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" :aria-valuenow="progress" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${progress}%`}"></div>
+      </div>
     </div>
-    <div style="position: relative;">
+    <div class="swipe-card-wrapper">
       <SwipeCard
         v-if="question"
         :title="question.demand_title" 
@@ -95,13 +97,14 @@ onMounted(() => {
         :swiping="!desktop"
         @yes="saveAnswer(questionId, true)"
         @no="saveAnswer(questionId, false)"
+        @more="moreInfo = true"
         class="swipe-card"
         :class="{'play-animation-right': playAnimationRight, 'play-animation-left': playAnimationLeft}"
       />
       <div
         v-for="i in 2" :key="i"
         class="swipe-card-background white-card" 
-        :style="`top: ${-i*4}px; bottom: ${i*4}px; left:${i*4}px; right:${i*4}px; z-index:${-1*i}`"
+        :style="`top: ${5-i}%; bottom: ${5+i}%; left:${i*4}px; right:${i*4}px; z-index:${-1*i}`"
       >
         <img src="../assets/img/volitvomat-znak.svg" />
       </div>
@@ -115,7 +118,7 @@ onMounted(() => {
         :class="{'disabled': playAnimationRight || playAnimationLeft}"
         @click="saveAnswer(questionId, false)"
       ></div>
-      <div class="info-button hover-pointer" @click="moreInfo = true"></div>
+      <!-- <div class="info-button hover-pointer" @click="moreInfo = true"></div> -->
       <div 
         class="yes-button hover-pointer" 
         :class="{'disabled': playAnimationRight || playAnimationLeft}"
@@ -174,6 +177,12 @@ header {
   padding: 20px 0;
 }
 
+main {
+  display: flex; 
+  flex-direction: column; 
+  height: 100vh;
+}
+
 @media (min-width: 768px) {
   main {
     width: 720px;
@@ -182,6 +191,14 @@ header {
 
 .header-logo {
   width: 200px;
+}
+
+.swipe-card-wrapper {
+  position: relative; 
+  flex-grow: 1; 
+  display: flex; 
+  align-items: center;
+  overflow: hidden;
 }
 
 .swipe-card-background {
@@ -202,7 +219,6 @@ header {
   font-weight: 500;
   line-height: 30px;
   padding: 60px 30px;
-  min-height: 400px;
   display: flex;
   align-items: center;
 
@@ -213,7 +229,6 @@ header {
   @media (min-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
-    min-height: 550px;
     h4 {
       margin-bottom: 20px;
     }
@@ -235,14 +250,19 @@ header {
   padding: 10px 30px;
 }
 
-.progress {
-  margin-top: 20px;
-  margin-bottom: 30px;
+.progress-bar-wrapper {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
 }
 
 .button-row {
-  margin: 20px 0;
+  height: 100px;
+  min-height: 100px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .info-button {
     width: 70px;
     height: 70px;

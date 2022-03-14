@@ -4,7 +4,7 @@ import interact from "interactjs";
 import images from '../images';
 
 export default {
-  emits: ['yes', 'no'],
+  emits: ['yes', 'no', 'more'],
   props: {
     title: String,
     description: String,
@@ -78,6 +78,10 @@ export default {
         }
     };
 
+    function showMore() {
+      ctx.emit('more');
+    }
+
     onMounted(() => {
         const element = interactElement.value;
         console.log('Swiping?', swiping.value)
@@ -127,7 +131,8 @@ export default {
       transformString,
       images,
       colorGreen,
-      colorRed
+      colorRed,
+      showMore
     }
   }
 }
@@ -140,9 +145,12 @@ export default {
     ref="interactElement"
     :style="{ transform: transformString }"
   >
-    <img :src="images[imageUrl]" />
+    <img :src="images[imageUrl]" class="category-img" />
     <h4>{{ title }}</h4>
     <p class="card-description">{{ description }}</p>
+    <div class="more">
+      <img src="../assets/img/razsiri.svg" class="show-more hover-pointer" @click="showMore()" />
+    </div>
   </div>
 </template>
 
@@ -164,9 +172,9 @@ export default {
   font-weight: 500;
   line-height: 30px;
   padding: 100px 30px 60px 30px;
-  min-height: 450px;
-  display: flex;
-  align-items: center;
+  height: 90%;
+  max-height: 90%;
+  overflow: hidden ;
   position: relative;
 
   -webkit-transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear;
@@ -183,11 +191,7 @@ export default {
     margin-bottom: 20px;
   }
 
-  .card-description {
-    display: none;
-  }
-
-  img {
+  .category-img {
     height: 70px;
     position: absolute;
     top: 0;
@@ -201,17 +205,34 @@ export default {
   @media (min-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
-    min-height: 550px;
+    // min-height: 550px;
     padding-top: 120px;
     padding-bottom: 80px;
     h4 {
       margin-bottom: 20px;
     }
-    .card-description {
-      display: block;
-    }
-    img {
+    .category-img {
       height: 100px;
+    }
+  }
+
+  .more {
+    color: black;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    background-image: linear-gradient(transparent, #fffaf7);
+     -webkit-transition: background-image 250ms linear;
+    -ms-transition: background-image 250ms linear;
+    transition: background-image 250ms linear;
+
+    .show-more {
+      height: 20px;
     }
   }
 }
@@ -229,7 +250,10 @@ export default {
 .color-green,
 .color-red {
   opacity: 50%;
-  img {
+  .category-img {
+    opacity: 0;
+  }
+  .more {
     opacity: 0;
   }
 }
