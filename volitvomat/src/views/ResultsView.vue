@@ -47,7 +47,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="results.length > 0">
+  <div v-if="results.length > 0" class="container">
     <header class="header-small">
       <img src="../assets/img/volitvomat-logo.svg" class="header-logo"/>
     </header>

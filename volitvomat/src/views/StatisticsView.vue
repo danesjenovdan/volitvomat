@@ -53,7 +53,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <header class="header-small">
       <img src="../assets/img/volitvomat-logo.svg" class="header-logo"/>
     </header>

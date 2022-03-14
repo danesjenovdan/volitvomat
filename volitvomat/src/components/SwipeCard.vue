@@ -174,7 +174,7 @@ export default {
   padding: 100px 30px 60px 30px;
   height: 90%;
   max-height: 90%;
-  overflow: hidden ;
+  overflow: hidden;
   position: relative;
 
   -webkit-transition: background-color 250ms linear, color 250ms linear, opacity 250ms linear;
