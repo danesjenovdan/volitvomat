@@ -10,6 +10,7 @@ const store = createStore({
       questions: {},
       answers: {},
       results: {},
+      desus: {},
       quizFinished: false
     };
   },
@@ -31,6 +32,9 @@ const store = createStore({
     },
     getParties(state) {
       return state.parties;
+    },
+    getDesus(state) {
+      return state.desus;
     },
     getResults(state) {
       return state.results;
@@ -86,11 +90,19 @@ const store = createStore({
       // create an array with counting results
       const ordered_results = []
       for (const party_id in answers_party_matches) {
-        ordered_results.push({
-          'party_id': party_id,
-          'count': answers_party_matches[party_id].count,
-          'percentage': answers_party_matches[party_id].percentage,
-        })
+        if (party_id === '5') { // DeSUS is separated
+          state.desus = {
+            'party_id': party_id,
+            'count': answers_party_matches[party_id].count,
+            'percentage': answers_party_matches[party_id].percentage,
+          }
+        } else {
+          ordered_results.push({
+            'party_id': party_id,
+            'count': answers_party_matches[party_id].count,
+            'percentage': answers_party_matches[party_id].percentage,
+          })
+        }
       }
       // sort the array (descending by percentage) and save to state.results
       state.results = ordered_results.sort((a, b) => (a.percentage > b.percentage) ? -1 : 1);
@@ -116,7 +128,6 @@ const store = createStore({
   },
   actions: {
     async initializeStore({ commit, dispatch, state }) {
-      console.log('INITIALIZING STORE');
       // check if data exists in local storage
       const parties = localStorage.getItem('parties');
       const questions = localStorage.getItem('questions');
@@ -142,7 +153,6 @@ const store = createStore({
       return state.quizFinished;
     },
     async getData({ commit, state }) {
-      console.log('GET DATA')
       const response = await axios.get(`${state.apiUrl}/api/volitvomat`);
       commit('setQuestions', response.data['questions']);
       commit('setParties', response.data['parties']);
