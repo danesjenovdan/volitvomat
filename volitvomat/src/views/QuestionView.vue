@@ -22,9 +22,6 @@ const questionsNo = computed(() => questionsList.value.length);
 const questionId = computed(() => questionsList.value[idParam.value]);
 const progress = computed(() => Math.round(idParam.value / questionsNo.value * 100));
 const question = computed(() => store.state.questions[questionId.value]);
-// console.log('questionsList', questionsList.value)
-// console.log('questionid', questionId.value)
-// console.log('question', question.value)
 const answers = computed(() => store.getters.getAnswers);
 
 const skipQuestion = (id, answer) => {

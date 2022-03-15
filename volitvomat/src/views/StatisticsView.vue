@@ -10,6 +10,7 @@ const storeInitialized = computed(() => store.getters.getStoreInitialized);
 const quizFinished = computed(() => store.getters.getQuizFinished);
 const parties = computed(() => store.getters.getParties);
 const results = computed(() => store.getters.getResults);
+const desus = computed(() => store.getters.getDesus);
 
 const missingParties = [
   {
@@ -70,7 +71,20 @@ onMounted(() => {
           </div>
         </div>
       </div>
+      <!-- DeSUS -->
+      <div class="party">
+        <img :src="`${parties[desus.party_id].image_url}`" class="party-image" />
+        <div class="party-description">
+          <p><span>{{ parties[desus.party_id].party_name }} *</span><span>{{ desus.percentage }} %</span></p>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" :aria-valuenow="desus.percentage" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${desus.percentage}%`}"></div>
+          </div>
+        </div>
+      </div>
     </div>
+    <p class="fine-print">
+      * Zaradi trenutnega nedoslednega in nestabilnega delovanja ter kršitve ključnih predvolilnih zavez zadnjih volitev, stranke DESUS nismo mogli umestiti med priporočene izbire VOLITVOMATA.
+    </p>
     <div class="divider"></div>
     <p>
       Stranke, ki niso sodelovale
@@ -97,6 +111,13 @@ p {
   font-weight: 600;
   font-size: 21px;
   text-align: center;
+  margin: 10px 0;
+}
+
+p.fine-print {
+  font-weight: 400;
+  font-size: 12px;
+  text-align: left;
   margin: 10px 0;
 }
 
