@@ -72,7 +72,7 @@ onMounted(() => {
         </div>
       </div>
       <!-- DeSUS -->
-      <div class="party">
+      <div class="party" v-if="results.length > 0">
         <img :src="`${parties[desus.party_id].image_url}`" class="party-image" />
         <div class="party-description">
           <p><span>{{ parties[desus.party_id].party_name }} *</span><span>{{ desus.percentage }} %</span></p>
