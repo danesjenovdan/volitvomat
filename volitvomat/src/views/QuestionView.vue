@@ -134,10 +134,10 @@ onMounted(() => {
 
       <!-- {{ answers }} -->
 
-      <div class="modal white-card" v-if="moreInfo">
-        <div style="text-align: right;">
+      <div class="modal white-card" v-if="moreInfo" @click="moreInfo = false">
+        <!-- <div style="text-align: right;">
           <img src="../assets/img/zapri.svg" class="close-icon hover-pointer" @click="moreInfo = false" />
-        </div>
+        </div> -->
         <p>{{ question.demand_description }}</p>
       </div>
     </main>
@@ -247,15 +247,15 @@ main {
 }
 
 .modal {
-  padding: 20px;
+  padding: 15px 20px;
   display: block;
   overflow-y: auto;
 }
 
 .modal p {
-  font-size: 18px;
+  font-size: 17px;
   line-height: 27px;
-  padding: 10px 30px;
+  padding: 0;
 }
 
 .progress-bar-wrapper {

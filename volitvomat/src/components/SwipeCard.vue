@@ -79,7 +79,15 @@ export default {
     };
 
     function showMore() {
-      ctx.emit('more');
+      if (isTouchDevice()) {
+        ctx.emit('more');
+      }
+    }
+
+    function isTouchDevice() {
+      return (('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        (navigator.msMaxTouchPoints > 0));
     }
 
     onMounted(() => {
@@ -144,12 +152,13 @@ export default {
     :class="{ isAnimating: isInteractAnimating, 'color-green': colorGreen, 'color-red': colorRed }"
     ref="interactElement"
     :style="{ transform: transformString }"
+    @click="showMore()"
   >
     <img :src="images[imageUrl]" class="category-img" />
     <h4>{{ title }}</h4>
     <p class="card-description">{{ description }}</p>
     <div class="more">
-      <img src="../assets/img/razsiri.svg" class="show-more hover-pointer" @click="showMore()" />
+      <img src="../assets/img/razsiri.svg" class="show-more hover-pointer" />
     </div>
   </div>
 </template>
