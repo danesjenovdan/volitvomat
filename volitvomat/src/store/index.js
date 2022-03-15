@@ -46,6 +46,7 @@ const store = createStore({
   mutations: {
     clearStore(state) {
       state.parties = {};
+      state.desus = {};
       state.questions = {};
       state.answers = {};
       state.results = {};

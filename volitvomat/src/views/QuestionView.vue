@@ -173,6 +173,14 @@ onMounted(() => {
 
 .container {
   padding: 0;
+
+  @media (min-width: 992px) {
+    max-width: 960px;
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 1140px;
+  }
 }
 
 header {
