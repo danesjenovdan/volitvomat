@@ -31,6 +31,14 @@ const restartQuiz = () => {
   router.push("/");
 }
 
+const share = () => {
+  navigator.clipboard.writeText("https://volitvomat.lb.djnd.si/").then(function() {
+    alert('Povezava je skopirana v odložišče!')
+  }, function() {
+    // ni se skopiralo ...
+  });
+};
+
 onMounted(() => {
   if (!storeInitialized.value) {
     store.dispatch("initializeStore").then((quiz_finished) => {
@@ -160,8 +168,8 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="yellow-button">
-      deli na družbEnih omrežjih <span class="share-icon"></span>
+    <div class="yellow-button hover-pointer" @click="share">
+      deli volitvomat <span class="share-icon"></span>
     </div>
     <RouterLink to="/statistika" class="yellow-button">
       poglej podrobne rezultate <span class="search-icon"></span>
