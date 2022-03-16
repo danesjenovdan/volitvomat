@@ -28,7 +28,8 @@ onMounted(() => {
 <template>
   <div class="container">
     <header class="header-big">
-      <img src="../assets/img/volitvomat-logo.svg" class="header-logo"/>
+      <img src="../assets/img/volitvomat-znak.svg" class="header-logo"/>
+      VOLITVOMAT
     </header>
     <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
     <p>

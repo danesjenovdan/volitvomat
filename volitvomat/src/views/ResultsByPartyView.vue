@@ -50,6 +50,11 @@ watch(
 
 <template>
   <div class="container" v-if="Object.keys(parties).length > 0">
+    <header class="header-big">
+      <img src="../assets/img/volitvomat-znak.svg" class="header-logo"/>
+      VOLITVOMAT
+    </header>
+    
     <div style="text-align: center;">
       <img :src="`${parties[partyId].image_url}`" class="person" />
     </div>

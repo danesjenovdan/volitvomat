@@ -69,8 +69,9 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <header class="header-small">
-      <img src="../assets/img/volitvomat-logo.svg" class="header-logo"/>
+    <header class="header-big">
+      <img src="../assets/img/volitvomat-znak.svg" class="header-logo"/>
+      VOLITVOMAT
     </header>
     <p>
       Tvoje ujemanje

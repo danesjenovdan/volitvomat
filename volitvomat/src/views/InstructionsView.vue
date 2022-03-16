@@ -84,12 +84,10 @@ onMounted(() => {
 <style scoped lang="scss">
 header h1 {
   text-transform: uppercase;
-  padding: 20px 0;
-  font-family: 'Bangers', cursive;
+  padding: 20px 0 10px;
+  font-family: 'Grandstander', cursive;
   font-size: 38px;
-  font-weight: 400;
   text-align: center;
-  letter-spacing: 3px;
 }
 .white-button-border {
   font-size: 24px;
@@ -106,10 +104,10 @@ header h1 {
   text-align: center;
   margin: 0 20px;
   h2 {
-    font-family: Bangers;
+    font-family: 'Grandstander', cursive;
     font-size: 24px;
-    letter-spacing: 2px;
-    
+    font-style: italic;
+    margin-bottom: 5px;    
   }
 }
 
