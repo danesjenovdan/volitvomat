@@ -106,11 +106,11 @@ onMounted(() => {
       </RouterLink>
     </div>
     <p class="fine-print">
-      * Zaradi trenutnega nedoslednega in nestabilnega delovanja ter kršitve ključnih predvolilnih zavez zadnjih volitev, stranke DESUS nismo mogli umestiti med priporočene izbire VOLITVOMATA.
+      * Zaradi trenutnega nedoslednega in nestabilnega delovanja ter kršitve ključnih predvolilnih zavez zadnjih volitev stranke DeSUS nismo umestili med priporočene izbire VOLITVOMATA.
     </p>
     <div class="divider"></div>
     <p>
-      Stranke, ki niso sodelovale
+      Stranke, ki niso dale nobene zaveze
     </p>
     <div class="parties-not-included">
       <div v-for="party in missingParties" :key="party.name" class="party">
@@ -127,7 +127,7 @@ onMounted(() => {
       <div class="yellow-button hover-pointer" @click="restartQuiz">
         reši ponovno
       </div>
-      <h5>Več na <a href="https://glas-ljudstva.si/" target="_blank">https://glas-ljudstva.si/</a>.</h5>
+      <h5>Vse odgovore strank najdeš na <a href="https://glas-ljudstva.si/" target="_blank">https://glas-ljudstva.si/</a>.</h5>
     </div>
   </div>
 </template>

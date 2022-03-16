@@ -31,22 +31,13 @@ onMounted(() => {
       <img src="../assets/img/volitvomat-znak.svg" class="header-logo"/>
       VOLITVOMAT
     </header>
-    <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
+    <h2>Niso vsi isti, mi bomo odločali, preveri kako.</h2>
     <p>
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-      aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-      sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-      mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus
-      error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-      eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae
-      vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-      aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-      ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem
-      ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non
-      numquam eius modi tempora incidunt ut labore et dolore magnam aliquam
-      quaerat voluptatem.
+      Volitvomat je nastal na podlagi zahtev, ki so jih pripravile civilnodružbene organizacije
+      v odprtem procesu, ki je trajal zadnje mesece 2021. Stranke smo pozvali, naj se do zahtev
+      konkretno opredelijo. Nekatere stranke se niso. Buuuuuuu.
     </p>
+    <p>Tukaj boš odgovarjal_a na 40 zahtev od 138, na koncu zveš s katero stranko se najbolj ujemaš in lahko podrobneje raziščeš kje in zakaj se s katero stranko ne strinjaš. Ko rešiš, ne pozabi volitvomata deliti naprej.</p>
     <div class="button-wrapper">
       <RouterLink to="/navodila" class="white-button-border">ZAČNI</RouterLink>
     </div>

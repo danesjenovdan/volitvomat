@@ -109,7 +109,7 @@ onMounted(() => {
 
     </div>
 
-    <p v-if="results[0].percentage === results[1].percentage">Najbolj se ujemaš z več strankami</p>
+    <p v-if="results[0].percentage === results[1].percentage">Najbolj se ujemaš s strankami</p>
 
     <div class="two-winners" v-if="firstPlace === 2">
       <div class="flex">
@@ -178,11 +178,11 @@ onMounted(() => {
       <div class="yellow-button hover-pointer" @click="share">
         deli volitvomat <span class="share-icon"></span>
       </div>
-      <p class="fine-print">Želiš deliti rezultat? Deli posnetek zaslona.</p>
+      <p class="fine-print">Želiš deliti svoj rezultat? Deli posnetek zaslona.</p>
       <div class="yellow-button hover-pointer" @click="restartQuiz">
         reši ponovno
       </div>
-      <h5>Več na <a href="https://glas-ljudstva.si/" target="_blank">https://glas-ljudstva.si/</a>.</h5>
+      <h5>Vse odgovore strank najdeš na <a href="https://glas-ljudstva.si/" target="_blank">https://glas-ljudstva.si/</a>.</h5>
     </div>
   </div>
 </template>

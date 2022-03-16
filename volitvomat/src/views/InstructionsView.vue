@@ -48,12 +48,12 @@ onMounted(() => {
     <div style="display: flex; justify-content: space-around;">
       <div class="instruction-click">
         <img v-if="!desktop" src="../assets/img/puscica-levo.svg" class="" />
-        <p><span v-if="!desktop">ali</span> klikni na</p>
+        <p><span v-if="!desktop">ali k</span><span v-else>K</span>likni na</p>
         <div class="no-button"></div>
       </div>
       <div class="instruction-click">
         <img v-if="!desktop" src="../assets/img/puscica-desno.svg" class="" />
-        <p><span v-if="!desktop">ali</span> klikni na</p>
+        <p><span v-if="!desktop">ali k</span><span v-else>K</span>likni na</p>
         <div class="yes-button"></div>
       </div>
     </div>
