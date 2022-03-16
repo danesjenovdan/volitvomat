@@ -85,8 +85,9 @@ router.beforeEach((to, from) => {
 <template>
   <div class="container">
     <main>
-      <header v-if="desktop">
-        <img src="../assets/img/volitvomat-logo.svg" class="header-logo"/>
+      <header v-if="desktop" class="header-big">
+        <img src="../assets/img/volitvomat-znak.svg" class="header-logo"/>
+        VOLITVOMAT
       </header>
       <div class="progress-bar-wrapper">
         <div class="progress">
@@ -111,7 +112,7 @@ router.beforeEach((to, from) => {
           class="swipe-card-background white-card" 
           :style="`top: ${5-i}%; bottom: ${5+i}%; left:${20+i*4}px; right:${20+i*4}px; z-index:${-1*i}`"
         >
-          <img src="../assets/img/volitvomat-znak.svg" />
+          <img src="../assets/img/volitvomat-logo.svg" />
         </div>
       </div>
       
@@ -135,8 +136,6 @@ router.beforeEach((to, from) => {
         >
         </div>
       </div>
-
-      <!-- {{ answers }} -->
 
       <div class="modal white-card" v-if="moreInfo" @click="moreInfo = false">
         <!-- <div style="text-align: right;">
@@ -196,11 +195,6 @@ router.beforeEach((to, from) => {
   }
 }
 
-header {
-  text-align: center;
-  padding: 20px 0;
-}
-
 main {
   display: flex; 
   flex-direction: column; 
@@ -213,10 +207,6 @@ main {
 //     width: 720px;
 //   }
 // }
-
-.header-logo {
-  width: 200px;
-}
 
 .swipe-card-wrapper {
   position: relative; 
