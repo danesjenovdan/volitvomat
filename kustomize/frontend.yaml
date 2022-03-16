@@ -45,9 +45,31 @@ spec:
   tls:
   - hosts:
     - volitvomat.lb.djnd.si
+    - volitvomat.si
+    - www.volitvomat.si
     secretName: volitvomat-tls
   rules:
   - host: volitvomat.lb.djnd.si
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: volitvomat
+            port:
+              number: 80
+  - host: volitvomat.si
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: volitvomat
+            port:
+              number: 80
+  - host: www.volitvomat.si
     http:
       paths:
       - path: /
