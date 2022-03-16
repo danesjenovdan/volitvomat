@@ -12,7 +12,7 @@ import { RouterLink, RouterView } from "vue-router";
 
 .container {
   height: 100%;
-  padding: 0 20px;
+  padding: 0 35px;
   overflow-y: scroll;
 
   @media (min-width: 576px) {

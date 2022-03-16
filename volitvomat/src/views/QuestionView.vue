@@ -147,7 +147,7 @@ router.beforeEach((to, from) => {
           <p>{{ question.demand_description }}</p>
         </div>
         <div class="show-less">
-          <img src="../assets/img/razsiri.svg"/>
+          <img src="../assets/img/close.png"/>
         </div>
       </div>
     </main>
@@ -288,8 +288,7 @@ main {
 .show-less {
   text-align: center;
   img {
-    height: 20px;
-    transform: rotate(180deg);
+    height: 50px;
   }
 }
 

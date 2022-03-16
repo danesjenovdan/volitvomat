@@ -56,8 +56,9 @@ onMounted(() => {
 
 <template>
   <div v-if="results.length > 0" class="container">
-    <header class="header-small">
-      <img src="../assets/img/volitvomat-logo.svg" class="header-logo"/>
+    <header class="header-big">
+      <img src="../assets/img/volitvomat-znak.svg" class="header-logo"/>
+      VOLITVOMAT
     </header>
 
     <div class="single-winner" v-if="firstPlace === 1">
@@ -108,7 +109,7 @@ onMounted(() => {
 
     </div>
 
-    <p v-if="results[0].percentage === results[1].percentage">Najbolj se ujemaš z več strankami</p>
+    <p v-if="results[0].percentage === results[1].percentage">Najbolj se ujemaš s strankami</p>
 
     <div class="two-winners" v-if="firstPlace === 2">
       <div class="flex">
@@ -177,11 +178,11 @@ onMounted(() => {
       <div class="yellow-button hover-pointer" @click="share">
         deli volitvomat <span class="share-icon"></span>
       </div>
-      <p class="fine-print">Želiš deliti rezultat? Deli posnetek zaslona.</p>
+      <p class="fine-print">Želiš deliti svoj rezultat? Deli posnetek zaslona.</p>
       <div class="yellow-button hover-pointer" @click="restartQuiz">
         reši ponovno
       </div>
-      <h5>Več na <a href="https://glas-ljudstva.si/" target="_blank">https://glas-ljudstva.si/</a>.</h5>
+      <h5>Vse odgovore strank najdeš na <a href="https://glas-ljudstva.si/" target="_blank">https://glas-ljudstva.si/</a>.</h5>
     </div>
   </div>
 </template>
@@ -223,9 +224,10 @@ p {
   .party-name {
     font-family: 'Manrope', sans-serif;
     font-size: 20px;
+    font-weight: 400;
   }
   span:last-of-type {
-    letter-spacing: 1.5px;
+    // letter-spacing: 1.5px;
     padding-left: 10px;
     flex-shrink: 0;
   }
@@ -257,9 +259,10 @@ p {
     max-width: 40%;
   }
   span:last-of-type {
-    font-family: 'Bangers', cursive;
+    font-family: 'Grandstander', cursive;
     font-size: 24px;
-    letter-spacing: 1.5px;
+    font-weight: 700;
+    // letter-spacing: 1.5px;
     padding-left: 10px;
     flex-shrink: 0;
   }
@@ -300,8 +303,9 @@ p.fine-print {
     padding: 30px 50px;
   }
   span {
-    font-family: 'Bangers', cursive;
+    font-family: 'Grandstander', cursive;
     font-size: 30px;
+    font-weight: 700;
   }
 }
 

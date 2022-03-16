@@ -158,7 +158,7 @@ export default {
     <h4>{{ title }}</h4>
     <p class="card-description">{{ description }}</p>
     <div class="more">
-      <img src="../assets/img/razsiri.svg" class="show-more" />
+      <img src="../assets/img/open.png" class="show-more" />
     </div>
   </div>
 </template>
@@ -243,7 +243,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
+    height: 80px;
     background-image: linear-gradient(transparent, #fffaf7);
      -webkit-transition: background-image 250ms linear;
     -ms-transition: background-image 250ms linear;
@@ -254,7 +254,7 @@ export default {
     }
 
     .show-more {
-      height: 20px;
+      height: 50px;
     }
   }
 }
