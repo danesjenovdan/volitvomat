@@ -54,7 +54,7 @@ watch(
       <img :src="`${parties[partyId].image_url}`" class="person" />
     </div>
     
-    <p class="title">Kako se tvoji odgovori razlikujejo od {{ parties[partyId].party_name }}?</p>
+    <p class="title">Kako se tvoji odgovori razlikujejo od stranke {{ parties[partyId].party_name }}?</p>
 
     <div v-if="result" class="match">
       <p>Ujemanje: <span>{{ result.percentage }} %</span></p>

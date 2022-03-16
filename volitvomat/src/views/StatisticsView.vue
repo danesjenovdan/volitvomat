@@ -75,39 +75,34 @@ onMounted(() => {
     <p>
       Tvoje ujemanje
     </p>
+    <p class="subtitle">
+      Za podrobnejšo analizo ujemanja klikni na posamezno stranko.
+    </p>
     <div class="party-list">
-      <div v-for="party in results" :key="parties[party.party_id].party_name" class="party">
-        <RouterLink :to="`/rezultati/${party.party_id}`">
-          <img :src="`${parties[party.party_id].image_url}`" class="party-image" />
-        </RouterLink>
+      <RouterLink :to="`/rezultati/${party.party_id}`" v-for="party in results" :key="parties[party.party_id].party_name" class="party">
+        <img :src="`${parties[party.party_id].image_url}`" class="party-image" />
         <div class="party-description">
           <p>
-            <RouterLink :to="`/rezultati/${party.party_id}`">
-              <span>{{ parties[party.party_id].party_name }}</span>
-            </RouterLink>
+            <span>{{ parties[party.party_id].party_name }}</span>
             <span>{{ party.percentage }} %</span>
           </p>
           <div class="progress">
             <div class="progress-bar" role="progressbar" :aria-valuenow="party.percentage" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${party.percentage}%`}"></div>
           </div>
         </div>
-      </div>
+      </RouterLink>
       <!-- DeSUS -->
-      <div class="party" v-if="results.length > 0">
-        <RouterLink :to="`/rezultati/${desus.party_id}`">
-          <img :src="`${parties[desus.party_id].image_url}`" class="party-image" />
-        </RouterLink>
+      <RouterLink :to="`/rezultati/${desus.party_id}`" class="party" v-if="results.length > 0">
+        <img :src="`${parties[desus.party_id].image_url}`" class="party-image" />
         <div class="party-description">
           <p>
-            <RouterLink :to="`/rezultati/${desus.party_id}`">
-              <span>{{ parties[desus.party_id].party_name }} *</span>
-            </RouterLink>
+            <span>{{ parties[desus.party_id].party_name }} *</span>
             <span>{{ desus.percentage }} %</span></p>
           <div class="progress">
             <div class="progress-bar" role="progressbar" :aria-valuenow="desus.percentage" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${desus.percentage}%`}"></div>
           </div>
         </div>
-      </div>
+      </RouterLink>
     </div>
     <p class="fine-print">
       * Zaradi trenutnega nedoslednega in nestabilnega delovanja ter kršitve ključnih predvolilnih zavez zadnjih volitev, stranke DESUS nismo mogli umestiti med priporočene izbire VOLITVOMATA.
@@ -124,11 +119,14 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <a href="https://glas-ljudstva.si" target="_blank" class="yellow-button">
-      Preveri odgovore strank na vprašanja <span class="search-icon"></span>
-    </a>
-    <div class="yellow-button hover-pointer" @click="restartQuiz">
-      reši ponovno
+    <div class="button-group">
+      <!-- <a href="https://glas-ljudstva.si" target="_blank" class="yellow-button">
+        Preveri odgovore strank na vprašanja <span class="search-icon"></span>
+      </a> -->
+      <div class="yellow-button hover-pointer" @click="restartQuiz">
+        reši ponovno
+      </div>
+      <h5>Več na <a href="https://glas-ljudstva.si/" target="_blank">https://glas-ljudstva.si/</a>.</h5>
     </div>
   </div>
 </template>
@@ -139,6 +137,12 @@ p {
   font-size: 21px;
   text-align: center;
   margin: 10px 0;
+}
+
+p.subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 30px;
 }
 
 p.fine-print {
@@ -155,17 +159,12 @@ p.fine-print {
 .party {
   display: flex;
   margin: 10px 0;
+  color: #fffaf7;
+  text-decoration: none;
 }
 
 .party-description {
   flex-grow: 1;
-  a {
-    color: #fffaf7;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
   p {
     display: flex;
     justify-content: space-between;
@@ -185,7 +184,7 @@ p.fine-print {
 .parties-not-included {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 30px;
+  // margin-bottom: 30px;
   .party {
     align-items: center;
     padding-right: 20px;
