@@ -31,13 +31,14 @@ onMounted(() => {
       <img src="../assets/img/volitvomat-znak.svg" class="header-logo"/>
       VOLITVOMAT
     </header>
-    <h2>Niso vsi isti, mi bomo odločali, preveri kako.</h2>
+    <h2>Politične stranke, ki bodo sodelovale na prihajajočih državnozborskih volitvah, imajo zelo različne programske usmeritve. Ker je prihodnost Slovenije odvisna od vseh nas, ki jim bomo aprila namenjali glasove, smo razvili orodje Volitvomat. Z njim lahko preveriš, v kolikšni meri se tvoja politična prepričanja skladajo s stališči strank, in tako sprejmeš bolj kakovostno odločitev.</h2>
     <p>
-      Volitvomat je nastal na podlagi zahtev, ki so jih pripravile civilnodružbene organizacije
-      v odprtem procesu, ki je trajal zadnje mesece 2021. Stranke smo pozvali, naj se do zahtev
-      konkretno opredelijo. Nekatere stranke se niso. Buuuuuuu.
+      Volitvomat je nastal na podlagi odgovorov političnih strank na 138 zahtev, ki smo jih v odprtem procesu postavile civilnodružbene organizacije, združene v iniciativo Glas ljudstva. Čeprav smo k podajanju konkretnih odgovorov pozvali vse stranke, ki bodo sodelovale na volitvah, številne med njimi niso želele dati svojih zavez in tako prispevati k boljši informiranosti volivk in volivcev.
     </p>
-    <p>Tukaj boš odgovarjal_a na 40 zahtev od 138, na koncu zveš s katero stranko se najbolj ujemaš in lahko podrobneje raziščeš kje in zakaj se s katero stranko ne strinjaš. Ko rešiš, ne pozabi volitvomata deliti naprej.</p>
+    <p></p>
+    <p>V nadaljevanju lahko podaš svoje odgovore na 40 zahtev, na podlagi rezultatov pa ti bomo pokazali, s katero od sodelujočih političnih strank se najbolj ujemajo tvoja stališča. Nato lahko tudi podrobneje raziščeš, na katerih področjih se s posameznimi strankami ne strinjaš in zakaj je temu tako.</p>
+    <p></p>
+    <p>Ko rešiš vprašalnik in pregledaš rezultate pa povezavo do Volitvomata ne pozabi deliti še s prijateljicami in prijatelji, saj jim lahko tako morda olajšaš odločitev.</p>
     <div class="button-wrapper">
       <RouterLink to="/navodila" class="white-button-border">ZAČNI</RouterLink>
     </div>
