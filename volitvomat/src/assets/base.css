@@ -61,7 +61,7 @@ body {
 .white-button-border {
   display: inline-block;
   background-image: url("@/assets/img/bel-gumb-obroba.svg");
-  padding: 25px 50px;
+  padding: 25px 40px;
   background-position: center;
   background-repeat: no-repeat;
   font-size: 36px;
