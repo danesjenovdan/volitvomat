@@ -68,40 +68,42 @@ onMounted(() => {
         <img src="../assets/img/oseba.svg" class="person" />
         <img src="../assets/img/zvezda.svg" class="star" />
         <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="person" /> -->
-        <img :src="`${parties[results[0].party_id].image_url}`" class="person" />
+        <RouterLink :to="`/rezultati/${results[0].party_id}`">
+          <img :src="`${parties[results[0].party_id].image_url}`" class="person" />
+        </RouterLink>
       </div>
 
       <div style="text-align: center;">
-        <div class="white-button-border">
+        <RouterLink :to="`/rezultati/${results[0].party_id}`" class="white-button-border">
           <div>
             <span class="party-name">{{ parties[results[0].party_id].party_name }}:</span>
             <span>{{ results[0].percentage }} %</span>
           </div>
-        </div>
+        </RouterLink>
       </div>
 
       <div class="divider"></div>
 
       <div class="match-button-group">
-        <div class="button">
+        <RouterLink :to="`/rezultati/${results[1].party_id}`" class="button">
           <span class="party-name">{{ parties[results[1].party_id].party_name }}:</span>
           <span>{{ results[1].percentage }} %</span>
           <div class="party-img">
             <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
             <img :src="`${parties[results[1].party_id].image_url}`" />
           </div>
-        </div>
+        </RouterLink>
       </div>
 
       <div class="match-button-group">
-        <div class="button">
+        <RouterLink :to="`/rezultati/${results[2].party_id}`" class="button">
           <span class="party-name">{{ parties[results[2].party_id].party_name }}:</span>
           <span>{{ results[2].percentage }} %</span>
           <div class="party-img">
             <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
             <img :src="`${parties[results[2].party_id].image_url}`" />
           </div>
-        </div>
+        </RouterLink>
       </div>
 
     </div>
@@ -116,37 +118,37 @@ onMounted(() => {
         </div>
         <div>
           <div class="match-button-group">
-            <div class="button">
+            <RouterLink :to="`/rezultati/${results[0].party_id}`"  class="button">
               <span class="party-name">{{ parties[results[0].party_id].party_name }}:</span>
               <span>{{ results[0].percentage }} %</span>
               <div class="party-img">
                 <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
                 <img :src="`${parties[results[0].party_id].image_url}`" />
               </div>
-            </div>
+            </RouterLink>
           </div>
           <div class="match-button-group">
-            <div class="button">
+            <RouterLink :to="`/rezultati/${results[1].party_id}`" class="button">
               <span class="party-name">{{ parties[results[1].party_id].party_name }}:</span>
               <span>{{ results[1].percentage }} %</span>
               <div class="party-img">
                 <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
                 <img :src="`${parties[results[1].party_id].image_url}`" />
               </div>
-            </div>
+            </RouterLink>
           </div>
         </div>
       </div>
       <div class="divider"></div>
       <div class="match-button-group">
-        <div class="button">
+        <RouterLink :to="`/rezultati/${results[2].party_id}`" class="button">
           <span class="party-name">{{ parties[results[2].party_id].party_name }}:</span>
           <span>{{ results[2].percentage }} %</span>
           <div class="party-img">
             <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
             <img :src="`${parties[results[2].party_id].image_url}`" />
           </div>
-        </div>
+        </RouterLink>
       </div>
     </div>
 
@@ -157,27 +159,30 @@ onMounted(() => {
       </div>
       <div>
         <div v-for="index in firstPlace" :key="index" class="match-button-group">
-          <div class="button">
+          <RouterLink :to="`/rezultati/${results[index-1].party_id}`" class="button">
             <span class="party-name">{{ parties[results[index-1].party_id].party_name }}:</span>
             <span>{{ results[index-1].percentage }} %</span>
             <div class="party-img">
               <img :src="`${parties[results[index-1].party_id].image_url}`" />
             </div>
-          </div>
+          </RouterLink>
         </div>
       </div>
     </div>
 
-    <div class="yellow-button hover-pointer" @click="share">
-      deli volitvomat <span class="share-icon"></span>
+    <div class="button-group">
+      <RouterLink to="/statistika" class="yellow-button">
+        poglej podrobne rezultate <span class="search-icon"></span>
+      </RouterLink>
+      <div class="yellow-button hover-pointer" @click="share">
+        deli volitvomat <span class="share-icon"></span>
+      </div>
+      <p class="fine-print">Želiš deliti rezultat? Deli posnetek zaslona.</p>
+      <div class="yellow-button hover-pointer" @click="restartQuiz">
+        reši ponovno
+      </div>
+      <h5>Več na <a href="https://glas-ljudstva.si/" target="_blank">https://glas-ljudstva.si/</a>.</h5>
     </div>
-    <RouterLink to="/statistika" class="yellow-button">
-      poglej podrobne rezultate <span class="search-icon"></span>
-    </RouterLink>
-    <div class="yellow-button hover-pointer" @click="restartQuiz">
-      reši ponovno
-    </div>
-    
   </div>
 </template>
 
@@ -242,6 +247,7 @@ p {
     font-size: 16px;
     font-weight: 600;
     color: #161615;
+    text-decoration: none;
     background-image: url("@/assets/img/bel-gumb.png");
     background-position: center;
     background-repeat: no-repeat;
@@ -277,6 +283,13 @@ p {
 .yellow-button .search-icon {
   width: 30px;
   height: 30px;
+}
+
+p.fine-print {
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 5px;
 }
 
 .white-button-border {
