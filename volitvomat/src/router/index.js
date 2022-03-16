@@ -4,6 +4,7 @@ import IntroductionView from "../views/IntroductionView.vue";
 import InstructionsView from "../views/InstructionsView.vue";
 import ResultsView from "../views/ResultsView.vue";
 import StatisticsView from "../views/StatisticsView.vue";
+import ResultsByPartyView from "../views/ResultsByPartyView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,11 @@ const router = createRouter({
       path: "/rezultati",
       name: "results",
       component: ResultsView,
+    },
+    {
+      path: "/rezultati/:id",
+      name: "resultsByParty",
+      component: ResultsByPartyView,
     },
     {
       path: "/statistika",

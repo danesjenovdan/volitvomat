@@ -63,9 +63,16 @@ onMounted(() => {
     </p>
     <div class="party-list">
       <div v-for="party in results" :key="parties[party.party_id].party_name" class="party">
-        <img :src="`${parties[party.party_id].image_url}`" class="party-image" />
+        <RouterLink :to="`/rezultati/${party.party_id}`">
+          <img :src="`${parties[party.party_id].image_url}`" class="party-image" />
+        </RouterLink>
         <div class="party-description">
-          <p><span>{{ parties[party.party_id].party_name }}</span><span>{{ party.percentage }} %</span></p>
+          <p>
+            <RouterLink :to="`/rezultati/${party.party_id}`">
+              <span>{{ parties[party.party_id].party_name }}</span>
+            </RouterLink>
+            <span>{{ party.percentage }} %</span>
+          </p>
           <div class="progress">
             <div class="progress-bar" role="progressbar" :aria-valuenow="party.percentage" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${party.percentage}%`}"></div>
           </div>
@@ -73,9 +80,15 @@ onMounted(() => {
       </div>
       <!-- DeSUS -->
       <div class="party" v-if="results.length > 0">
-        <img :src="`${parties[desus.party_id].image_url}`" class="party-image" />
+        <RouterLink :to="`/rezultati/${desus.party_id}`">
+          <img :src="`${parties[desus.party_id].image_url}`" class="party-image" />
+        </RouterLink>
         <div class="party-description">
-          <p><span>{{ parties[desus.party_id].party_name }} *</span><span>{{ desus.percentage }} %</span></p>
+          <p>
+            <RouterLink :to="`/rezultati/${desus.party_id}`">
+              <span>{{ parties[desus.party_id].party_name }} *</span>
+            </RouterLink>
+            <span>{{ desus.percentage }} %</span></p>
           <div class="progress">
             <div class="progress-bar" role="progressbar" :aria-valuenow="desus.percentage" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${desus.percentage}%`}"></div>
           </div>
@@ -132,6 +145,13 @@ p.fine-print {
 
 .party-description {
   flex-grow: 1;
+  a {
+    color: inherit;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
   p {
     display: flex;
     justify-content: space-between;
