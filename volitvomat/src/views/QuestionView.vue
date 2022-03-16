@@ -135,7 +135,13 @@ onMounted(() => {
         <!-- <div style="text-align: right;">
           <img src="../assets/img/zapri.svg" class="close-icon hover-pointer" @click="moreInfo = false" />
         </div> -->
-        <p>{{ question.demand_description }}</p>
+        <div>
+          <h4>{{ question.demand_title }}</h4>
+          <p>{{ question.demand_description }}</p>
+        </div>
+        <div class="show-less">
+          <img src="../assets/img/razsiri.svg"/>
+        </div>
       </div>
     </main>
   </div>
@@ -252,15 +258,31 @@ main {
 }
 
 .modal {
-  padding: 15px 20px;
-  display: block;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   overflow-y: auto;
 }
 
 .modal p {
-  font-size: 17px;
-  line-height: 27px;
+  font-size: 16px;
+  line-height: 24px;
   padding: 0;
+}
+
+.modal h4 {
+  font-size: 20px;
+  line-height: 26px;
+  margin-bottom: 20px;
+}
+
+.show-less {
+  text-align: center;
+  img {
+    height: 20px;
+    transform: rotate(180deg);
+  }
 }
 
 .progress-bar-wrapper {
@@ -275,7 +297,7 @@ main {
   padding: 0 20px;
   text-align: center;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   .info-button {
     width: 70px;

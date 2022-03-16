@@ -158,7 +158,7 @@ export default {
     <h4>{{ title }}</h4>
     <p class="card-description">{{ description }}</p>
     <div class="more">
-      <img src="../assets/img/razsiri.svg" class="show-more hover-pointer" />
+      <img src="../assets/img/razsiri.svg" class="show-more" />
     </div>
   </div>
 </template>
