@@ -12,24 +12,38 @@ const parties = computed(() => store.getters.getParties);
 const results = computed(() => store.getters.getResults);
 const desus = computed(() => store.getters.getDesus);
 
+// images
+import Konkretno from '@/assets/img/parties/konkretno.jpg';
+import NasaDezela from '@/assets/img/parties/nasa-dezela.jpg';
+import NSi from '@/assets/img/parties/nsi.jpg';
+import PovezimoSlovenijo from '@/assets/img/parties/povezimo-slovenijo.jpg';
+import SDS from '@/assets/img/parties/sds.jpg';
+import SNS from '@/assets/img/parties/sns.jpg';
+
 const missingParties = [
   {
-    'name': 'SDS'
+    'name': 'SDS',
+    'image': SDS
   },
   {
-    'name': 'NSi'
+    'name': 'NSi',
+    'image': NSi
   },
   {
-    'name': 'Konkretno'
+    'name': 'Konkretno',
+    'image': Konkretno
   },
   {
-    'name': 'SNS'
+    'name': 'SNS',
+    'image': SNS
   },
   {
-    'name': 'Naša dežela'
+    'name': 'Naša dežela',
+    'image': NasaDezela
   },
   {
-    'name': 'Povežimo Slovenijo'
+    'name': 'Povežimo Slovenijo',
+    'image': PovezimoSlovenijo
   }
 ]
 
@@ -104,7 +118,7 @@ onMounted(() => {
     </p>
     <div class="parties-not-included">
       <div v-for="party in missingParties" :key="party.name" class="party">
-        <img src="../assets/img/podlaga-za-stranke.svg" class="party-image" />
+        <img :src="party.image" class="party-image" />
         <div class="party-description">
           <p>{{ party.name }}</p>
         </div>
@@ -146,7 +160,7 @@ p.fine-print {
 .party-description {
   flex-grow: 1;
   a {
-    color: inherit;
+    color: #fffaf7;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
@@ -169,8 +183,20 @@ p.fine-print {
 }
 
 .parties-not-included {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
   .party {
     align-items: center;
+    padding-right: 20px;
+    flex-basis: 50%;
+    @media (min-width: 768px) {
+      flex-basis: 30%;
+    }
+    .party-description p {
+      line-height: 16px;
+      text-align: left;
+    }
   }
 }
 </style>
