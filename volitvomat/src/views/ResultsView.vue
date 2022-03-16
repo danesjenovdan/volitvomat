@@ -194,6 +194,12 @@ p {
   text-align: center;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .match {
   display: flex;
   justify-content: center;
