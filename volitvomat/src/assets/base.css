@@ -15,7 +15,7 @@ body {
   /* min-height: 100vh; */
   height: 100%;
   color: #fffaf7;
-  background: #212121;
+  background: #161615;
   transition: color 0.5s, background-color 0.5s;
   font-family: 'Manrope', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -146,7 +146,8 @@ body {
 .modal {
   position: absolute;
   top: 0;
-  bottom: -50px;
+  /* bottom: -50px; */
+  bottom: 0;
   left: 0;
   right: 0;
   padding: 20px;
