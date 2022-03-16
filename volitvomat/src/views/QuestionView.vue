@@ -73,6 +73,13 @@ onMounted(() => {
   }
 });
 
+router.beforeEach((to, from) => {
+  if (moreInfo.value) {
+    moreInfo.value = false;
+    return false;
+  }
+});
+
 </script>
 
 <template>
@@ -269,6 +276,7 @@ main {
   font-size: 16px;
   line-height: 24px;
   padding: 0;
+  margin-bottom: 20px;
 }
 
 .modal h4 {
