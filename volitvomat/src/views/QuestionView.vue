@@ -96,8 +96,8 @@ router.beforeEach((to, from) => {
       <div class="swipe-card-wrapper">
         <SwipeCard
           v-if="question"
-          :title="question.demand_title" 
-          :description="question.demand_description"
+          :title="question.twisted?.demand_title || question.demand_title" 
+          :description="question.twisted?.demand_description || question.demand_description"
           :image-url="question.category"
           :swiping="!desktop"
           @yes="saveAnswer(questionId, true)"

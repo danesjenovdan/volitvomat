@@ -70,7 +70,40 @@ watch(
     
     <div class="divider"></div>
     <div v-for="(question, question_id) in questions" :key="question_id" class="question">
-      <div v-if="question_id in answers && question.party_answers[partyId] !== answers[question_id]">
+      <template v-if="question.twisted">
+        <div v-if="question_id in answers && question.twisted.party_answers[partyId] !== answers[question_id]">
+        <div class="card">
+          <h4>{{ question.demand_title }}</h4>
+          <p>{{ question.demand_description }}</p>
+        </div>
+        <div class="answers">
+          <div class="answer">
+            <h4>Odgovor stranke:</h4>
+            <div>
+              <span v-if="question.party_answers[partyId]">DA</span>
+              <div v-if="question.party_answers[partyId]" class="yes-button hover-pointer"></div>
+              <span v-if="!question.party_answers[partyId]">NE</span>
+              <div v-if="!question.party_answers[partyId]" class="no-button hover-pointer"></div>
+            </div>
+          </div>
+          <div class="answer">
+            <h4>Tvoj odgovor:</h4>
+            <div>
+              <span v-if="!answers[question_id]">DA</span>
+              <div v-if="!answers[question_id]" class="yes-button hover-pointer"></div>
+              <span v-if="answers[question_id]">NE</span>
+              <div v-if="answers[question_id]" class="no-button hover-pointer"></div>
+            </div>
+          </div>
+        </div>
+        <div v-if="question.party_comments[partyId]">
+            <h4>Komentar stranke:</h4>
+            <p>{{ question.party_comments[partyId] }}</p>
+        </div>
+      </div>
+      </template>
+      <template v-else>
+        <div v-if="question_id in answers && question.party_answers[partyId] !== answers[question_id]">
         <div class="card">
           <h4>{{ question.demand_title }}</h4>
           <p>{{ question.demand_description }}</p>
@@ -100,6 +133,7 @@ watch(
             <p>{{ question.party_comments[partyId] }}</p>
         </div>
       </div>
+      </template>
     </div>
   </div>
 </template>

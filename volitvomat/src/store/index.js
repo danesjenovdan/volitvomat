@@ -79,7 +79,7 @@ const store = createStore({
         // count matching answers for each party
         for (const id in state.answers) { // go through answers
           for (const party_id in answers_party_matches) { // compare user answer to all parties
-            if (state.answers[id] == state.questions[id].party_answers[party_id]) {
+            if (state.answers[id] == (state.questions[id].twisted?.party_answers[party_id] || state.questions[id].party_answers[party_id])) {
               answers_party_matches[party_id].count++;
               answers_party_matches[party_id].percentage =  Math.round(answers_party_matches[party_id].count / answersNo * 100)
             }
