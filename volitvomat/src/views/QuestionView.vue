@@ -196,9 +196,9 @@ router.beforeEach((to, from) => {
 }
 
 main {
-  display: flex; 
-  flex-direction: column; 
-  // height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 100%;
 }
 
@@ -215,6 +215,7 @@ main {
   align-items: center;
   overflow: hidden;
   padding: 0 20px;
+  max-height: 600px;
 }
 
 .swipe-card-background {
