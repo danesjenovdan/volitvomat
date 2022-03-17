@@ -8,6 +8,7 @@ const store = createStore({
       storeInitialized: false,
       parties: {},
       questions: {},
+      questionsList: [],
       answers: {},
       results: {},
       desus: {},
@@ -25,7 +26,7 @@ const store = createStore({
       return state.questions;
     },
     getQuestionsList(state) {
-      return Object.keys(state.questions);
+      return state.questionsList;
     },
     getAnswers(state) {
       return state.answers;
@@ -122,9 +123,21 @@ const store = createStore({
       state.quizFinished = true;
       localStorage.setItem('quizFinished', 'true');
     },
-    setQuestions(state, questions) {
-      state.questions = questions;
+    setQuestions(state, payload) {
+      // save questions object
+      state.questions = payload.questions;
       localStorage.setItem('questions', JSON.stringify(state.questions))
+      // create list of questions and shuffle it
+      if (!payload.questionsList) {
+        const questionsList = Object.keys(payload.questions);
+        const shuffledQuestions = questionsList.sort(() => Math.random() - 0.5);
+        state.questionsList = shuffledQuestions;
+        localStorage.setItem('questionsList', JSON.stringify(state.questionsList));
+      } else {
+        state.questionsList = payload.questionsList;
+        // localStorage.setItem('questionsList', JSON.stringify(state.questionsList))
+      }
+      
     },
     setParties(state, parties) {
       state.parties = {}
@@ -144,10 +157,14 @@ const store = createStore({
       // check if data exists in local storage
       const parties = localStorage.getItem('parties');
       const questions = localStorage.getItem('questions');
+      const questionsList = localStorage.getItem('questionsList');
       const answers = localStorage.getItem('answers');
       const finished = localStorage.getItem('quizFinished');
-      if (parties && questions) {
-        commit('setQuestions', JSON.parse(questions));
+      if (parties && questions && questionsList) {
+        commit('setQuestions', {
+          questions: JSON.parse(questions), 
+          questionsList: JSON.parse(questionsList)
+        });
         state.parties = JSON.parse(parties); // TODO: change to commit when api is fixed
         // commit('setParties', response.data['parties']);
         if (answers) {
@@ -166,8 +183,10 @@ const store = createStore({
       return state.quizFinished;
     },
     async getData({ commit, state }) {
-      const response = await axios.get(`${state.apiUrl}/api/volitvomat`);
-      commit('setQuestions', response.data['questions']);
+      const response = await axios.get(`${state.apiUrl}/api/volitvomat`);      
+      commit('setQuestions', {
+        questions: response.data['questions']
+      });
       commit('setParties', response.data['parties']);
     },
     clearStore({ commit, dispatch }) {
