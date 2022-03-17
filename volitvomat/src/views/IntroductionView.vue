@@ -36,7 +36,7 @@ onMounted(() => {
       Volitvomat je nastal na podlagi odgovorov političnih strank na 138 zahtev, ki smo jih v odprtem procesu postavile civilnodružbene organizacije, združene v iniciativo <a href="https://glas-ljudstva.si/" target="_blank">Glas ljudstva</a>. Čeprav smo k podajanju konkretnih odgovorov pozvali vse stranke, ki bodo sodelovale na volitvah, številne med njimi niso želele dati svojih zavez in tako prispevati k boljši informiranosti volivk in volivcev.
     </p>
     <p>V nadaljevanju lahko podaš svoje odgovore na 40 zahtev, na podlagi rezultatov pa ti bomo pokazali, s katero od sodelujočih političnih strank se najbolj ujemajo tvoja stališča. Nato lahko tudi podrobneje raziščeš, na katerih področjih se s posameznimi strankami ne strinjaš in zakaj je temu tako.</p>
-    <p>Ko rešiš vprašalnik in pregledaš rezultate pa povezavo do Volitvomata ne pozabi deliti še s prijateljicami in prijatelji, saj jim lahko tako morda olajšaš odločitev.</p>
+    <p>Ko rešiš vprašalnik in pregledaš rezultate, pa povezave do Volitvomata ne pozabi deliti še s prijateljicami in prijatelji, saj jim lahko tako morda olajšaš odločitev.</p>
     <div class="button-wrapper">
       <RouterLink to="/navodila" class="white-button-border">ZAČNI</RouterLink>
     </div>
