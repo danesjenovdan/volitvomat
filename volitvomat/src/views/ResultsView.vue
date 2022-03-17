@@ -306,7 +306,7 @@ p.fine-print {
   font-size: 16px;
   padding: 0;
   &>div {
-    padding: 30px 50px;
+    padding: 40px;
   }
   span {
     font-family: 'Grandstander', cursive;
