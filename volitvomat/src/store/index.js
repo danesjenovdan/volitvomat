@@ -58,11 +58,23 @@ const store = createStore({
     },
     addAnswer(state, payload) {
       state.answers[payload.id] = payload.answer;
-      localStorage.setItem('answers', JSON.stringify(state.answers))
+      localStorage.setItem('answers', JSON.stringify(state.answers));
+      plausible('Answer', {
+        props: {
+          demandId: payload.id,
+          answer: (payload.answer ? 1 : -1),
+        }
+      });
     },
     removeAnswer(state, payload) {
       delete state.answers[payload.id];
-      localStorage.setItem('answers', JSON.stringify(state.answers))
+      localStorage.setItem('answers', JSON.stringify(state.answers));
+      plausible('Answer', {
+        props: {
+          demandId: payload.id,
+          answer: 0,
+        }
+      });
     },
     calculateResults(state) {
       const answers_party_matches = {}
