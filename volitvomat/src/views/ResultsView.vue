@@ -194,10 +194,12 @@ p {
   text-align: center;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+@media (min-width: 992px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .match {
