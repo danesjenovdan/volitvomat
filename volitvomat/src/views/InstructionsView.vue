@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 const store = useStore();
+const route = useRoute();
 const router = useRouter();
 
 const screenWidth = ref(window.innerWidth);
@@ -11,6 +12,10 @@ const desktop = computed(() => screenWidth.value > 992);
 
 const storeInitialized = computed(() => store.getters.getStoreInitialized);
 const quizFinished = computed(() => store.getters.getQuizFinished);
+
+const startQuiz = () => {
+  router.push("/vprasanje/0");
+}
 
 onMounted(() => {
   if (!storeInitialized.value) {
@@ -27,7 +32,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container" @click="startQuiz">
     <header>
       <h1>Kako rešujem?</h1>
     </header>
