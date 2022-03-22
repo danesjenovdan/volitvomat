@@ -69,7 +69,7 @@ watch(
       <img :src="`${parties[partyId].image_url}`" class="person" />
     </div>
     
-    <p class="title" style="margin-bottom: 0;">Primerjava tvojih odgovorov s stranko: {{ parties[partyId].party_name }}</p>
+    <p class="title" style="margin-bottom: 0;">Primerjava tvojih odgovorov s stranko: {{ parties[partyId].party_name }}.</p>
 
     <div v-if="result" class="match">
       <p>Ujemanje: <span>{{ result.percentage }} %</span></p>
@@ -79,7 +79,7 @@ watch(
     </div>
     
     <div class="divider"></div>
-    <p class="title">V čem se s stranko ne strinjaš?</p>
+    <p class="title">Zahteve, pri katerih se s stranko ne strinjaš.</p>
     <div v-for="question_id in questions_differences" :key="question_id" class="question">
       <div class="card">
         <h4>{{ questions[question_id].demand_title }}</h4>
@@ -112,7 +112,7 @@ watch(
     </div>
 
     <div class="divider"></div>
-    <p class="title">Odgovori stranke na zahteve, ki si jih preskočil_a</p>
+    <p class="title">Odgovori stranke na zahteve, ki si jih preskočil_a.</p>
     <div v-for="question_id in questions_skipped" :key="question_id" class="question">
       <div class="card">
         <h4>{{ questions[question_id].demand_title }}</h4>
@@ -136,7 +136,7 @@ watch(
     </div>
 
     <div class="divider"></div>
-    <p class="title">V čem se s stranko strinjaš?</p>
+    <p class="title">Zahteve, pri katerih se s stranko strinjaš.</p>
     <div v-for="question_id in questions_similarities" :key="question_id" class="question">
       <div class="card">
         <h4>{{ questions[question_id].demand_title }}</h4>
