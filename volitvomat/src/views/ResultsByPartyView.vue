@@ -24,7 +24,17 @@ const result = computed(() => {
   return {};
 });
 const questions = computed(() => store.getters.getQuestions);
+const questionsList = computed(() => store.getters.getQuestionsList);
 const answers = computed(() => store.getters.getAnswers);
+const questions_differences = computed(() => {
+  return questionsList.value.filter(q_id => q_id in answers.value && questions.value[q_id].party_answers[partyId.value] !== answers.value[q_id]);
+})
+const questions_skipped = computed(() => {
+  return questionsList.value.filter(q_id => !(q_id in answers.value));
+})
+const questions_similarities = computed(() => {
+  return questionsList.value.filter(q_id => q_id in answers.value && questions.value[q_id].party_answers[partyId.value] === answers.value[q_id]);
+})
 
 onMounted(() => {
   if (!storeInitialized.value) {
@@ -59,7 +69,7 @@ watch(
       <img :src="`${parties[partyId].image_url}`" class="person" />
     </div>
     
-    <p class="title">Kako se tvoji odgovori razlikujejo od stranke {{ parties[partyId].party_name }}?</p>
+    <p class="title" style="margin-bottom: 0;">Primerjava tvojih odgovorov s stranko: {{ parties[partyId].party_name }}</p>
 
     <div v-if="result" class="match">
       <p>Ujemanje: <span>{{ result.percentage }} %</span></p>
@@ -69,38 +79,95 @@ watch(
     </div>
     
     <div class="divider"></div>
-    <div v-for="(question, question_id) in questions" :key="question_id" class="question">
-      <div v-if="question_id in answers && question.party_answers[partyId] !== answers[question_id]">
-        <div class="card">
-          <h4>{{ question.demand_title }}</h4>
-          <p>{{ question.demand_description }}</p>
-        </div>
-        <div class="answers">
-          <div class="answer">
-            <h4>Odgovor stranke:</h4>
-            <div>
-              <span v-if="question.party_answers[partyId]">DA</span>
-              <div v-if="question.party_answers[partyId]" class="yes-button hover-pointer"></div>
-              <span v-if="!question.party_answers[partyId]">NE</span>
-              <div v-if="!question.party_answers[partyId]" class="no-button hover-pointer"></div>
-            </div>
-          </div>
-          <div class="answer">
-            <h4>Tvoj odgovor:</h4>
-            <div>
-              <span v-if="answers[question_id]">DA</span>
-              <div v-if="answers[question_id]" class="yes-button hover-pointer"></div>
-              <span v-if="!answers[question_id]">NE</span>
-              <div v-if="!answers[question_id]" class="no-button hover-pointer"></div>
-            </div>
+    <p class="title">V čem se s stranko ne strinjaš?</p>
+    <div v-for="question_id in questions_differences" :key="question_id" class="question">
+      <div class="card">
+        <h4>{{ questions[question_id].demand_title }}</h4>
+        <p>{{ questions[question_id].demand_description }}</p>
+      </div>
+      <div class="answers">
+        <div class="answer">
+          <h4>Odgovor stranke:</h4>
+          <div>
+            <span v-if="questions[question_id].party_answers[partyId]">DA</span>
+            <div v-if="questions[question_id].party_answers[partyId]" class="yes-button hover-pointer"></div>
+            <span v-if="!questions[question_id].party_answers[partyId]">NE</span>
+            <div v-if="!questions[question_id].party_answers[partyId]" class="no-button hover-pointer"></div>
           </div>
         </div>
-        <div v-if="question.party_comments[partyId]">
-            <h4>Komentar stranke:</h4>
-            <p>{{ question.party_comments[partyId] }}</p>
+        <div class="answer">
+          <h4>Tvoj odgovor:</h4>
+          <div>
+            <span v-if="answers[question_id]">DA</span>
+            <div v-if="answers[question_id]" class="yes-button hover-pointer"></div>
+            <span v-if="!answers[question_id]">NE</span>
+            <div v-if="!answers[question_id]" class="no-button hover-pointer"></div>
+          </div>
         </div>
       </div>
+      <div v-if="questions[question_id].party_comments[partyId]">
+          <h4>Komentar stranke:</h4>
+          <p>{{ questions[question_id].party_comments[partyId] }}</p>
+      </div>
     </div>
+
+    <div class="divider"></div>
+    <p class="title">Odgovori stranke na zahteve, ki si jih preskočil_a</p>
+    <div v-for="question_id in questions_skipped" :key="question_id" class="question">
+      <div class="card">
+        <h4>{{ questions[question_id].demand_title }}</h4>
+        <p>{{ questions[question_id].demand_description }}</p>
+      </div>
+      <div class="answers">
+        <div class="answer">
+          <h4>Odgovor stranke:</h4>
+          <div>
+            <span v-if="questions[question_id].party_answers[partyId]">DA</span>
+            <div v-if="questions[question_id].party_answers[partyId]" class="yes-button hover-pointer"></div>
+            <span v-if="!questions[question_id].party_answers[partyId]">NE</span>
+            <div v-if="!questions[question_id].party_answers[partyId]" class="no-button hover-pointer"></div>
+          </div>
+        </div>
+      </div>
+      <div v-if="questions[question_id].party_comments[partyId]">
+          <h4>Komentar stranke:</h4>
+          <p>{{ questions[question_id].party_comments[partyId] }}</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <p class="title">V čem se s stranko strinjaš?</p>
+    <div v-for="question_id in questions_similarities" :key="question_id" class="question">
+      <div class="card">
+        <h4>{{ questions[question_id].demand_title }}</h4>
+        <p>{{ questions[question_id].demand_description }}</p>
+      </div>
+      <div class="answers">
+        <div class="answer">
+          <h4>Odgovor stranke:</h4>
+          <div>
+            <span v-if="questions[question_id].party_answers[partyId]">DA</span>
+            <div v-if="questions[question_id].party_answers[partyId]" class="yes-button hover-pointer"></div>
+            <span v-if="!questions[question_id].party_answers[partyId]">NE</span>
+            <div v-if="!questions[question_id].party_answers[partyId]" class="no-button hover-pointer"></div>
+          </div>
+        </div>
+        <div class="answer">
+          <h4>Tvoj odgovor:</h4>
+          <div>
+            <span v-if="answers[question_id]">DA</span>
+            <div v-if="answers[question_id]" class="yes-button hover-pointer"></div>
+            <span v-if="!answers[question_id]">NE</span>
+            <div v-if="!answers[question_id]" class="no-button hover-pointer"></div>
+          </div>
+        </div>
+      </div>
+      <div v-if="questions[question_id].party_comments[partyId]">
+          <h4>Komentar stranke:</h4>
+          <p>{{ questions[question_id].party_comments[partyId] }}</p>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -116,6 +183,7 @@ p.title {
   font-weight: 600;
   font-size: 21px;
   text-align: center;
+  margin-bottom: 40px;
 }
 
 .divider {
