@@ -31,12 +31,12 @@ onMounted(() => {
       <img src="../assets/img/volitvomat-znak.svg" class="header-logo"/>
       VOLITVOMAT
     </header>
-    <h2>Politične stranke, ki bodo sodelovale na prihajajočih državnozborskih volitvah, imajo zelo različne programske usmeritve. Ker je prihodnost Slovenije odvisna od vseh nas, ki jim bomo aprila namenjali glasove, smo razvili orodje Volitvomat. Z njim lahko preveriš, v kolikšni meri se tvoja politična prepričanja skladajo s stališči strank, in tako sprejmeš bolj kakovostno odločitev.</h2>
+    <h2>Politične stranke, med katerimi bomo izbirali na volitvah 24. 4. 2022, imajo različne programe in prioritete. Ker želimo volivkam in volivcem olajšati odločitev, smo razvili Volitvomat, s pomočjo katerega lahko vsak preveri, s katerimi strankami se po stališčih in prepričanjih najbolj ujema.</h2>
     <p>
-      Volitvomat je nastal na podlagi odgovorov političnih strank na 138 zahtev, ki smo jih v odprtem procesu postavile civilnodružbene organizacije, združene v iniciativo <a href="https://glas-ljudstva.si/" target="_blank">Glas ljudstva</a>. Čeprav smo k podajanju konkretnih odgovorov pozvali vse stranke, ki bodo sodelovale na volitvah, številne med njimi niso želele dati svojih zavez in tako prispevati k boljši informiranosti volivk in volivcev.
+      Orodje temelji na odgovorih strank na 138 zahtev, ki so jih skupaj postavile civilnodružbene organizacije, združene v iniciativo Glas ljudstva. H konkretnim odzivom smo večkrat pozvali prav vse stranke, toda številne svojih zavez niso želele prispevati. A ni še prepozno – vse stranke, ki nam bodo posredovale svoje zaveze, bomo takoj vključili v Volitvomat.
     </p>
-    <p>V nadaljevanju lahko podaš svoje odgovore na 40 zahtev, na podlagi rezultatov pa ti bomo pokazali, s katero od sodelujočih političnih strank se najbolj ujemajo tvoja stališča. Nato lahko tudi podrobneje raziščeš, na katerih področjih se s posameznimi strankami ne strinjaš in zakaj je temu tako.</p>
-    <p>Ko rešiš vprašalnik in pregledaš rezultate, pa povezave do Volitvomata ne pozabi deliti še s prijateljicami in prijatelji, saj jim lahko tako morda olajšaš odločitev.</p>
+    <p>V Volitvomatu je zbranih 40 zahtev, na katere lahko podaš svoj odgovor. Na podlagi rezultatov izveš, katera izmed sodelujočih strank najbolj ustreza tvojim stališčem, lahko pa tudi podrobneje raziščeš, na katerih točkah so razhajanja največja in zakaj.</p>
+    <p>In za konec: ne pozabi deliti povezave do Volitvomata s prijateljicami in prijatelji, saj jim lahko tako olajšaš odločitev.</p>
     <div class="button-wrapper">
       <RouterLink to="/navodila" class="white-button-border">ZAČNI</RouterLink>
     </div>
