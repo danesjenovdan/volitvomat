@@ -13,7 +13,7 @@ const parties = computed(() => store.getters.getParties);
 onMounted(() => {
   // number 5 is DeSUS, this is here to clear old data
   // from parliamentary elections 2022
-  if (Object.keys(parties.value).includes('25')) {
+  if (Object.keys(parties.value).includes('5')) {
     store.dispatch('clearStore');
   }
   if (!storeInitialized.value) {
