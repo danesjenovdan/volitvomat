@@ -8,8 +8,14 @@ const router = useRouter();
 
 const storeInitialized = computed(() => store.getters.getStoreInitialized);
 const quizFinished = computed(() => store.getters.getQuizFinished);
+const parties = computed(() => store.getters.getParties);
 
 onMounted(() => {
+  // number 5 is DeSUS, this is here to clear old data
+  // from parliamentary elections 2022
+  if (Object.keys(parties.value).includes('25')) {
+    store.dispatch('clearStore');
+  }
   if (!storeInitialized.value) {
     store.dispatch("initializeStore").then((quiz_finished) => {
       if (quiz_finished) {
