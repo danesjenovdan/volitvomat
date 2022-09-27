@@ -157,9 +157,6 @@ export default {
     <img :src="images[imageUrl]" class="category-img" />
     <h4>{{ title }}</h4>
     <p class="card-description">{{ description }}</p>
-    <div class="more">
-      <img src="../assets/img/open.png" class="show-more" />
-    </div>
   </div>
 </template>
 
@@ -219,10 +216,11 @@ export default {
     padding-top: 120px;
     padding-bottom: 80px;
     h4 {
-      padding-right: 20px;
-      margin-bottom: 0;
+      // padding-right: 20px;
+      // margin-bottom: 0;
       min-width: 50%;
       max-width: 50%;
+      margin-left: 25%;
     }
     p {
       font-size: 16px;
@@ -230,7 +228,7 @@ export default {
     }
     .category-img {
       height: 100px;
-      left: 25%;
+      // left: 25%;
     }
   }
 

@@ -63,7 +63,7 @@ onMounted(() => {
 
     <div class="single-winner" v-if="firstPlace === 1">
 
-      <p>Najbolj se ujemaš s stranko</p>
+      <p>Najbolj se ujemaš s kandidatom_ko</p>
 
       <div class="match">
         <img src="../assets/img/oseba.svg" class="person" />
@@ -109,7 +109,7 @@ onMounted(() => {
 
     </div>
 
-    <p v-if="results[0].percentage === results[1].percentage">Najbolj se ujemaš s strankami</p>
+    <p v-if="results[0].percentage === results[1].percentage">Najbolj se ujemaš s kandidati_kami</p>
 
     <div class="two-winners" v-if="firstPlace === 2">
       <div class="flex">
@@ -182,7 +182,7 @@ onMounted(() => {
       <div class="yellow-button hover-pointer" @click="restartQuiz">
         reši ponovno
       </div>
-      <h5>Vse odgovore strank najdeš na <a href="https://glas-ljudstva.si/" target="_blank">glas-ljudstva.si/</a>.</h5>
+      <h5>Vse odgovore kandidatk_ov najdeš na <a href="https://glas-ljudstva.si/" target="_blank">glas-ljudstva.si/</a>.</h5>
     </div>
   </div>
 </template>
