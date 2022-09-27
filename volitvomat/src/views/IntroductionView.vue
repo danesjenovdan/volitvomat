@@ -31,11 +31,12 @@ onMounted(() => {
       <img src="../assets/img/volitvomat-znak.svg" class="header-logo"/>
       VOLITVOMAT
     </header>
-    <h2>Politične stranke, med katerimi bomo izbirali na volitvah 24. 4. 2022, imajo različne programe in prioritete. Ker želimo volivkam in volivcem olajšati odločitev, smo razvili Volitvomat, s pomočjo katerega lahko vsak preveri, s katerimi strankami se po stališčih in prepričanjih najbolj ujema.</h2>
+    <h2>Kandidatke in kandidati, med katerimi bomo izbirali na predsedniških volitvah 23. 10. 2022, imajo različne poglede in prioritete. Ker želimo volivkam in volivcem olajšati odločitev, smo razvili Volitvomat, s pomočjo katerega lahko vsak preveri, s katerimi strankami se po stališčih in prepričanjih najbolj ujema.</h2>
     <p>
-      Orodje temelji na odgovorih strank na 138 zahtev, ki so jih skupaj postavile civilnodružbene organizacije, združene v iniciativo Glas ljudstva. H konkretnim odzivom smo večkrat pozvali prav vse stranke, toda številne svojih zavez niso želele prispevati. A ni še prepozno – vse stranke, ki nam bodo posredovale svoje zaveze, bomo takoj vključili v Volitvomat.
+      Orodje temelji na odgovorih kandidatk in kandidatov na 30 vprašanj, ki so jih skupaj postavile civilnodružbene organizacije, združene v iniciativo Glas ljudstva. H konkretnim odzivom smo večkrat pozvali prav vse kandidate in kandidatke, toda številni svojih stališč niso želeli prispevati. A ni še prepozno – vse kandidatke in kandidati, ki nam bodo posredovali svoje stališča, bomo takoj vključili v Volitvomat.
     </p>
-    <p>V Volitvomatu je zbranih 40 zahtev, na katere lahko podaš svoj odgovor. Na podlagi rezultatov izveš, katera izmed sodelujočih strank najbolj ustreza tvojim stališčem, lahko pa tudi podrobneje raziščeš, na katerih točkah so razhajanja največja in zakaj.</p>
+    <p>V Volitvomatu je zbranih 30 trditev, na katere lahko podaš svoj odgovor. Na podlagi rezultatov izveš, kateri izmed sodelujočih kandidatk ali kandidatov najbolj ustreza tvojim stališčem, lahko pa tudi podrobneje raziščeš, na katerih točkah so razhajanja največja in zakaj.</p>
+    <p>Vprašanja smo namenoma podali iz različnih svetovnih in vrednotnih nazorov ter zato posebej poudarjamo, da to niso stališča iniciative Glas ljudstva.</p>
     <p>In za konec: ne pozabi deliti povezave do Volitvomata s prijateljicami in prijatelji, saj jim lahko tako olajšaš odločitev.</p>
     <div class="button-wrapper">
       <RouterLink to="/navodila" class="white-button-border">ZAČNI</RouterLink>

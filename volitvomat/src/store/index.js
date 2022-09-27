@@ -4,7 +4,7 @@ import axios from 'axios'
 const store = createStore({
   state() {
     return {
-      apiUrl: "https://glas-ljudstva.si",
+      apiUrl: "https://glas-ljudstva.si/2",
       storeInitialized: false,
       parties: {},
       questions: {},

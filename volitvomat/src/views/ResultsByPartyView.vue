@@ -69,7 +69,7 @@ watch(
       <img :src="`${parties[partyId].image_url}`" class="person" />
     </div>
     
-    <p class="title" style="margin-bottom: 0;">Primerjava tvojih odgovorov s stranko: {{ parties[partyId].party_name }}.</p>
+    <p class="title" style="margin-bottom: 0;">Primerjava tvojih odgovorov s kandidatom_ko: {{ parties[partyId].party_name }}.</p>
 
     <div v-if="result" class="match">
       <p>Ujemanje: <span>{{ result.percentage }} %</span></p>
@@ -79,7 +79,7 @@ watch(
     </div>
     
     <div class="divider"></div>
-    <p class="title">Zahteve, pri katerih se s stranko ne strinjaš.</p>
+    <p class="title">Zahteve, pri katerih se s kandidatom_ko ne strinjaš.</p>
     <div v-for="question_id in questions_differences" :key="question_id" class="question">
       <div class="card">
         <h4>{{ questions[question_id].demand_title }}</h4>
@@ -87,7 +87,7 @@ watch(
       </div>
       <div class="answers">
         <div class="answer">
-          <h4>Odgovor stranke:</h4>
+          <h4>Odgovor kandidata_ke:</h4>
           <div>
             <span v-if="questions[question_id].party_answers[partyId]">DA</span>
             <div v-if="questions[question_id].party_answers[partyId]" class="yes-button hover-pointer"></div>
@@ -106,13 +106,13 @@ watch(
         </div>
       </div>
       <div v-if="questions[question_id].party_comments[partyId]">
-          <h4>Komentar stranke:</h4>
+          <h4>Komentar kandidata_ke:</h4>
           <p>{{ questions[question_id].party_comments[partyId] }}</p>
       </div>
     </div>
 
     <div class="divider"></div>
-    <p class="title">Odgovori stranke na zahteve, ki si jih preskočil_a.</p>
+    <p class="title">Odgovori kandidatk_ov na vprašanja, ki si jih preskočil_a.</p>
     <div v-for="question_id in questions_skipped" :key="question_id" class="question">
       <div class="card">
         <h4>{{ questions[question_id].demand_title }}</h4>
@@ -120,7 +120,7 @@ watch(
       </div>
       <div class="answers">
         <div class="answer">
-          <h4>Odgovor stranke:</h4>
+          <h4>Odgovor kandidata_ke:</h4>
           <div>
             <span v-if="questions[question_id].party_answers[partyId]">DA</span>
             <div v-if="questions[question_id].party_answers[partyId]" class="yes-button hover-pointer"></div>
@@ -130,13 +130,13 @@ watch(
         </div>
       </div>
       <div v-if="questions[question_id].party_comments[partyId]">
-          <h4>Komentar stranke:</h4>
+          <h4>Komentar kandidata_ke:</h4>
           <p>{{ questions[question_id].party_comments[partyId] }}</p>
       </div>
     </div>
 
     <div class="divider"></div>
-    <p class="title">Zahteve, pri katerih se s stranko strinjaš.</p>
+    <p class="title">Zahteve, pri katerih se s kandidatom_ko strinjaš.</p>
     <div v-for="question_id in questions_similarities" :key="question_id" class="question">
       <div class="card">
         <h4>{{ questions[question_id].demand_title }}</h4>
@@ -144,7 +144,7 @@ watch(
       </div>
       <div class="answers">
         <div class="answer">
-          <h4>Odgovor stranke:</h4>
+          <h4>Odgovor kandidata_ke:</h4>
           <div>
             <span v-if="questions[question_id].party_answers[partyId]">DA</span>
             <div v-if="questions[question_id].party_answers[partyId]" class="yes-button hover-pointer"></div>
@@ -163,7 +163,7 @@ watch(
         </div>
       </div>
       <div v-if="questions[question_id].party_comments[partyId]">
-          <h4>Komentar stranke:</h4>
+          <h4>Komentar kandidata_ke:</h4>
           <p>{{ questions[question_id].party_comments[partyId] }}</p>
       </div>
     </div>

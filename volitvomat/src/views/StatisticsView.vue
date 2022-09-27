@@ -13,37 +13,14 @@ const results = computed(() => store.getters.getResults);
 const desus = computed(() => store.getters.getDesus);
 
 // images
-import Konkretno from '@/assets/img/parties/konkretno.jpg';
-import NasaDezela from '@/assets/img/parties/nasa-dezela.jpg';
-import NSi from '@/assets/img/parties/nsi.jpg';
-import PovezimoSlovenijo from '@/assets/img/parties/povezimo-slovenijo.jpg';
-import SDS from '@/assets/img/parties/sds.jpg';
-import SNS from '@/assets/img/parties/sns.jpg';
+import logar from '@/assets/img/parties/Anže Logar.jpg'
+import bezensek from '@/assets/img/parties/Gregor Bezenšek.jpg'
+import kralj from '@/assets/img/parties/Janez Cigler Kralj.jpg'
 
 const missingParties = [
   {
-    'name': 'SDS',
-    'image': SDS
-  },
-  {
-    'name': 'NSi',
-    'image': NSi
-  },
-  {
-    'name': 'Konkretno',
-    'image': Konkretno
-  },
-  {
-    'name': 'SNS',
-    'image': SNS
-  },
-  {
-    'name': 'Naša dežela',
-    'image': NasaDezela
-  },
-  {
-    'name': 'Povežimo Slovenijo',
-    'image': PovezimoSlovenijo
+    'name': 'Anže Logar',
+    'image': logar
   }
 ]
 
@@ -77,7 +54,7 @@ onMounted(() => {
       Tvoje ujemanje
     </p>
     <p class="subtitle">
-      Za podrobnejšo analizo ujemanja klikni na posamezno stranko.
+      Za podrobnejšo analizo ujemanja klikni na posameznega_o kandidata_ko.
     </p>
     <div class="party-list">
       <RouterLink :to="`/rezultati/${party.party_id}`" v-for="party in results" :key="parties[party.party_id].party_name" class="party">
@@ -92,25 +69,10 @@ onMounted(() => {
           </div>
         </div>
       </RouterLink>
-      <!-- DeSUS -->
-      <RouterLink :to="`/rezultati/${desus.party_id}`" class="party" v-if="results.length > 0">
-        <img :src="`${parties[desus.party_id].image_url}`" class="party-image" />
-        <div class="party-description">
-          <p>
-            <span>{{ parties[desus.party_id].party_name }} *</span>
-            <span>{{ desus.percentage }} %</span></p>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" :aria-valuenow="desus.percentage" aria-valuemin="0" :aria-valuemax="100" :style="{ width: `${desus.percentage}%`}"></div>
-          </div>
-        </div>
-      </RouterLink>
     </div>
-    <p class="fine-print">
-      * Zaradi trenutnega nedoslednega in nestabilnega delovanja ter kršitve ključnih predvolilnih zavez zadnjih volitev stranke DeSUS nismo umestili med priporočene izbire VOLITVOMATA.
-    </p>
     <div class="divider"></div>
     <p>
-      Stranke, ki niso dale nobene zaveze
+      Kandidati_ke, ki niso odgovorili
     </p>
     <div class="parties-not-included">
       <div v-for="party in missingParties" :key="party.name" class="party">
@@ -127,7 +89,7 @@ onMounted(() => {
       <div class="yellow-button hover-pointer" @click="restartQuiz">
         reši ponovno
       </div>
-      <h5>Vse odgovore strank najdeš na <a href="https://glas-ljudstva.si/" target="_blank">glas-ljudstva.si/</a>.</h5>
+      <h5>Vse odgovore kandidatk_ov najdeš na <a href="https://glas-ljudstva.si/" target="_blank">glas-ljudstva.si</a>.</h5>
     </div>
   </div>
 </template>
