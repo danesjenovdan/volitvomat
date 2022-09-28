@@ -11,11 +11,15 @@ const quizFinished = computed(() => store.getters.getQuizFinished);
 const parties = computed(() => store.getters.getParties);
 
 onMounted(() => {
-  // number 5 is DeSUS, this is here to clear old data
+  // this is here to clear old data
   // from parliamentary elections 2022
-  if (Object.keys(parties.value).includes('5')) {
-    store.dispatch('clearStore');
-  }
+  // it actually clears all data always
+  store.dispatch('clearStore');
+  // this used to be used to only clear parliamentary
+  // election data, but it doesn't work reliably
+  // if (Object.keys(parties.value).includes('5')) {
+  //   store.dispatch('clearStore');
+  // }
   if (!storeInitialized.value) {
     store.dispatch("initializeStore").then((quiz_finished) => {
       if (quiz_finished) {
@@ -37,7 +41,7 @@ onMounted(() => {
       <img src="../assets/img/volitvomat-znak.svg" class="header-logo"/>
       VOLITVOMAT
     </header>
-    <h2>Kandidatke in kandidati, med katerimi bomo izbirali na predsedniških volitvah 23. 10. 2022, imajo različne poglede in prioritete. Ker želimo volivkam in volivcem olajšati odločitev, smo razvili Volitvomat, s pomočjo katerega lahko vsak preveri, s katerimi strankami se po stališčih in prepričanjih najbolj ujema.</h2>
+    <h2>Kandidatke in kandidati, med katerimi bomo izbirali na predsedniških volitvah 23. 10. 2022, imajo različne poglede in prioritete. Ker želimo volivkam in volivcem olajšati odločitev, smo razvili Volitvomat, s pomočjo katerega lahko vsak preveri, s katerimi kandidatkami in kandidati se po stališčih in prepričanjih najbolj ujema.</h2>
     <p>
       Orodje temelji na odgovorih kandidatk in kandidatov na 30 vprašanj, ki so jih skupaj postavile civilnodružbene organizacije, združene v iniciativo Glas ljudstva. H konkretnim odzivom smo večkrat pozvali prav vse kandidate in kandidatke, toda številni svojih stališč niso želeli prispevati. A ni še prepozno – vse kandidatke in kandidati, ki nam bodo posredovali svoje stališča, bomo takoj vključili v Volitvomat.
     </p>
