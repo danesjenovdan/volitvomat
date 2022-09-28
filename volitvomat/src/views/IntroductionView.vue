@@ -43,7 +43,7 @@ onMounted(() => {
     </header>
     <h2>Kandidatke in kandidati, med katerimi bomo izbirali na predsedniških volitvah 23. 10. 2022, imajo različne poglede in prioritete. Ker želimo volivkam in volivcem olajšati odločitev, smo razvili Volitvomat, s pomočjo katerega lahko vsak preveri, s katerimi kandidatkami in kandidati se po stališčih in prepričanjih najbolj ujema.</h2>
     <p>
-      Orodje temelji na odgovorih kandidatk in kandidatov na 30 vprašanj, ki so jih skupaj postavile civilnodružbene organizacije, združene v iniciativo Glas ljudstva. H konkretnim odzivom smo večkrat pozvali prav vse kandidate in kandidatke, toda številni svojih stališč niso želeli prispevati. A ni še prepozno – vse kandidatke in kandidati, ki nam bodo posredovali svoje stališča, bomo takoj vključili v Volitvomat.
+      Orodje temelji na odgovorih kandidatk in kandidatov na 30 vprašanj, ki so jih skupaj postavile civilnodružbene organizacije, združene v iniciativo Glas ljudstva. H konkretnim odzivom smo večkrat pozvali prav vse kandidate in kandidatke, toda nekateri svojih stališč niso želeli prispevati. A ni še prepozno – vse kandidatke in kandidati, ki nam bodo posredovali svoje stališča, bomo takoj vključili v Volitvomat.
     </p>
     <p>V Volitvomatu je zbranih 30 trditev, na katere lahko podaš svoj odgovor. Na podlagi rezultatov izveš, kateri izmed sodelujočih kandidatk ali kandidatov najbolj ustreza tvojim stališčem, lahko pa tudi podrobneje raziščeš, na katerih točkah so razhajanja največja in zakaj.</p>
     <p>Vprašanja smo namenoma podali iz različnih svetovnih in vrednotnih nazorov ter zato posebej poudarjamo, da to niso stališča iniciative Glas ljudstva.</p>
