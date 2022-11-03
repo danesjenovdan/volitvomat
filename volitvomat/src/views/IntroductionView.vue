@@ -41,16 +41,18 @@ onMounted(() => {
       <img src="../assets/img/volitvomat-znak.svg" class="header-logo"/>
       VOLITVOMAT
     </header>
-    <h2>Kandidatke in kandidati, med katerimi bomo izbirali na predsedniških volitvah 23. 10. 2022, imajo različne poglede in prioritete. Ker želimo volivkam in volivcem olajšati odločitev, smo razvili Volitvomat, s pomočjo katerega lahko vsak preveri, s katerimi kandidatkami in kandidati se po stališčih in prepričanjih najbolj ujema.</h2>
+    <h2>Pozdravljeni!</h2>
     <p>
-      Orodje temelji na odgovorih kandidatk in kandidatov na 30 vprašanj, ki so jih skupaj postavile civilnodružbene organizacije, združene v iniciativo Glas ljudstva. H konkretnim odzivom smo večkrat pozvali prav vse kandidate in kandidatke, toda nekateri svojih stališč niso želeli prispevati. A ni še prepozno – vse kandidatke in kandidati, ki nam bodo posredovali svoje stališča, bomo takoj vključili v Volitvomat.
+      Tukaj boste našli lokalne Volitvomate pripravljene za vsako slovensko občino. Vprašalnike smo vašim kandidatom in kandidatkam za župana oz. županjo že poslali in še čakamo njihove odzive. Brez njihovih odzivov Volitvomat namreč ne more delovati, saj se morajo do ključnih vprašanj najprej opredeliti oni, vi pa potem svoja stališča primerjate z njihovimi.
     </p>
-    <p>V Volitvomatu je zbranih 30 trditev, na katere lahko podaš svoj odgovor. Na podlagi rezultatov izveš, kateri izmed sodelujočih kandidatk ali kandidatov najbolj ustreza tvojim stališčem, lahko pa tudi podrobneje raziščeš, na katerih točkah so razhajanja največja in zakaj.</p>
-    <p>Vprašanja smo namenoma podali iz različnih svetovnih in vrednotnih nazorov ter zato posebej poudarjamo, da to niso stališča iniciative Glas ljudstva.</p>
+    <p>Vabimo vas, da kandidate in kandidatke za župana oz. županjo v vaši občini tudi sami spomnite na izpolnjevanje vprašalnika ter s tem pomagate pri krepitvi politične odgovornosti izvoljenih posameznikov in posameznic.</p>
+    <p>Objavo lokalnih Volitvomatov načrtujemo 14. novembra, tako da se takrat ponovno srečamo tukaj.</p>
+    <!-- 
     <p>In za konec: ne pozabi deliti povezave do Volitvomata s prijateljicami in prijatelji, saj jim lahko tako olajšaš odločitev.</p>
     <div class="button-wrapper">
       <RouterLink to="/navodila" class="white-button-border">ZAČNI</RouterLink>
     </div>
+    -->
   </div>
 </template>
 
