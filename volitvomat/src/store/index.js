@@ -4,20 +4,26 @@ import axios from 'axios'
 const store = createStore({
   state() {
     return {
-      apiUrl: "https://glas-ljudstva.si/2",
+      // apiUrl: "https://glas-ljudstva.si/2",
+      apiUrl: "http://localhost:8000",
+      electionId: "3",
+      municipalitySlug: "",
       storeInitialized: false,
+      municipalities: {},
       parties: {},
       questions: {},
       questionsList: [],
       answers: {},
       results: {},
-      desus: {},
       quizFinished: false
     };
   },
   getters: {
     getApiUrl(state) {
       return state.apiUrl;
+    },
+    getMunicipalities(state) {
+      return state.municipalities;
     },
     getStoreInitialized(state) {
       return state.storeInitialized;
@@ -34,25 +40,25 @@ const store = createStore({
     getParties(state) {
       return state.parties;
     },
-    getDesus(state) {
-      return state.desus;
-    },
     getResults(state) {
       return state.results;
     },
     getQuizFinished(state) {
-      return state.quizFinished
+      return state.quizFinished;
+    },
+    getMunicipalitySlug(state) {
+      return state.municipalitySlug;
     }
   },
   mutations: {
     clearStore(state) {
       state.parties = {};
-      state.desus = {};
       state.questions = {};
       state.answers = {};
       state.results = {};
       state.quizFinished = false;
       state.storeInitialized = true;
+      state.municipalitySlug = '';
     },
     initializeStore(state) {
       state.storeInitialized = true;
@@ -104,19 +110,11 @@ const store = createStore({
       // create an array with counting results
       const ordered_results = []
       for (const party_id in answers_party_matches) {
-        if (party_id === '5') { // DeSUS is separated
-          state.desus = {
-            'party_id': party_id,
-            'count': answers_party_matches[party_id].count,
-            'percentage': answers_party_matches[party_id].percentage,
-          }
-        } else {
-          ordered_results.push({
-            'party_id': party_id,
-            'count': answers_party_matches[party_id].count,
-            'percentage': answers_party_matches[party_id].percentage,
-          })
-        }
+        ordered_results.push({
+          'party_id': party_id,
+          'count': answers_party_matches[party_id].count,
+          'percentage': answers_party_matches[party_id].percentage,
+        })
       }
       // sort the array (descending by percentage) and save to state.results
       state.results = ordered_results.sort((a, b) => (a.percentage > b.percentage) ? -1 : 1);
@@ -150,6 +148,10 @@ const store = createStore({
         }
       }
       localStorage.setItem('parties', JSON.stringify(state.parties))
+    },
+    setMunicipality(state, payload) {
+      state.municipalitySlug = payload.slug;
+      localStorage.setItem('municipalitySlug', state.municipalitySlug)
     }
   },
   actions: {
@@ -160,6 +162,7 @@ const store = createStore({
       const questionsList = localStorage.getItem('questionsList');
       const answers = localStorage.getItem('answers');
       const finished = localStorage.getItem('quizFinished');
+      const municipalitySlug = localStorage.getItem('municipalitySlug');
       if (parties && questions && questionsList) {
         commit('setQuestions', {
           questions: JSON.parse(questions), 
@@ -173,30 +176,39 @@ const store = createStore({
         if (finished) {
           state.quizFinished = finished === 'true';
           if (state.quizFinished) {
-            store.commit('calculateResults');
+            commit('calculateResults');
           }
         }
       } else { // no data
         await dispatch('getData');
       }
+      commit('setMunicipality', { "slug": municipalitySlug });
       commit('initializeStore')
       return state.quizFinished;
     },
+    async getMunicipalities({ commit, state }) {
+      const response = await axios.get(`${state.apiUrl}/api/volitvomat/municipalities`);      
+      return response.data['municipalities'];
+    },
+    async getMissingParties({ commit, state }) {
+      const response = await axios.get(`${state.apiUrl}/${state.electionId}/api/volitvomat/missing-parties/${state.municipalitySlug}`);      
+      return response.data['missing-parties'];
+    },
     async getData({ commit, state }) {
-      const response = await axios.get(`${state.apiUrl}/api/volitvomat`);      
+      const response = await axios.get(`${state.apiUrl}/${state.electionId}/api/volitvomat/${state.municipalitySlug}`);      
       commit('setQuestions', {
         questions: response.data['questions']
       });
       commit('setParties', response.data['parties']);
     },
     clearStore({ commit, dispatch }) {
-      // localStorage.clear();
+      // clear local storage and store
       localStorage.removeItem('parties');
       localStorage.removeItem('questions');
       localStorage.removeItem('answers');
       localStorage.removeItem('quizFinished');
       commit('clearStore');
-      dispatch('getData');
+      // dispatch('getData');
     },
     initializeQuizFinished({ state }) {
       finished = localStorage.getItem('quizFinished');

@@ -1,9 +1,12 @@
 <script setup>
+
 import { ref, watch, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
+// vue stuff
 const store = useStore();
+const route = useRoute();
 const router = useRouter();
 
 const storeInitialized = computed(() => store.getters.getStoreInitialized);
@@ -13,26 +16,29 @@ const results = computed(() => store.getters.getResults);
 const firstPlace = computed(() => {
   let winnersNo = 1;
   const winnerPercentage = results.value[0].percentage;
-  let secondPercentage = results.value[1].percentage;
-  while (secondPercentage === winnerPercentage) {
-    winnersNo++;
-    // covered all results
-    if (winnersNo === results.value.length) {
-      break;
-    } else {
-      secondPercentage = results.value[winnersNo].percentage;
-    } 
+  if (results.value.length > 1) {
+    let secondPercentage = results.value[1].percentage;
+    while (secondPercentage === winnerPercentage) {
+      winnersNo++;
+      // covered all results
+      if (winnersNo === results.value.length) {
+        break;
+      } else {
+        secondPercentage = results.value[winnersNo].percentage;
+      } 
+    }
   }
   return winnersNo;
 });
+const municipalitySlug = ref(route.params.slug);
 
 const restartQuiz = () => {
-  store.dispatch("clearStore");
+  // store.dispatch("clearStore"); gets cleared in IntroductionView
   router.push("/");
 }
 
 const share = () => {
-  navigator.clipboard.writeText("https://volitvomat.lb.djnd.si/").then(function() {
+  navigator.clipboard.writeText("https://volitvomat.si/").then(function() {
     alert('Povezava je skopirana v odložišče!')
   }, function() {
     // ni se skopiralo ...
@@ -68,14 +74,14 @@ onMounted(() => {
       <div class="match">
         <img src="../assets/img/oseba.svg" class="person" />
         <img src="../assets/img/zvezda.svg" class="star" />
-        <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="person" /> -->
-        <RouterLink :to="`/rezultati/${results[0].party_id}`">
-          <img :src="`${parties[results[0].party_id].image_url}`" class="person" />
+        <RouterLink :to="`/${municipalitySlug}/rezultati/${results[0].party_id}`">
+          <!-- <img :src="`${parties[results[0].party_id].image_url}`" class="person" /> -->
+          <img src="../assets/img/oseba.svg" class="person" />
         </RouterLink>
       </div>
 
       <div style="text-align: center;">
-        <RouterLink :to="`/rezultati/${results[0].party_id}`" class="white-button-border">
+        <RouterLink :to="`/${municipalitySlug}/rezultati/${results[0].party_id}`" class="white-button-border">
           <div>
             <span class="party-name">{{ parties[results[0].party_id].party_name }}:</span>
             <span>{{ results[0].percentage }} %</span>
@@ -85,31 +91,33 @@ onMounted(() => {
 
       <div class="divider"></div>
 
-      <div class="match-button-group">
-        <RouterLink :to="`/rezultati/${results[1].party_id}`" class="button">
+      <div class="match-button-group" v-if="results.length > 1">
+        <RouterLink :to="`/${municipalitySlug}/rezultati/${results[1].party_id}`" class="button">
           <span class="party-name">{{ parties[results[1].party_id].party_name }}:</span>
           <span>{{ results[1].percentage }} %</span>
           <div class="party-img">
             <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
-            <img :src="`${parties[results[1].party_id].image_url}`" />
+            <!-- <img :src="`${parties[results[1].party_id].image_url}`" /> -->
+            <img src="../assets/img/oseba.svg" class="person" />
           </div>
         </RouterLink>
       </div>
 
-      <div class="match-button-group">
-        <RouterLink :to="`/rezultati/${results[2].party_id}`" class="button">
+      <div class="match-button-group" v-if="results.length > 2">
+        <RouterLink :to="`/${municipalitySlug}/rezultati/${results[2].party_id}`" class="button">
           <span class="party-name">{{ parties[results[2].party_id].party_name }}:</span>
           <span>{{ results[2].percentage }} %</span>
           <div class="party-img">
             <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
-            <img :src="`${parties[results[2].party_id].image_url}`" />
+            <!-- <img :src="`${parties[results[2].party_id].image_url}`" /> -->
+            <img src="../assets/img/oseba.svg" class="person" />
           </div>
         </RouterLink>
       </div>
 
     </div>
 
-    <p v-if="results[0].percentage === results[1].percentage">Najbolj se ujemaš s kandidati_kami</p>
+    <p v-if="firstPlace > 1">Najbolj se ujemaš s kandidati_kami</p>
 
     <div class="two-winners" v-if="firstPlace === 2">
       <div class="flex">
@@ -119,22 +127,24 @@ onMounted(() => {
         </div>
         <div>
           <div class="match-button-group">
-            <RouterLink :to="`/rezultati/${results[0].party_id}`"  class="button">
+            <RouterLink :to="`/${municipalitySlug}/rezultati/${results[0].party_id}`"  class="button">
               <span class="party-name">{{ parties[results[0].party_id].party_name }}:</span>
               <span>{{ results[0].percentage }} %</span>
               <div class="party-img">
                 <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
-                <img :src="`${parties[results[0].party_id].image_url}`" />
+                <!-- <img :src="`${parties[results[0].party_id].image_url}`" /> -->
+                <img src="../assets/img/oseba.svg" class="person" />
               </div>
             </RouterLink>
           </div>
           <div class="match-button-group">
-            <RouterLink :to="`/rezultati/${results[1].party_id}`" class="button">
+            <RouterLink :to="`/${municipalitySlug}/rezultati/${results[1].party_id}`" class="button">
               <span class="party-name">{{ parties[results[1].party_id].party_name }}:</span>
               <span>{{ results[1].percentage }} %</span>
               <div class="party-img">
                 <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
-                <img :src="`${parties[results[1].party_id].image_url}`" />
+                <!-- <img :src="`${parties[results[1].party_id].image_url}`" /> -->
+                <img src="../assets/img/oseba.svg" class="person" />
               </div>
             </RouterLink>
           </div>
@@ -142,12 +152,13 @@ onMounted(() => {
       </div>
       <div class="divider"></div>
       <div class="match-button-group">
-        <RouterLink :to="`/rezultati/${results[2].party_id}`" class="button">
+        <RouterLink :to="`/${municipalitySlug}/rezultati/${results[2].party_id}`" class="button">
           <span class="party-name">{{ parties[results[2].party_id].party_name }}:</span>
           <span>{{ results[2].percentage }} %</span>
           <div class="party-img">
             <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
-            <img :src="`${parties[results[2].party_id].image_url}`" />
+            <!-- <img :src="`${parties[results[2].party_id].image_url}`" /> -->
+            <img src="../assets/img/oseba.svg" class="person" />
           </div>
         </RouterLink>
       </div>
@@ -160,11 +171,12 @@ onMounted(() => {
       </div>
       <div>
         <div v-for="index in firstPlace" :key="index" class="match-button-group">
-          <RouterLink :to="`/rezultati/${results[index-1].party_id}`" class="button">
+          <RouterLink :to="`/${municipalitySlug}/rezultati/${results[index-1].party_id}`" class="button">
             <span class="party-name">{{ parties[results[index-1].party_id].party_name }}:</span>
             <span>{{ results[index-1].percentage }} %</span>
             <div class="party-img">
-              <img :src="`${parties[results[index-1].party_id].image_url}`" />
+              <!-- <img :src="`${parties[results[index-1].party_id].image_url}`" /> -->
+              <img src="../assets/img/oseba.svg" class="person" />
             </div>
           </RouterLink>
         </div>
@@ -172,7 +184,7 @@ onMounted(() => {
     </div>
 
     <div class="button-group">
-      <RouterLink to="/statistika" class="yellow-button">
+      <RouterLink :to="`/${municipalitySlug}/statistika`" class="yellow-button">
         poglej podrobne rezultate <span class="search-icon"></span>
       </RouterLink>
       <div class="yellow-button hover-pointer" @click="share">
@@ -198,7 +210,7 @@ p {
   .container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    // justify-content: center;
   }
 }
 

@@ -3,36 +3,31 @@ import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
+// vue stuff
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
 
+// responsive design
 const screenWidth = ref(window.innerWidth);
 const desktop = computed(() => screenWidth.value > 992);
 
+// get data from store
 const storeInitialized = computed(() => store.getters.getStoreInitialized);
 const quizFinished = computed(() => store.getters.getQuizFinished);
 
-const startQuiz = () => {
-  router.push("/vprasanje/0");
-}
+// get municipality slug
+const municipalitySlug = ref(route.params.slug);
 
 onMounted(() => {
-  if (!storeInitialized.value) {
-    store.dispatch("initializeStore").then((quiz_finished) => {
-      if (quiz_finished) {
-        router.push("/rezultati");
-      }
-    })
-  }
-  if (quizFinished.value) {
-    router.push("/rezultati");
-  }
-})
+  // get data 
+  store.dispatch("initializeStore");
+});
+
 </script>
 
 <template>
-  <div class="container" @click="startQuiz">
+  <div class="container">
     <header>
       <h1>Kako rešujem?</h1>
     </header>
@@ -74,7 +69,7 @@ onMounted(() => {
       </div>
     </div>
     <div class="button-wrapper">
-      <RouterLink to="/vprasanje/0" class="white-button-border">
+      <RouterLink :to="`/${municipalitySlug}/vprasanje/0`" class="white-button-border">
         <div>
           Razumem, pokaži mi<br />prvo vprašanje.
         </div>

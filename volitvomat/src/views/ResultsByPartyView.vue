@@ -3,6 +3,7 @@ import { ref, watch, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
+// vue stuff
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
@@ -66,7 +67,8 @@ watch(
     </header>
     
     <div style="text-align: center;">
-      <img :src="`${parties[partyId].image_url}`" class="person" />
+      <!-- <img :src="`${parties[partyId].image_url}`" class="person" /> -->
+      <img src="../assets/img/oseba.svg" class="person" />
     </div>
     
     <p class="title" style="margin-bottom: 0;">Primerjava tvojih odgovorov s kandidatom_ko: {{ parties[partyId].party_name }}.</p>
