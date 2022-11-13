@@ -4,6 +4,8 @@ import { ref, watch, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
+import kandidat from '@/assets/img/kandidat.svg';
+
 // vue stuff
 const store = useStore();
 const route = useRoute();
@@ -45,6 +47,12 @@ const share = () => {
   });
 };
 
+const imageNotFound = (e) => {
+    const img = e.srcElement;
+    img.src = kandidat;
+    img.onerror = null; 
+}
+
 onMounted(() => {
   if (!storeInitialized.value) {
     store.dispatch("initializeStore").then((quiz_finished) => {
@@ -56,7 +64,7 @@ onMounted(() => {
   if (!quizFinished.value) {
     router.push("/");
   }
-})
+});
 
 </script>
 
@@ -75,8 +83,7 @@ onMounted(() => {
         <img src="../assets/img/oseba.svg" class="person" />
         <img src="../assets/img/zvezda.svg" class="star" />
         <RouterLink :to="`/${municipalitySlug}/rezultati/${results[0].party_id}`">
-          <!-- <img :src="`${parties[results[0].party_id].image_url}`" class="person" /> -->
-          <img src="../assets/img/oseba.svg" class="person" />
+          <img :src="`${parties[results[0].party_id].image_url}`" class="person" @error="imageNotFound" />
         </RouterLink>
       </div>
 
@@ -96,9 +103,7 @@ onMounted(() => {
           <span class="party-name">{{ parties[results[1].party_id].party_name }}:</span>
           <span>{{ results[1].percentage }} %</span>
           <div class="party-img">
-            <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
-            <!-- <img :src="`${parties[results[1].party_id].image_url}`" /> -->
-            <img src="../assets/img/oseba.svg" class="person" />
+            <img :src="`${parties[results[1].party_id].image_url}`" @error="imageNotFound" />
           </div>
         </RouterLink>
       </div>
@@ -108,9 +113,8 @@ onMounted(() => {
           <span class="party-name">{{ parties[results[2].party_id].party_name }}:</span>
           <span>{{ results[2].percentage }} %</span>
           <div class="party-img">
-            <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
-            <!-- <img :src="`${parties[results[2].party_id].image_url}`" /> -->
-            <img src="../assets/img/oseba.svg" class="person" />
+            <img :src="`${parties[results[2].party_id].image_url}`" @error="imageNotFound" />
+            <!-- <img src="../assets/img/kandidat.svg" class="person" /> -->
           </div>
         </RouterLink>
       </div>
@@ -131,9 +135,7 @@ onMounted(() => {
               <span class="party-name">{{ parties[results[0].party_id].party_name }}:</span>
               <span>{{ results[0].percentage }} %</span>
               <div class="party-img">
-                <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
-                <!-- <img :src="`${parties[results[0].party_id].image_url}`" /> -->
-                <img src="../assets/img/oseba.svg" class="person" />
+                <img :src="`${parties[results[0].party_id].image_url}`" @error="imageNotFound" />
               </div>
             </RouterLink>
           </div>
@@ -142,9 +144,7 @@ onMounted(() => {
               <span class="party-name">{{ parties[results[1].party_id].party_name }}:</span>
               <span>{{ results[1].percentage }} %</span>
               <div class="party-img">
-                <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
-                <!-- <img :src="`${parties[results[1].party_id].image_url}`" /> -->
-                <img src="../assets/img/oseba.svg" class="person" />
+                <img :src="`${parties[results[1].party_id].image_url}`" @error="imageNotFound" />
               </div>
             </RouterLink>
           </div>
@@ -156,9 +156,7 @@ onMounted(() => {
           <span class="party-name">{{ parties[results[2].party_id].party_name }}:</span>
           <span>{{ results[2].percentage }} %</span>
           <div class="party-img">
-            <!-- <img src="../assets/img/podlaga-za-stranke.svg" class="" /> -->
-            <!-- <img :src="`${parties[results[2].party_id].image_url}`" /> -->
-            <img src="../assets/img/oseba.svg" class="person" />
+            <img :src="`${parties[results[2].party_id].image_url}`" @error="imageNotFound" />
           </div>
         </RouterLink>
       </div>
@@ -175,8 +173,7 @@ onMounted(() => {
             <span class="party-name">{{ parties[results[index-1].party_id].party_name }}:</span>
             <span>{{ results[index-1].percentage }} %</span>
             <div class="party-img">
-              <!-- <img :src="`${parties[results[index-1].party_id].image_url}`" /> -->
-              <img src="../assets/img/oseba.svg" class="person" />
+              <img :src="`${parties[results[index-1].party_id].image_url}`" @error="imageNotFound" />
             </div>
           </RouterLink>
         </div>

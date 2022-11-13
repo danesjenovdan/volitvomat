@@ -3,6 +3,8 @@ import { ref, watch, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
+import kandidat from '@/assets/img/kandidat.svg';
+
 // vue stuff
 const store = useStore();
 const route = useRoute();
@@ -18,6 +20,12 @@ const missingParties = ref([]);
 const restartQuiz = () => {
   store.dispatch("clearStore");
   router.push("/");
+}
+
+const imageNotFound = (e) => {
+    const img = e.srcElement;
+    img.src = kandidat;
+    img.onerror = null; 
 }
 
 onMounted(() => {
@@ -52,8 +60,7 @@ onMounted(() => {
     </p>
     <div class="party-list">
       <RouterLink :to="`/${municipalitySlug}/rezultati/${party.party_id}`" v-for="party in results" :key="parties[party.party_id].party_name" class="party">
-        <!-- <img :src="`${parties[party.party_id].image_url}`" class="party-image" /> -->
-        <img src="../assets/img/oseba.svg" class="party-image" />
+        <img :src="`${parties[party.party_id].image_url}`" class="party-image" @error="imageNotFound" />
         <div class="party-description">
           <p>
             <span>{{ parties[party.party_id].party_name }}</span>
@@ -71,8 +78,7 @@ onMounted(() => {
     </p>
     <div class="parties-not-included">
       <div v-for="party in missingParties" :key="party.name" class="party">
-        <!-- <img :src="party.image" class="party-image" /> -->
-        <img src="../assets/img/oseba.svg" class="party-image" />
+        <img :src="party.image" class="party-image" @error="imageNotFound" />
         <div class="party-description">
           <p>{{ party.party_name }}</p>
         </div>

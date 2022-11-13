@@ -103,15 +103,7 @@ onMounted(() => {
 
     <div class="municipality-input-wrapper">
       <input type="text" id="search" class="municipality-input" placeholder="Vpiši ime občine..." v-model="searchTerm" />
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512"
-        @click="onSubmitLocation"
-      >
-        <path
-          d="M511.987 454.086L375.65 317.748c21.452-32.404 33.936-71.186 33.936-112.934C409.586 91.693 317.903.009 204.8.009 91.695.009.013 91.693.013 204.814c0 113.09 91.683 204.805 204.787 204.805 41.731 0 80.559-12.529 112.932-33.967L454.068 511.99l57.919-57.904zM58.042 204.845c0-81.06 65.715-146.745 146.758-146.745 81.059 0 146.773 65.685 146.773 146.745 0 81.061-65.715 146.776-146.773 146.776-81.043 0-146.758-65.715-146.758-146.776z"
-        />
-      </svg>
+      <span class="search-icon"></span>
       <ul v-if="searchOptions.length > 0 && !selectedMunicipality">
         <li
           v-for="municipality in searchOptions"
@@ -153,11 +145,12 @@ p {
 .municipality-input-wrapper {
   position: relative;
 
-  svg {
+  .search-icon {
     position: absolute;
-    height: 20px;
-    right: 15px;
-    top: 15px;
+    height: 30px;
+    width: 30px;
+    right: 10px;
+    top: 10px;
   }
 }
 
