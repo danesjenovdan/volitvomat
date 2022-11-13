@@ -91,7 +91,7 @@ onMounted(() => {
       <div class="yellow-button hover-pointer" @click="restartQuiz">
         reši ponovno
       </div>
-      <h5>Vse odgovore kandidatk_ov najdeš na <a href="https://glas-ljudstva.si/" target="_blank">glas-ljudstva.si</a>.</h5>
+      <!-- <h5>Vse odgovore kandidatk_ov najdeš na <a href="https://glas-ljudstva.si/" target="_blank">glas-ljudstva.si</a>.</h5> -->
     </div>
   </div>
 </template>

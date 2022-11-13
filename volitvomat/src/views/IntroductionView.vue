@@ -1,5 +1,4 @@
 <script setup>
-
 import { ref, reactive, onMounted, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -11,16 +10,16 @@ const router = useRouter();
 // const quizFinished = computed(() => store.getters.getQuizFinished);
 // const parties = computed(() => store.getters.getParties);
 
-let searchTerm = ref(''); // v-model for input field
-let selectedMunicipality = ref(null) // municipality that was chosen from the list
+let searchTerm = ref(""); // v-model for input field
+let selectedMunicipality = ref(null); // municipality that was chosen from the list
 let municipalities = ref([]); // array of all municipalities
 
 // when clicked on municipality from the list
 const selectMunicipality = (option) => {
-  searchTerm.value = option["name"] // autocomplete searched term
-  selectedMunicipality.value = option // save chosen municipality
-  store.commit('setMunicipality', { slug: option["slug"] }); // save chosen municipality to store
-}
+  searchTerm.value = option["name"]; // autocomplete searched term
+  selectedMunicipality.value = option; // save chosen municipality
+  store.commit("setMunicipality", { slug: option["slug"] }); // save chosen municipality to store
+};
 
 // get slug from municipality object { "name": "Ljubljana", "slug": "ljubljana", ... }
 const selectedMunicipalitySlug = computed(() => {
@@ -31,30 +30,35 @@ const selectedMunicipalitySlug = computed(() => {
     return "";
   }
 });
- 
+
 // a list of options that shows on municipality search
 const searchOptions = computed(() => {
   // if municipality was already chosen and now typed-in name is different,
   // reset the chosen municipality
-  if (selectedMunicipality.value && (selectedMunicipality.value["name"] !== searchTerm.value)) {
-    selectedMunicipality.value = null
+  if (
+    selectedMunicipality.value &&
+    selectedMunicipality.value["name"] !== searchTerm.value
+  ) {
+    selectedMunicipality.value = null;
   }
   // empty list if nothing is typed-in
-  if (searchTerm.value === '') {
-    return []
+  if (searchTerm.value === "") {
+    return [];
   }
 
-  let matches = 0
+  let matches = 0;
   // compare typed-in input to municipalities' names and return up to 10 matches
-  return municipalities.value.filter(municipality => {
+  return municipalities.value.filter((municipality) => {
     if (
-      municipality["name"].toLowerCase().includes(searchTerm.value.toLowerCase())
-      && matches < 10
+      municipality["name"]
+        .toLowerCase()
+        .includes(searchTerm.value.toLowerCase()) &&
+      matches < 10
     ) {
-      matches++
-      return municipality
+      matches++;
+      return municipality;
     }
-  })
+  });
 });
 
 onMounted(() => {
@@ -66,7 +70,6 @@ onMounted(() => {
   // clear all old data
   store.dispatch("clearStore");
 });
-
 </script>
 
 <template>
@@ -75,26 +78,34 @@ onMounted(() => {
       <img src="../assets/img/volitvomat-znak.svg" class="header-logo" />
       VOLITVOMAT
     </header>
-    <h2>Pozdravljeni!</h2>
+    <h2>
+      Kandidatke in kandidati, med katerimi bomo izbirali na lokalnih volitvah
+      20. novembra 2022, imajo različne poglede in prioritete. Ker želimo
+      volivkam in volivcem olajšati izbiro, smo razvili Volitvomat, s pomočjo
+      katerega lahko vsak preveri, s kom se po stališčih in prepričanjih najbolj
+      ujema.
+    </h2>
     <p>
-      Tukaj boste našli lokalne Volitvomate pripravljene za vsako slovensko
-      občino. Vprašalnike smo vašim kandidatom in kandidatkam za župana oz.
-      županjo že poslali in še čakamo njihove odzive. Brez njihovih odzivov
-      Volitvomat namreč ne more delovati, saj se morajo do ključnih vprašanj
-      najprej opredeliti oni, vi pa potem svoja stališča primerjate z njihovimi.
+      Orodje temelji na odgovorih kandidatk in kandidatov na nekatera ključna
+      vprašanja, ki so jih pripravile civilnodružbene organizacije, združene v
+      iniciativo Glas ljudstva. H konkretnim odzivom smo pozvali prav vse od
+      njih, toda nekateri svojih stališč niso želeli prispevati. A ni še
+      prepozno – vse kandidatke in kandidate, ki nam bodo posredovali odgovore,
+      bomo takoj vključili v Volitvomat.
     </p>
     <p>
-      Vabimo vas, da kandidate in kandidatke za župana oz. županjo v vaši občini
-      tudi sami spomnite na izpolnjevanje vprašalnika ter s tem pomagate pri
-      krepitvi politične odgovornosti izvoljenih posameznikov in posameznic.
-    </p>
-    <p>
-      Objavo lokalnih Volitvomatov načrtujemo 14. novembra, tako da se takrat
-      ponovno srečamo tukaj.
+      Po tem, ko izbereš svojo občino, v Volitvomatu najdeš zbrane trditve, na
+      katere lahko podaš svoj odgovor. Na podlagi rezultatov izveš, kateri od
+      sodelujočih kandidatk ali kandidatov najbolj ustreza tvojim stališčem,
+      lahko pa tudi podrobneje raziščeš, na katerih točkah so razhajanja
+      največja in zakaj. Vprašanja smo navezali na najrazličnejša področja,
+      nobena od zapisanih trditev pa ne predstavlja stališč iniciative Glas
+      ljudstva.
     </p>
     <p>
       In za konec: ne pozabi deliti povezave do Volitvomata s prijateljicami in
-      prijatelji, saj jim lahko tako olajšaš odločitev.
+      prijatelji, saj jim lahko tako morda olajšaš odločitev na lokalnih
+      volitvah.
     </p>
 
     <div class="divider-yellow"></div>
@@ -102,7 +113,13 @@ onMounted(() => {
     <h3>IZBERI SVOJO OBČINO!</h3>
 
     <div class="municipality-input-wrapper">
-      <input type="text" id="search" class="municipality-input" placeholder="Vpiši ime občine..." v-model="searchTerm" />
+      <input
+        type="text"
+        id="search"
+        class="municipality-input"
+        placeholder="Vpiši ime občine..."
+        v-model="searchTerm"
+      />
       <span class="search-icon"></span>
       <ul v-if="searchOptions.length > 0 && !selectedMunicipality">
         <li
@@ -116,7 +133,12 @@ onMounted(() => {
     </div>
 
     <div class="button-wrapper">
-      <RouterLink :to="`/${selectedMunicipalitySlug}/navodila`" class="white-button-border" :class="{ disabled: !selectedMunicipality }">ZAČNI</RouterLink>
+      <RouterLink
+        :to="`/${selectedMunicipalitySlug}/navodila`"
+        class="white-button-border"
+        :class="{ disabled: !selectedMunicipality }"
+        >ZAČNI</RouterLink
+      >
     </div>
   </div>
 </template>
@@ -166,7 +188,7 @@ p {
 
 h3 {
   text-align: center;
-  font-family: 'Grandstander', cursive;
+  font-family: "Grandstander", cursive;
   font-style: italic;
   font-size: 24px;
   font-weight: 600;
@@ -200,11 +222,11 @@ li {
   margin-bottom: 10px;
 }
 
-@media (min-width: 992px) {
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-}
+// @media (min-width: 992px) {
+//   .container {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//   }
+// }
 </style>
