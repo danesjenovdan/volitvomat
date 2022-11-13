@@ -4,8 +4,8 @@ import axios from 'axios'
 const store = createStore({
   state() {
     return {
-      // apiUrl: "https://glas-ljudstva.si/2",
-      apiUrl: "http://localhost:8000",
+      apiUrl: "https://glas-ljudstva.si",
+      // apiUrl: "http://localhost:8000",
       electionId: "3",
       municipalitySlug: "",
       storeInitialized: false,
