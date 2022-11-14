@@ -15,6 +15,7 @@ const desktop = computed(() => screenWidth.value > 992);
 // get data from store
 // const storeInitialized = computed(() => store.getters.getStoreInitialized);
 // const quizFinished = computed(() => store.getters.getQuizFinished);
+const parties = computed(() => store.getters.getParties);
 
 // get municipality slug
 const municipalitySlug = ref(route.params.slug);
@@ -23,13 +24,18 @@ onMounted(() => {
   store.commit("setMunicipality", { slug: municipalitySlug.value });
   
   // get data 
-  store.dispatch("initializeStore");
+  store.dispatch("initializeStore").then(() => {
+    if (Object.keys(parties.value).length === 0) {
+      router.push(`/${municipalitySlug.value}/ni-podatkov`);
+    }
+  });
+  
 });
 
 </script>
 
 <template>
-  <div class="container">
+  <div class="container" v-if="Object.keys(parties).length > 0">
     <header>
       <h1>Kako rešujem?</h1>
     </header>
