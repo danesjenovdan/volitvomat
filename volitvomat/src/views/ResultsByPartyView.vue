@@ -10,18 +10,16 @@ const store = useStore();
 const route = useRoute();
 const router = useRouter();
 
+const municipalitySlug = ref(route.params.slug);
+
 const partyId = ref(route.params.id);
 const storeInitialized = computed(() => store.getters.getStoreInitialized);
 const quizFinished = computed(() => store.getters.getQuizFinished);
 const parties = computed(() => store.getters.getParties);
 const result = computed(() => {
-  if (partyId.value === '5') { // desus
-    return store.getters.getDesus;
-  } else {
-    for (const res of store.getters.getResults) {
-      if (res.party_id === partyId.value) {
-        return res;
-      }
+  for (const res of store.getters.getResults) {
+    if (res.party_id === partyId.value) {
+      return res;
     }
   }
   return {};
@@ -46,6 +44,8 @@ const imageNotFound = (e) => {
 }
 
 onMounted(() => {
+  store.commit("setMunicipality", { slug: municipalitySlug.value });
+
   if (!storeInitialized.value) {
     store.dispatch("initializeStore").then((quiz_finished) => {
       if (!quiz_finished) {
