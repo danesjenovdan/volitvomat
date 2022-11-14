@@ -13,13 +13,15 @@ const screenWidth = ref(window.innerWidth);
 const desktop = computed(() => screenWidth.value > 992);
 
 // get data from store
-const storeInitialized = computed(() => store.getters.getStoreInitialized);
-const quizFinished = computed(() => store.getters.getQuizFinished);
+// const storeInitialized = computed(() => store.getters.getStoreInitialized);
+// const quizFinished = computed(() => store.getters.getQuizFinished);
 
 // get municipality slug
 const municipalitySlug = ref(route.params.slug);
 
 onMounted(() => {
+  store.commit("setMunicipality", { slug: municipalitySlug.value });
+  
   // get data 
   store.dispatch("initializeStore");
 });

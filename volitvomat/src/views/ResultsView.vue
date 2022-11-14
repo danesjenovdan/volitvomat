@@ -54,6 +54,8 @@ const imageNotFound = (e) => {
 }
 
 onMounted(() => {
+  store.commit("setMunicipality", { slug: municipalitySlug.value });
+
   if (!storeInitialized.value) {
     store.dispatch("initializeStore").then((quiz_finished) => {
       if (!quiz_finished) {
@@ -61,6 +63,7 @@ onMounted(() => {
       }
     })
   }
+
   if (!quizFinished.value) {
     router.push("/");
   }
