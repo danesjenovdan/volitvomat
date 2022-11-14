@@ -151,7 +151,6 @@ const store = createStore({
     },
     setMunicipality(state, payload) {
       state.municipalitySlug = payload.slug;
-      localStorage.setItem('municipalitySlug', state.municipalitySlug)
     }
   },
   actions: {
@@ -162,7 +161,6 @@ const store = createStore({
       const questionsList = localStorage.getItem('questionsList');
       const answers = localStorage.getItem('answers');
       const finished = localStorage.getItem('quizFinished');
-      const municipalitySlug = localStorage.getItem('municipalitySlug');
       if (parties && questions && questionsList) {
         commit('setQuestions', {
           questions: JSON.parse(questions), 
@@ -182,7 +180,6 @@ const store = createStore({
       } else { // no data
         await dispatch('getData');
       }
-      commit('setMunicipality', { "slug": municipalitySlug });
       commit('initializeStore')
       return state.quizFinished;
     },
@@ -195,7 +192,7 @@ const store = createStore({
       return response.data['missing-parties'];
     },
     async getData({ commit, state }) {
-      const response = await axios.get(`${state.apiUrl}/${state.electionId}/api/volitvomat/${state.municipalitySlug}`);      
+      const response = await axios.get(`${state.apiUrl}/${state.electionId}/api/volitvomat/${state.municipalitySlug}`);
       commit('setQuestions', {
         questions: response.data['questions']
       });

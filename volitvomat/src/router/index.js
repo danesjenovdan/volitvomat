@@ -5,6 +5,7 @@ import InstructionsView from "../views/InstructionsView.vue";
 import ResultsView from "../views/ResultsView.vue";
 import StatisticsView from "../views/StatisticsView.vue";
 import ResultsByPartyView from "../views/ResultsByPartyView.vue";
+import NoCandidatesView from "../views/NoCandidatesView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +19,11 @@ const router = createRouter({
       path: "/:slug/navodila",
       name: "instructions",
       component: InstructionsView,
+    },
+    {
+      path: "/:slug/ni-podatkov",
+      name: "noCandidates",
+      component: NoCandidatesView,
     },
     {
       path: "/:slug/vprasanje/:id",

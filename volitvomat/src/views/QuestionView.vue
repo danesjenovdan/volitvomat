@@ -70,6 +70,8 @@ watch(
 );
 
 onMounted(() => {
+  store.commit("setMunicipality", { slug: municipalitySlug.value });
+
   if (!storeInitialized.value) {
     store.dispatch("initializeStore").then((quiz_finished) => {
       if (quiz_finished) {
