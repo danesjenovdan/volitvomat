@@ -1,14 +1,20 @@
 <script setup>
+
 import SwipeCard from "@/components/SwipeCard.vue";
 import { ref, watch, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
+// vue stuff
 const route = useRoute();
 const router = useRouter();
 const store = useStore();
 
+// get question id
 const idParam = ref(parseInt(route.params.id));
+// get municipality slug
+const municipalitySlug = ref(route.params.slug);
+
 const moreInfo = ref(false);
 const playAnimationLeft = ref(false);
 const playAnimationRight = ref(false);
@@ -22,16 +28,16 @@ const questionsNo = computed(() => questionsList.value.length);
 const questionId = computed(() => questionsList.value[idParam.value]);
 const progress = computed(() => Math.round(idParam.value / questionsNo.value * 100));
 const question = computed(() => store.state.questions[questionId.value]);
-const answers = computed(() => store.getters.getAnswers);
+// const answers = computed(() => store.getters.getAnswers);
 
 const skipQuestion = (id, answer) => {
   // remove saved answer
   store.commit('removeAnswer', {id, answer});
   if (idParam.value < questionsNo.value - 1) {
-    router.push(`/vprasanje/${parseInt(idParam.value) + 1}`);
+    router.push(`/${municipalitySlug.value}/vprasanje/${parseInt(idParam.value) + 1}`);
   } else {
     store.commit('calculateResults');
-    router.push("/rezultati");
+    router.push(`/${municipalitySlug.value}/rezultati`);
   }
 };
  
@@ -46,11 +52,11 @@ const saveAnswer = (id, answer) => {
     store.commit('addAnswer', {id, answer});
     // navigate to next question
     if (idParam.value < questionsNo.value - 1) {
-      router.push(`/vprasanje/${parseInt(idParam.value) + 1}`);
+      router.push(`/${municipalitySlug.value}/vprasanje/${parseInt(idParam.value) + 1}`);
     } else {
       // last question -> calculate results and navigate to results
       store.commit('calculateResults');
-      router.push("/rezultati");
+      router.push(`/${municipalitySlug.value}/rezultati`);
     }
   }, 400 );
 };
@@ -67,7 +73,7 @@ onMounted(() => {
   if (!storeInitialized.value) {
     store.dispatch("initializeStore").then((quiz_finished) => {
       if (quiz_finished) {
-        router.push("/rezultati");
+        router.push(`/${municipalitySlug.value}/rezultati`);
       }
     })
   }
@@ -117,8 +123,8 @@ router.beforeEach((to, from) => {
       </div>
       
       <div class="button-row">
-        <RouterLink to="/navodila" v-if="idParam == 0" class="back-button"></RouterLink>
-        <RouterLink :to="`/vprasanje/${parseInt(idParam) - 1}`" v-if="idParam > 0" class="back-button"></RouterLink>
+        <RouterLink :to="`/${municipalitySlug}/navodila`" v-if="idParam == 0" class="back-button"></RouterLink>
+        <RouterLink :to="`/${municipalitySlug}/vprasanje/${parseInt(idParam) - 1}`" v-if="idParam > 0" class="back-button"></RouterLink>
         <div 
           class="no-button hover-pointer"
           :class="{'disabled': playAnimationRight || playAnimationLeft}"

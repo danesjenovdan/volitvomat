@@ -8,7 +8,7 @@ export default {
   props: {
     title: String,
     description: String,
-    imageUrl: Number,
+    imageUrl: String,
     swiping: Boolean
   },
   setup(props, ctx) {

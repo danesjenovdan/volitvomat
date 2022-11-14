@@ -3,6 +3,9 @@ import { ref, watch, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
+import kandidat from '@/assets/img/kandidat.svg';
+
+// vue stuff
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
@@ -36,6 +39,12 @@ const questions_similarities = computed(() => {
   return questionsList.value.filter(q_id => q_id in answers.value && questions.value[q_id].party_answers[partyId.value] === answers.value[q_id]);
 })
 
+const imageNotFound = (e) => {
+    const img = e.srcElement;
+    img.src = kandidat;
+    img.onerror = null; 
+}
+
 onMounted(() => {
   if (!storeInitialized.value) {
     store.dispatch("initializeStore").then((quiz_finished) => {
@@ -47,7 +56,7 @@ onMounted(() => {
   if (!quizFinished.value) {
     router.push("/");
   }
-})
+});
 
 watch(
   () => route.params.id,
@@ -66,7 +75,7 @@ watch(
     </header>
     
     <div style="text-align: center;">
-      <img :src="`${parties[partyId].image_url}`" class="person" />
+      <img :src="`${parties[partyId].image_url}`" class="person" @error="imageNotFound" />
     </div>
     
     <p class="title" style="margin-bottom: 0;">Primerjava tvojih odgovorov s kandidatom_ko: {{ parties[partyId].party_name }}.</p>

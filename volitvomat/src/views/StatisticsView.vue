@@ -3,30 +3,29 @@ import { ref, watch, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
+import kandidat from '@/assets/img/kandidat.svg';
+
+// vue stuff
 const store = useStore();
+const route = useRoute();
 const router = useRouter();
 
 const storeInitialized = computed(() => store.getters.getStoreInitialized);
 const quizFinished = computed(() => store.getters.getQuizFinished);
 const parties = computed(() => store.getters.getParties);
 const results = computed(() => store.getters.getResults);
-const desus = computed(() => store.getters.getDesus);
-
-// images
-import logar from '@/assets/img/parties/Anže Logar.jpg'
-import bezensek from '@/assets/img/parties/Gregor Bezenšek.jpg'
-import kralj from '@/assets/img/parties/Janez Cigler Kralj.jpg'
-
-const missingParties = [
-  {
-    'name': 'Anže Logar',
-    'image': logar
-  }
-]
+const municipalitySlug = ref(route.params.slug);
+const missingParties = ref([]);
 
 const restartQuiz = () => {
   store.dispatch("clearStore");
   router.push("/");
+}
+
+const imageNotFound = (e) => {
+    const img = e.srcElement;
+    img.src = kandidat;
+    img.onerror = null; 
 }
 
 onMounted(() => {
@@ -40,6 +39,9 @@ onMounted(() => {
   if (!quizFinished.value) {
     router.push("/");
   }
+  store.dispatch("getMissingParties").then((result) => {
+    missingParties.value = result;
+  });
 })
 
 </script>
@@ -57,8 +59,8 @@ onMounted(() => {
       Za podrobnejšo analizo ujemanja klikni na posameznega_o kandidata_ko.
     </p>
     <div class="party-list">
-      <RouterLink :to="`/rezultati/${party.party_id}`" v-for="party in results" :key="parties[party.party_id].party_name" class="party">
-        <img :src="`${parties[party.party_id].image_url}`" class="party-image" />
+      <RouterLink :to="`/${municipalitySlug}/rezultati/${party.party_id}`" v-for="party in results" :key="parties[party.party_id].party_name" class="party">
+        <img :src="`${parties[party.party_id].image_url}`" class="party-image" @error="imageNotFound" />
         <div class="party-description">
           <p>
             <span>{{ parties[party.party_id].party_name }}</span>
@@ -76,9 +78,9 @@ onMounted(() => {
     </p>
     <div class="parties-not-included">
       <div v-for="party in missingParties" :key="party.name" class="party">
-        <img :src="party.image" class="party-image" />
+        <img :src="party.image" class="party-image" @error="imageNotFound" />
         <div class="party-description">
-          <p>{{ party.name }}</p>
+          <p>{{ party.party_name }}</p>
         </div>
       </div>
     </div>
@@ -89,7 +91,7 @@ onMounted(() => {
       <div class="yellow-button hover-pointer" @click="restartQuiz">
         reši ponovno
       </div>
-      <h5>Vse odgovore kandidatk_ov najdeš na <a href="https://glas-ljudstva.si/" target="_blank">glas-ljudstva.si</a>.</h5>
+      <!-- <h5>Vse odgovore kandidatk_ov najdeš na <a href="https://glas-ljudstva.si/" target="_blank">glas-ljudstva.si</a>.</h5> -->
     </div>
   </div>
 </template>
