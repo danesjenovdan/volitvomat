@@ -154,7 +154,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="divider"></div>
-      <div class="match-button-group">
+      <div class="match-button-group" v-if="results.length > 2">
         <RouterLink :to="`/${municipalitySlug}/rezultati/${results[2].party_id}`" class="button">
           <span class="party-name">{{ parties[results[2].party_id].party_name }}:</span>
           <span>{{ results[2].percentage }} %</span>
