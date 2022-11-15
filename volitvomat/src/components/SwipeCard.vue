@@ -210,25 +210,25 @@ export default {
 
   @media (min-width: 992px) {
     display: flex;
-    // flex-direction: column;
     align-items: center;
-    // min-height: 550px;
-    padding-top: 120px;
-    padding-bottom: 80px;
     h4 {
-      // padding-right: 20px;
-      // margin-bottom: 0;
-      min-width: 50%;
-      max-width: 50%;
-      margin-left: 25%;
+      min-width: 70%;
+      max-width: 70%;
+      margin: 0 auto;
     }
     p {
       font-size: 16px;
       line-height: 22px;
     }
     .category-img {
-      height: 100px;
-      // left: 25%;
+      height: 80px;
+    }
+  }
+
+  @media (min-width: 1600px) {
+    h4 {
+      min-width: 50%;
+      max-width: 50%;
     }
   }
 
