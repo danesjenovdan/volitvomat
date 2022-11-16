@@ -140,6 +140,20 @@ onMounted(() => {
         >ZAČNI</RouterLink
       >
     </div>
+
+    <div class="divider"></div>
+
+    <footer>
+      <div class="logos">
+        <img src="../assets/img/ecas.png" class="financer-img ecas" />
+        <img src="../assets/img/eu.jpeg" class="financer-img eu" />
+      </div>
+      <p>
+        Sofinancira Evropska unija. Izražena stališča in mnenja ne odražajo
+        nujno stališč Evropske unije ali Evropske komisije. Niti Evropska unija
+        niti organ, ki dodeli pomoč, zanje ne moreta biti odgovorna.
+      </p>
+    </footer>
   </div>
 </template>
 
@@ -220,6 +234,47 @@ li {
   border-bottom: 3px solid #f6c84c;
   margin-top: 40px;
   margin-bottom: 10px;
+}
+
+.divider {
+  margin-bottom: 40px;
+  &.bottom {
+    margin-top: 40px;
+  }
+}
+
+footer {
+  // background-color: white;
+  text-align: center;
+  margin: 0 -35px;
+  padding: 0 35px;
+
+  p {
+    // color: #161615;
+    font-size: 12px;
+  }
+
+  .logos {
+    @media (min-width: 470px) {
+      display: flex;
+      align-items: start;
+      justify-content: center;
+    }
+  }
+
+  .financer-img {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+    &.ecas {
+      max-width: 160px;
+    }
+
+    &.eu {
+      max-width: 200px;
+    }
+  }
 }
 
 // @media (min-width: 992px) {
