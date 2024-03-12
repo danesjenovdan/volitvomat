@@ -6,4 +6,4 @@ resources:
 images:
   - name: volitvomat
     newName: rg.fr-par.scw.cloud/djnd/volitvomat
-    newTag: "parlamentarne-2022"
+    newTag: 'ebf3d48ea5bf091aa60b1f227078badd9cd3da06'
