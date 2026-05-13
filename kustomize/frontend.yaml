@@ -5,7 +5,7 @@ metadata:
   labels:
     app: volitvomat
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: volitvomat
@@ -49,14 +49,15 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-production"
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   tls:
     - hosts:
-        - volitvomat-parlamentarne-2022.lb.djnd.si
+        - volitvomat-parlamentarne-2022.djnd.si
+        - volitvomat-parlamentarne-2022.danesjenovdan.si
       secretName: volitvomat-tls
   rules:
-    - host: volitvomat-parlamentarne-2022.lb.djnd.si
-      http:
+    - host: volitvomat-parlamentarne-2022.djnd.si
+      http: &http_paths
         paths:
           - path: /
             pathType: Prefix
@@ -65,3 +66,5 @@ spec:
                 name: volitvomat
                 port:
                   number: 80
+    - host: volitvomat-parlamentarne-2022.danesjenovdan.si
+      http: *http_paths
