@@ -15,20 +15,20 @@ spec:
         app: volitvomat
     spec:
       containers:
-      - name: volitvomat
-        image: volitvomat
-        ports:
-        - containerPort: 80
-        env:
-          - name: API_URL
-            value: https://glas-ljudstva.si
-        resources:
-          requests:
-            memory: 100Mi
-            cpu: 100m
-          limits:
-            memory: 100Mi
-            cpu: 100m
+        - name: volitvomat
+          image: volitvomat
+          ports:
+            - containerPort: 80
+          env:
+            - name: API_URL
+              value: https://glas-ljudstva.si
+          resources:
+            requests:
+              memory: 100Mi
+              cpu: 100m
+            limits:
+              memory: 100Mi
+              cpu: 100m
 ---
 apiVersion: v1
 kind: Service
@@ -49,41 +49,22 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-production"
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   tls:
-  - hosts:
-    - volitvomat.lb.djnd.si
-    # - volitvomat.si
-    # - www.volitvomat.si
-    secretName: volitvomat-tls
+    - hosts:
+        - volitvomat.djnd.si
+        - volitvomat.danesjenovdan.si
+      secretName: volitvomat-tls
   rules:
-  - host: volitvomat.lb.djnd.si
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: volitvomat
-            port:
-              number: 80
-  # - host: volitvomat.si
-  #   http:
-  #     paths:
-  #     - path: /
-  #       pathType: Prefix
-  #       backend:
-  #         service:
-  #           name: volitvomat
-  #           port:
-  #             number: 80
-  # - host: www.volitvomat.si
-  #   http:
-  #     paths:
-  #     - path: /
-  #       pathType: Prefix
-  #       backend:
-  #         service:
-  #           name: volitvomat
-  #           port:
-  #             number: 80
+    - host: volitvomat.djnd.si
+      http: &http_paths
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: volitvomat
+                port:
+                  number: 80
+    - host: volitvomat.danesjenovdan.si
+      http: *http_paths
