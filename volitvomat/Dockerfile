@@ -1,17 +1,15 @@
 # start with the nodejs image, calling it 'build'
-FROM node:16-alpine as build
-RUN apk add --update --no-cache python3 make g++
+FROM node:26-alpine AS build
 
 # install node modules
-# COPY package.json yarn.lock /
-COPY package.json /
-RUN yarn
+COPY package.json package-lock.json /
+RUN npm ci
 
 # build assets
 COPY . .
 EXPOSE 3000
 
-RUN yarn build
+RUN npm run build
 
 # change base image
 FROM nginx:alpine
