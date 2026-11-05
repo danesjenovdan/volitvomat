@@ -6,4 +6,4 @@ resources:
 images:
   - name: volitvomat
     newName: rg.fr-par.scw.cloud/djnd/volitvomat
-    newTag: '7d82ebdd47319a70034149d9be0564556c28d398' #
+    newTag: '154a635575754553237d406e31d5c0b8efbe4a57'
